@@ -1,2 +1,1 @@
-# gsal
-GSAL Lab advances research and training in GIS, remote sensing, GeoAI, and spatial data analytics for environment, urban planning, agriculture, climate, and disaster risk. It supports students and researchers in solving real-world geospatial problems using satellite data, mapping tools, and machine learning.
+This is the source code Subash Khanal's public academic website. Feel free to clone this code for your own personal use. This is modified from source code of <a href="https://github.com/jonbarron/jonbarron_website">John Barron's website.
