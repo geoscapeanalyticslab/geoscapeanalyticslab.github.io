@@ -674,14 +674,14 @@
 <!-- ===== PEOPLE ===== -->
 <section class="section" id="people">
   <div class="page-wrap">
-    
-
-    <!-- Search Bar -->
+    <h2 class="section-title">People</h2>
+    <hr class="section-divider">
     <div style="margin-bottom:32px;position:relative;max-width:500px;">
-      <input 
-        type="text" 
-        id="people-search" 
-        placeholder="Search by name or role..." 
+      <input
+        type="text"
+        id="people-search"
+        placeholder="Search by name or role..."
+        oninput="searchPeople(this.value)"
         style="width:100%;
                padding:10px 16px;
                font-family:Georgia,serif;
@@ -689,10 +689,8 @@
                border:2px solid #c8e6c9;
                border-radius:8px;
                outline:none;
-               color:#222;"
-        oninput="searchPeople(this.value)"
-      >
-      <div id="search-suggestions" 
+               color:#222;">
+      <div id="search-suggestions"
            style="position:absolute;
                   top:100%;left:0;right:0;
                   background:#fff;
@@ -703,7 +701,6 @@
                   z-index:100;">
       </div>
     </div>
-
     <!-- Search Bar -->
     <div style="margin-bottom:32px;position:relative;max-width:500px;">
       <input 
@@ -1291,82 +1288,6 @@
   }
   showPage(1);
 })();
-</script>
-
-<script>
-const labMembers = [
-  { name: "Dr. Adeel Ahmad", role: "Lab Director" },
-  { name: "Syeda Sadia Bano Bukhari", role: "Research Assistant" },
-  { name: "Iqra Komal", role: "Research Assistant" },
-  { name: "Nimra Sarwar", role: "Research Assistant" },
-  { name: "Muhammad Mehdi", role: "Research Intern" },
-  { name: "Hafiz Muhammad Bilal Tipu", role: "Research Intern" }
-];
-
-function searchPeople(query) {
-  const box = document.getElementById('search-suggestions');
-  const cards = document.querySelectorAll('.person-card');
-
-  if (!query.trim()) {
-    box.style.display = 'none';
-    cards.forEach(c => c.style.display = 'block');
-    document.querySelectorAll('.people-group')
-      .forEach(g => g.style.display = 'block');
-    return;
-  }
-
-  const q = query.toLowerCase();
-
-  const matches = labMembers.filter(m =>
-    m.name.toLowerCase().includes(q) ||
-    m.role.toLowerCase().includes(q)
-  );
-
-  if (matches.length > 0) {
-    box.style.display = 'block';
-    box.innerHTML = matches.map(m => `
-      <div onclick="selectMember('${m.name}')"
-           style="padding:10px 16px;
-                  cursor:pointer;
-                  font-family:Georgia,serif;
-                  font-size:14px;
-                  border-bottom:1px solid #f0f0f0;"
-           onmouseover="this.style.background='#f1f8f4'"
-           onmouseout="this.style.background='#fff'">
-        <strong>${m.name}</strong>
-        <span style="color:#777;
-                     font-size:12px;
-                     margin-left:8px;">
-          ${m.role}
-        </span>
-      </div>
-    `).join('');
-  } else {
-    box.style.display = 'none';
-  }
-
-  cards.forEach(card => {
-    const name = card.querySelector('.person-name')
-                   ?.textContent.toLowerCase() || '';
-    const role = card.querySelector('.person-role')
-                   ?.textContent.toLowerCase() || '';
-    card.style.display =
-      (name.includes(q) || role.includes(q)) ? 'block' : 'none';
-  });
-}
-
-function selectMember(name) {
-  document.getElementById('people-search').value = name;
-  document.getElementById('search-suggestions').style.display = 'none';
-  searchPeople(name);
-}
-
-document.addEventListener('click', function(e) {
-  if (!e.target.closest('#people-search') &&
-      !e.target.closest('#search-suggestions')) {
-    document.getElementById('search-suggestions').style.display = 'none';
-  }
-});
 </script>
 
 </body>
