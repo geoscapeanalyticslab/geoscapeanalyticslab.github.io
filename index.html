@@ -825,20 +825,21 @@
 <!-- ===== PUBLICATIONS ===== -->
 <section class="section" id="publications" style="background:#f8fdf9; padding-top:48px;">
   <div class="page-wrap">
-    <h2 class="section-title">Publications</h2>
+    <h2 class="section-title">Publications &amp; Activities</h2>
     <hr class="section-divider">
-    <p style="font-size:1rem;color:#333;">
-      For the full list of publications by GSAL members, please visit 
-      <a href="https://adeelpu.github.io/" target="_blank" 
-         style="color:#1b4332;font-weight:700;text-decoration:underline;">
-        Dr. Adeel Ahmad's personal website
-      </a>.
-    </p>
-  </div>
-</section>
 
-<!-- ===== CONTACT ===== -->
-<section class="contact-section" id="contact">
+    <div class="tabs-bar" id="main-tabs">
+      <button data-target="tab-pubs" class="active">Publications</button>
+      <button data-target="tab-conf">Conferences</button>
+      <button data-target="tab-talks">Invited Talks</button>
+      <button data-target="tab-workshops">Training Workshops</button>
+    </div>
+
+    <!-- === PUBLICATIONS === -->
+    <div id="tab-pubs" class="tab-panel active">
+      <ul class="pub-list" id="pub-list">
+
+        <li class="pub-item">
           <img class="pub-thumb" src="images/sat2sound_2026.jpg" alt="" loading="lazy">
           <div class="pub-details">
             <div class="pub-title"><a href="https://arxiv.org/abs/2505.13777">Sat2Sound: A Unified Framework for Zero-Shot Soundscape Mapping</a></div>
@@ -1017,7 +1018,12 @@
           </div>
         </li>
 
-      
+      </ul>
+      <div class="pagination" id="pag-pubs"></div>
+    </div>
+
+    <!-- === CONFERENCES === -->
+    <div id="tab-conf" class="tab-panel">
 
       <div class="talk-card">
         <img src="images/Conf_AGU_2025.jpeg" alt="AGU 2024" loading="lazy">
@@ -1142,7 +1148,13 @@
   </div>
 </section>
 
-<a href="https://www.linkedin.com/company/113082179" target="_blank"
+<!-- ===== CONTACT ===== -->
+<section class="contact-section" id="contact">
+  <h2>Contact GSAL</h2>
+  <p><a href="mailto:geoscapeanalyticslab@gmail.com">geoscapeanalyticslab@gmail.com</a></p>
+  <p class="contact-info">GeoScape Analytics Lab, Pakistan</p>
+  <p class="contact-info" style="margin-top:16px;">
+    <a href="https://www.linkedin.com/company/113082179" target="_blank"
    class="sicon"
    style="display:inline-flex;align-items:center;justify-content:center;
           background:#0077b5;width:32px;height:32px;
