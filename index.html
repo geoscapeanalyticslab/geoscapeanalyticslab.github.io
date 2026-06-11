@@ -1336,5 +1336,13 @@ document.addEventListener('click', function(e) {
 });
 </script>
 
+<script>
+// Always start from top when page loads
+if (window.location.hash) {
+  window.scrollTo(0, 0);
+  history.replaceState(null, null, window.location.pathname);
+}
+</script>
+
 </body>
 </html>
