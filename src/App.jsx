@@ -10,7 +10,7 @@ import Contact from './pages/Contact'
 
 export default function App() {
   return (
-    <BrowserRouter basename="/gsal-website">
+    <BrowserRouter>
       <div className="flex flex-col min-h-screen">
         <Navbar />
         <main className="flex-1">
