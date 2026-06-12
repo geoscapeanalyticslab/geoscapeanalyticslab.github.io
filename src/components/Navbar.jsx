@@ -42,7 +42,7 @@ export default function Navbar() {
           <img src="/gsal-logo-transparent.png" alt="GSAL Logo" className="h-20 w-auto" />
           <div className="flex flex-col leading-none">
             <span className={`text-lg md:text-2xl font-black tracking-wide whitespace-nowrap ${atop ? 'text-white' : 'text-forest-900'}`}>
-              GeoScape Analytics Lab <span className="mx-2 font-light opacity-60">|</span> GSAL
+              GeoScape Analytics Lab <span className="mx-2 font-light opacity-60">|</span>
             </span>
           </div>
         </NavLink>
