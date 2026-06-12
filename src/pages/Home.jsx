@@ -11,18 +11,18 @@ const GlobeHero = lazy(() => import('../components/GlobeHero'))
 
 /* ─── Word-by-word animated heading ─── */
 function HeroHeading() {
-  const line1 = ['MAPPING', 'THE', 'EARTH,']
-  const line2 = ['UNDERSTANDING', 'THE', 'FUTURE']
+  const line1 = ['ENABLING', 'GEOSPATIAL', 'RESEARCH']
+  const line2 = ['THAT', 'DRIVES', 'IMPACT']
   let idx = 0
   return (
     <h1 className="font-black text-white leading-none tracking-tight mt-4">
-      <span className="block text-5xl md:text-7xl xl:text-[5.5rem] word-reveal">
+      <span className="block text-3xl md:text-5xl xl:text-6xl word-reveal">
         {line1.map(w => {
           const d = (idx++ * 0.09).toFixed(2)
           return <span key={w} className="word mr-3 md:mr-4" style={{ animationDelay: `${d}s` }}>{w}</span>
         })}
       </span>
-      <span className="block text-5xl md:text-7xl xl:text-[5.5rem] word-reveal mt-1">
+      <span className="block text-3xl md:text-5xl xl:text-6xl word-reveal mt-1">
         {line2.map(w => {
           const d = (idx++ * 0.09).toFixed(2)
           return <span key={w} className="word mr-3 md:mr-4" style={{ animationDelay: `${d}s` }}>{w}</span>
@@ -87,7 +87,7 @@ function StatsSection() {
 
   return (
     <section ref={ref} className="bg-forest-950 py-16">
-      <div className="max-w-5xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8">
+      <div className="max-w-5xl mx-auto px-6 grid grid-cols-2 gap-8">
         {STATS.map(s => (
           <StatItem key={s.label} value={s.value} suffix={s.suffix} label={s.label} active={on} />
         ))}
@@ -110,11 +110,6 @@ export default function Home() {
         </Suspense>
 
         <div className="relative z-10 h-full flex flex-col justify-center px-8 md:px-16 max-w-4xl">
-          <span
-            className="text-forest-400 text-xs font-bold uppercase tracking-[0.2em]"
-            style={{ opacity: 0, animation: 'fadeUp 0.5s ease 0.1s forwards' }}
-          >
-          </span>
 
           <HeroHeading />
 
