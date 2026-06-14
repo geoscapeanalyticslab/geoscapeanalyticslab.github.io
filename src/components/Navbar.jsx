@@ -36,7 +36,7 @@ export default function Navbar() {
 
   return (
     <nav className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${navBg}`}>
-      <div className={`max-w-7xl mx-auto px-6 flex items-center gap-8 transition-all duration-300 ${scrolled ? 'h-[4rem] md:h-[5rem]' : 'h-[4.5rem] md:h-[10.5rem]'}`}>
+      <div className={`max-w-7xl mx-auto px-6 flex items-center gap-8 transition-all duration-300 ${scrolled ? 'h-[6rem] md:h-[7rem]' : 'h-[5rem] md:h-[12rem]'}`}>
         {/* Brand */}
         <NavLink to="/" className="flex items-center gap-3 flex-1 min-w-0 select-none">
           <img
@@ -46,7 +46,7 @@ export default function Navbar() {
           />
           <div className="flex flex-col leading-none">
             <span className="text-lg md:text-2xl font-black tracking-wide whitespace-nowrap text-white">
-              GeoScape Analytics Lab <span className="mx-2 font-light opacity-60"></span>
+              GeoScape Analytics Lab <span className="mx-2 font-light opacity-60"></span> 
             </span>
           </div>
         </NavLink>
