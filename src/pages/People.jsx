@@ -13,7 +13,7 @@ export default function People() {
       <PageHeader
         label="GSAL Team"
         title="People"
-        subtitle="Researchers, scientists, and students advancing geospatial knowledge."
+        subtitle="Researchers, and students advancing geospatial knowledge."
       />
 
       <div className="max-w-7xl mx-auto px-6 py-20 space-y-20">
