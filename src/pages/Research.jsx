@@ -31,7 +31,7 @@ function ResearchCard({ area, index }) {
 /* Reusable page header */
 function PageHeader({ label, title, subtitle }) {
   return (
-    <section className="bg-forest-950 pt-[8rem] md:pt-[10rem] pb-20 px-6">
+    <section className="bg-forest-950 pt-[10rem] md:pt-[12rem] pb-20 px-6">
       <div className="max-w-4xl mx-auto text-center">
         <span className="text-xs text-forest-400 font-bold uppercase tracking-widest">{label}</span>
         <h1 className="text-5xl md:text-6xl font-black text-white mt-3 leading-tight">{title}</h1>

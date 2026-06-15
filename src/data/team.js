@@ -1,17 +1,5 @@
 export const team = [
   {
-  id: 'somia-asim',
-  name: 'Somia Asim',
-  role: 'Volunteer Researcher',
-  title: 'Volunteer',
-  photo: '',
-  bio: '',
-  linkedin: 'https://www.linkedin.com/in/somia-asim-566483390/',
-  email: 'somiaasim26@gmail.com',
-  phone: '',
-},
-
-  {
     id: 'adeel-ahmad',
     name: 'Dr. Adeel Ahmad',
     role: 'Lab Director',

@@ -109,7 +109,7 @@ export default function Home() {
           <GlobeHero />
         </Suspense>
 
-        <div className="relative z-10 h-full flex flex-col justify-center px-8 md:px-16 max-w-4xl">
+        <div className="relative z-10 h-full flex flex-col justify-center px-8 md:px-16 max-w-4xl pt-[6rem] md:pt-[10rem]">
 
           <HeroHeading />
 
