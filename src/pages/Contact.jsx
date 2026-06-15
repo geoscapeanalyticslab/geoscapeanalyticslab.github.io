@@ -32,7 +32,7 @@ export default function Contact() {
   }
 
   return (
-    <div className="pt-16">
+    <div>
       <PageHeader
         label="Get in Touch"
         title="Contact Us"

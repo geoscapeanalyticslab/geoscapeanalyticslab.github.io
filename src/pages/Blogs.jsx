@@ -56,7 +56,7 @@ function BlogCard({ blog, index }) {
 
 export default function Blogs() {
   return (
-    <div className="pt-16">
+    <div>
       <PageHeader
         label="Lab Blog"
         title="Research Insights"

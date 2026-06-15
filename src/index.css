@@ -92,7 +92,8 @@
 /* Scrollbar */
 ::-webkit-scrollbar       { width: 5px; }
 ::-webkit-scrollbar-track { background: #fff; }
-::-webkit-scrollbar-thumb { background: #264653; border-radius: 4px; }  /* Charcoal Blue */
+::-webkit-scrollbar-thumb { background: #264653; border-radius: 4px; }
+
 * {
   font-family: "Times New Roman", Times, serif !important;
 }
