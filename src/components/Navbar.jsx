@@ -42,7 +42,7 @@ export default function Navbar() {
           <img
              src="/gsal_logo_bg_transparent.png"
             alt="GSAL Logo"
-            className={`w-auto transition-all duration-300 ${scrolled ? 'h-14 md:h-16' : 'h-14 md:h-20'}`}
+            className={`w-auto transition-all duration-300 ${scrolled ? 'h-14 md:h-20' : 'h-16 md:h-28'}`}
           />
           <div className="flex flex-col leading-none">
             <span className="text-lg md:text-2xl font-black tracking-wide whitespace-nowrap text-white">
