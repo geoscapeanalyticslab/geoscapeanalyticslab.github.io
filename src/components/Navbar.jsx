@@ -37,7 +37,7 @@ export default function Navbar() {
 
   return (
     <nav className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${navBg}`}>
-      className={`max-w-7xl mx-auto px-6 flex items-center gap-8 transition-all duration-300 ${scrolled ? 'h-[8rem] md:h-[12rem]' : 'h-[10rem] md:h-[20rem]'}`}
+      <div className={`max-w-7xl mx-auto px-6 flex items-center gap-8 transition-all duration-300 ${scrolled ? 'h-[8rem] md:h-[12rem]' : 'h-[10rem] md:h-[20rem]'}`}>
         {/* Brand */}
         <NavLink to="/" className="flex items-center gap-3 flex-1 min-w-0 select-none">
           <img
