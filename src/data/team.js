@@ -80,4 +80,16 @@ export const team = [
     email: 'hamna.habib@gsal.edu.pk',
     phone: '',
   },
+    {
+    id: 'somia-asim',
+    name: 'Somia Asim',
+    role: 'Volunteer Researcher',
+    title: 'Graduate Researcher',
+    photo: '/images/team/somia-asim.jpg',
+    bio: '',
+    linkedin: '',
+    email: '',
+    phone: '',
+    isVolunteer: true,
+  },
 ]

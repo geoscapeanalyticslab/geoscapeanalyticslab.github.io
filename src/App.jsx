@@ -8,6 +8,7 @@ import Blogs from './pages/Blogs'
 import Visualization from './pages/Visualization'
 import Contact from './pages/Contact'
 import ScrollToTop from './ScrollToTop'
+import Volunteers from './pages/Volunteers'
 
 export default function App() {
   return (
@@ -23,6 +24,7 @@ export default function App() {
             <Route path="/blogs"         element={<Blogs />}         />
             <Route path="/visualization" element={<Visualization />} />
             <Route path="/contact"       element={<Contact />}       />
+            <Route path="/volunteers" element={<Volunteers />} />
           </Routes>
         </main>
         <Footer />

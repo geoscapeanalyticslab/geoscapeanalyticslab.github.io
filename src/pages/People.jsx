@@ -18,7 +18,7 @@ export default function People() {
       />
 
       <div className="max-w-7xl mx-auto px-6 py-20 space-y-20">
-        {/* Director */}
+        {/* Leadership */}
         <section>
           <ScrollReveal>
             <div className="flex items-center gap-4 mb-8">
