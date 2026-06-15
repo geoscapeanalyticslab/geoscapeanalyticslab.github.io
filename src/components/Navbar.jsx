@@ -36,13 +36,13 @@ export default function Navbar() {
 
   return (
     <nav className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${navBg}`}>
-      <div className={`max-w-7xl mx-auto px-6 flex items-center gap-8 transition-all duration-300 ${scrolled ? 'h-[6rem] md:h-[8rem]' : 'h-[6rem] md:h-[18rem]'}`}>
+      <div className={`max-w-7xl mx-auto px-6 flex items-center gap-8 transition-all duration-300 ${scrolled ? 'h-[5rem] md:h-[6rem]' : 'h-[5rem] md:h-[8rem]'}`}>
         {/* Brand */}
         <NavLink to="/" className="flex items-center gap-3 flex-1 min-w-0 select-none">
           <img
              src="/gsal_logo_bg_transparent.png"
             alt="GSAL Logo"
-            className={`w-auto transition-all duration-300 ${scrolled ? 'h-20 md:h-24' : 'h-20 md:h-48'}`}
+            className={`w-auto transition-all duration-300 ${scrolled ? 'h-14 md:h-16' : 'h-14 md:h-20'}`}
           />
           <div className="flex flex-col leading-none">
             <span className="text-lg md:text-2xl font-black tracking-wide whitespace-nowrap text-white">
