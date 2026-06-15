@@ -9,7 +9,7 @@ export default function People() {
   const members  = team.filter(m => !m.isDirector)
 
   return (
-    <div>
+    <div className="pt-[6rem] md:pt-[8rem]">
       <PageHeader
         label="GSAL Team"
         title="People"
