@@ -12,7 +12,7 @@ export default function People() {
   return (
     <div className="pt-[6rem] md:pt-[8rem]">
       <PageHeader
-        label="GSAL Team"
+        label=""
         title="People"
         subtitle="Researchers, and students advancing geospatial knowledge."
       />
