@@ -94,7 +94,7 @@ export default function Research() {
       <section className="bg-gray-50 py-20">
         <div className="max-w-7xl mx-auto px-6">
           <ScrollReveal className="text-center mb-14">
-            <span className="text-xs font-bold uppercase tracking-widest text-forest-600">Eight Domains</span>
+            <span className="text-xs font-bold uppercase tracking-widest text-forest-600"></span>
             <h2 className="text-4xl font-black text-gray-900 mt-3">Research Areas</h2>
           </ScrollReveal>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
