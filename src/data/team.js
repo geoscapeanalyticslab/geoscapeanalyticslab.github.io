@@ -8,7 +8,7 @@ export const team = [
     bio: '',
     linkedin: 'https://www.linkedin.com/in/adeel-ahmad-gis/',
     email: 'adeel.geog@pu.edu.pk',
-    github: 'https://github.com/adeelpu',
+    github: 'https://adeelpu.github.io/',
     phone: '',
     isDirector: true,
   },
