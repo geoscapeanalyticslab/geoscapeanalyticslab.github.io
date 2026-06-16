@@ -1,7 +1,8 @@
 export const team = [
   {
     id: 'adeel-ahmad',
-    name: 'Director GSAL, Assistant Professor Dr. Adeel Ahmad',
+    name: 'Dr. Adeel Ahmad',
+    title: 'Director GSAL, Assistant Professor',
     role: 'Lab Director',
     photo: '/images/team/adeel-ahmad.jpg',
     bio: '',

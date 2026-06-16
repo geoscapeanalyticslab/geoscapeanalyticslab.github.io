@@ -7,7 +7,7 @@ const links = [
   { to: '/',             label: 'Home'          },
   { to: '/research',     label: 'Research'      },
   { to: '/people',       label: 'People'        },
-  { to: '/volunteers',   label: 'Volunteers'    },
+  
   { to: '/blogs',        label: 'Blogs'         },
   { to: '/visualization',label: 'Visualization' },
   { to: '/contact',      label: 'Contact'       },
@@ -59,7 +59,7 @@ export default function Navbar() {
               <NavLink
                 to={to} end={to === '/'}
                 className={({ isActive }) =>
-                  `text-sm font-semibold tracking-wide pb-0.5 transition-colors ${linkCol} ${isActive ? activeStyle : ''}`
+                  `text-lg font-semibold tracking-wide pb-0.5 transition-colors ${linkCol} ${isActive ? activeStyle : ''}`
                 }
               >
                 {label}
