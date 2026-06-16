@@ -88,7 +88,7 @@ export const team = [
     photo: '/images/team/shahzaib.jpg',
     bio: '',
     linkedin: 'https://www.linkedin.com/in/shah-zaib-ali-656a70393/',
-    email: '',
+    email: 'shahzaib.geo.spatial@gmail.com',
     phone: '',
   },
     {
