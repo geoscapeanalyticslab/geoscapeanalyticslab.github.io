@@ -53,11 +53,9 @@ export default function TeamCard({ member, featured = false }) {
             Lab Director
           </span>
           <h3 className="text-2xl font-bold text-gray-900">
-            {member.github ? (
-              <a href={member.github} target="_blank" rel="noopener noreferrer" className="hover:text-forest-600 transition-colors">
-                {member.name}
-              </a>
-            ) : member.name}
+            <a href="https://adeelpu.github.io/" target="_blank" rel="noopener noreferrer" className="hover:text-forest-600 transition-colors">
+              {member.name}
+            </a>
           </h3>
           {member.title && <p className="text-gray-500 text-sm font-normal mt-1">{member.title}</p>}
           <p className="text-gray-500 text-sm mt-3 leading-relaxed max-w-xl">{member.bio}</p>

@@ -28,7 +28,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 pb-10 border-b border-forest-800">
           {/* Brand */}
           <div className="md:col-span-2">
-            <img src="/images/team/GSAL_V2.png" alt="GSAL Logo" className="h-30 w-auto" />
+            <img src="/images/team/GSAL_V3.png" alt="GSAL Logo" className="h-30 w-auto" />
             <p className="mt-5 text-sm text-forest-300 leading-relaxed max-w-sm">
               Advancing research and training in GIS, remote sensing, GeoAI, and spatial
               data analytics. Independent research lab based in Lahore, Pakistan.
