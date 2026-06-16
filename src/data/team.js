@@ -96,7 +96,7 @@ export const team = [
     name: 'Somia Asim',
     role: 'Volunteer Researcher',
     title: 'Graduate Researcher',
-    photo: '/somia_asim.png',
+    photo: '/somia_asim.jpg',
     bio: '',
     linkedin: '',
     email: '',
