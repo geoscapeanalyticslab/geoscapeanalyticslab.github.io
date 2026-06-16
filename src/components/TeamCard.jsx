@@ -27,7 +27,9 @@ function Avatar({ photo, name, position, zoom, className = '' }) {
         className="w-full h-full object-cover"
         style={{
           objectPosition: position || 'center',
-          transform: zoom ? `scale(${zoom})` : 'none',
+          transform: `${zoom ? `scale(${zoom}) ` : ''}translateZ(0)`,
+          backfaceVisibility: 'hidden',
+          WebkitBackfaceVisibility: 'hidden',
         }}
         onError={e => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'flex' }}
       />
