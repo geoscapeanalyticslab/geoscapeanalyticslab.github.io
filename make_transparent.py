@@ -1,6 +1,6 @@
 from PIL import Image
 
-img = Image.open("public/gsal_logo.jpeg").convert("RGBA")
+img = Image.open("E:\GSAL Task\gsal-website\public\gsal-logo-transparent1.png").convert("RGBA")
 new_data = []
 for r, g, b, a in img.getdata():
     if r > 230 and g > 230 and b > 230:   # near-white pixel
@@ -8,5 +8,5 @@ for r, g, b, a in img.getdata():
     else:
         new_data.append((r, g, b, a))
 img.putdata(new_data)
-img.save("public/gsal-logo-transparent.png")
+img.save("public/gsal-logo-transparent5.png")
 print("Done! Saved as public/gsal-logo-transparent.png")
