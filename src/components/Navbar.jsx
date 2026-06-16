@@ -40,7 +40,7 @@ export default function Navbar() {
         {/* Brand */}
         <NavLink to="/" onClick={scrollTop} className="flex items-center gap-3 flex-1 min-w-0 select-none">
           <img
-            src="/gsal_trans_logo.png"
+            src="/images/team/GSAL_V2.png"
             alt="GSAL Logo"
             className={`w-auto transition-all duration-300 ${scrolled ? 'h-20 md:h-28' : 'h-24 md:h-44'}`}
           />
@@ -154,7 +154,7 @@ export default function Navbar() {
 //         {/* Brand */}
 //         <NavLink to="/" className="flex items-center gap-3 flex-1 min-w-0 select-none">
 //           <img
-//              src="/gsal_trans_logo.png"
+//              src="/images/team/GSAL_V2.png"
 //             alt="GSAL Logo"
 //             className={`w-auto transition-all duration-300 ${scrolled ? 'h-20 md:h-28' : 'h-24 md:h-44'}`}
 //           />
