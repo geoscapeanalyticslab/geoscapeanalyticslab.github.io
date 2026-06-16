@@ -46,7 +46,9 @@ export default function Footer() {
               </div>
               <div className="flex items-center gap-2.5">
                 <Globe size={14} className="shrink-0 text-forest-400" />
-                <span>geoscapeanalyticslab.github.io</span>
+                <a href="https://geoscapeanalyticslab.github.io" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+  geoscapeanalyticslab.github.io
+</a>
               </div>
             </div>
           </div>
