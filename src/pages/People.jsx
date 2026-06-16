@@ -11,7 +11,7 @@ export default function People() {
   const members    = team.filter(m => !m.isDirector && m.role !== 'Volunteer Researcher' && !m.isIntern)
 
   return (
-    <div className="pt-[6rem] md:pt-[8rem]">
+    <div>
       <PageHeader
         label=""
         title="People"
