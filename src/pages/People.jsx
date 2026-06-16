@@ -7,7 +7,8 @@ import { ArrowRight } from 'lucide-react'
 export default function People() {
   const director   = team.find(m => m.isDirector)
   const volunteers = team.filter(m => !m.isDirector && m.role === 'Volunteer Researcher')
-  const members    = team.filter(m => !m.isDirector && m.role !== 'Volunteer Researcher')
+  const interns    = team.filter(m => !m.isDirector && m.isIntern)
+  const members    = team.filter(m => !m.isDirector && m.role !== 'Volunteer Researcher' && !m.isIntern)
 
   return (
     <div className="pt-[6rem] md:pt-[8rem]">
@@ -45,6 +46,25 @@ export default function People() {
             ))}
           </div>
         </section>
+
+        {/* Summer Interns */}
+        {interns.length > 0 && (
+          <section>
+            <ScrollReveal>
+              <div className="flex items-center gap-4 mb-8">
+                <span className="text-xs font-bold uppercase tracking-widest text-forest-600">Summer Interns</span>
+                <div className="flex-1 h-px bg-gray-100" />
+              </div>
+            </ScrollReveal>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {interns.map((m, i) => (
+                <ScrollReveal key={m.id} delay={i * 0.07}>
+                  <TeamCard member={m} />
+                </ScrollReveal>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* Volunteer Researchers */}
         {volunteers.length > 0 && (

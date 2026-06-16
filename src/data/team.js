@@ -78,6 +78,7 @@ export const team = [
     bio: '',
     linkedin: 'https://linkedin.com',
     email: 'hamna.habib@gsal.edu.pk',
+    isIntern: true,
     phone: '',
   },
   {
@@ -89,6 +90,7 @@ export const team = [
     bio: '',
     linkedin: 'https://www.linkedin.com/in/shah-zaib-ali-656a70393/',
     email: 'shahzaib.geo.spatial@gmail.com',
+    isIntern: true,
     phone: '',
   },
   {
