@@ -20,7 +20,7 @@ export default function Navbar() {
   const scrollTop = () => window.scrollTo({ top: 0, behavior: 'smooth' })
 
   return (
-    <nav className="fixed inset-x-0 top-0 z-50 bg-gray-600 border-b border-gray-700 shadow-sm">
+    <nav className="fixed inset-x-0 top-0 z-50 bg-gray-400 border-b border-gray-700 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 flex items-center gap-8 h-16 md:h-20">
 
         {/* Brand */}
