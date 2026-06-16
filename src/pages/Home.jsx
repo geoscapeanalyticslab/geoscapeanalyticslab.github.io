@@ -233,11 +233,7 @@ export default function Home() {
             <span className="text-xs font-bold uppercase tracking-widest text-forest-600">Our Team</span>
             <h2 className="text-4xl md:text-5xl font-black text-gray-900 mt-3">The Researchers</h2>
           </div>
-          <Link to="/people"
-            className="inline-flex items-center gap-2 text-forest-700 font-bold text-sm hover:text-forest-500 transition-colors group shrink-0">
-            View all team members
-            <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform" />
-          </Link>
+          
         </ScrollReveal>
 
         <ScrollReveal delay={0.1}>
