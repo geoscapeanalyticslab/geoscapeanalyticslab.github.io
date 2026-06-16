@@ -49,11 +49,11 @@ function useCounter(target, active) {
   return val
 }
 
-const STATS = [
-  { value: 8,  suffix: '+', label: 'Research Areas'  },
-  { value: 5,  suffix: '',  label: 'Team Members'    },
+// const STATS = [
+//   { value: 8,  suffix: '+', label: 'Research Areas'  },
+//   { value: 5,  suffix: '',  label: 'Team Members'    },
   
-]
+// ]
 
 /* Each stat needs its own component so useCounter is called at the top level */
 function StatItem({ value, suffix, label, active }) {
