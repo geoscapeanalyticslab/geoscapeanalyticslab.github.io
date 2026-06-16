@@ -32,71 +32,6 @@ function HeroHeading() {
   )
 }
 
-/* ─── Animated counter ─── */
-function useCounter(target, active) {
-  const [val, setVal] = useState(0)
-  useEffect(() => {
-    if (!active) return
-    let c = 0
-    const step = Math.max(1, Math.ceil(target / 60))
-    const t = setInterval(() => {
-      c += step
-      if (c >= target) { setVal(target); clearInterval(t) }
-      else setVal(c)
-    }, 16)
-    return () => clearInterval(t)
-  }, [target, active])
-  return val
-}
-
-// const STATS = [
-//   { value: 8,  suffix: '+', label: 'Research Areas'  },
-//   { value: 5,  suffix: '',  label: 'Team Members'    },
-  
-// ]
-
-/* Each stat needs its own component so useCounter is called at the top level */
-function StatItem({ value, suffix, label, active }) {
-  const num = useCounter(value, active)
-  return (
-    <div className="text-center">
-      <div className="text-5xl md:text-6xl font-black text-white tabular-nums">
-        {num}{suffix}
-      </div>
-      <div className="text-xs text-forest-400 font-semibold mt-2 uppercase tracking-widest">
-        {label}
-      </div>
-    </div>
-  )
-}
-
-function StatsSection() {
-  const ref        = useRef(null)
-  const [on, setOn] = useState(false)
-
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setOn(true); obs.disconnect() } },
-      { threshold: 0.3 }
-    )
-    obs.observe(el)
-    return () => obs.disconnect()
-  }, [])
-
-  return (
-    <section ref={ref} className="bg-forest-950 py-16">
-      <div className="max-w-5xl mx-auto px-6 grid grid-cols-2 gap-8">
-        {STATS.map(s => (
-          <StatItem key={s.label} value={s.value} suffix={s.suffix} label={s.label} active={on} />
-        ))}
-      </div>
-    </section>
-  )
-}
-
-
 export default function Home() {
   const director = team.find(m => m.isDirector)
   const members  = team.filter(m => !m.isDirector).slice(0, 3)
@@ -184,9 +119,6 @@ export default function Home() {
         </ScrollReveal>
       </section>
 
-      {/* ── STATS ── */}
-      <StatsSection />
-
       {/* ── RESEARCH HIGHLIGHTS ── */}
       <section className="bg-gray-50 py-24">
         <div className="max-w-7xl mx-auto px-6">
@@ -224,8 +156,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* spacer */}
-
       {/* ── TEAM PREVIEW ── */}
       <section className="max-w-7xl mx-auto px-6 py-24">
         <ScrollReveal className="mb-14 flex flex-col md:flex-row md:items-end justify-between gap-6">
@@ -233,7 +163,6 @@ export default function Home() {
             <span className="text-xs font-bold uppercase tracking-widest text-forest-600">Our Team</span>
             <h2 className="text-4xl md:text-5xl font-black text-gray-900 mt-3">The Researchers</h2>
           </div>
-          
         </ScrollReveal>
 
         <ScrollReveal delay={0.1}>
