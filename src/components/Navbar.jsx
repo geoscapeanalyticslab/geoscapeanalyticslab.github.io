@@ -20,8 +20,8 @@ export default function Navbar() {
   const scrollTop = () => window.scrollTo({ top: 0, behavior: 'smooth' })
 
   return (
-    <nav className="fixed inset-x-0 top-0 z-50 bg-gray-400 border-b border-gray-700 shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 flex items-center gap-8 h-16 md:h-20">
+    <nav className="fixed inset-x-0 top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
+      <div className="max-w-7xl mx-auto px-4 flex items-center gap-8 h-14 md:h-18">
 
         {/* Brand */}
         <NavLink to="/" onClick={scrollTop} className="flex items-center gap-3 flex-1 min-w-0 select-none">
@@ -30,7 +30,7 @@ export default function Navbar() {
             alt="GSAL Logo"
             className="w-auto h-10 md:h-12"
           />
-          <span className="text-base md:text-lg font-black tracking-wide whitespace-nowrap text-white">
+          <span className="text-base md:text-lg font-black tracking-wide whitespace-nowrap text-gray-900">
             GeoScape Analytics Lab
           </span>
         </NavLink>
@@ -45,8 +45,8 @@ export default function Navbar() {
                 className={({ isActive }) =>
                   `text-sm font-semibold tracking-wide transition-colors pb-0.5 ${
                     isActive
-                      ? 'text-white border-b-2 border-white'
-                      : 'text-white/70 hover:text-white'
+                      ? 'text-forest-700 border-b-2 border-forest-700'
+                      : 'text-gray-900 hover:text-forest-700'
                   }`
                 }
               >
