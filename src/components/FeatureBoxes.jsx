@@ -89,19 +89,19 @@ function FeatureCard({ box, index }) {
 
         {/* Icon */}
         <div
-          className="relative z-10 w-12 h-12 rounded-xl flex items-center justify-center transition-transform duration-300"
+          className="relative z-10 w-20 h-20 rounded-xl flex items-center justify-center transition-transform duration-300"
           style={{
             background: box.accent + '14',
             color: box.accent,
             transform: hov ? 'scale(1.12) rotate(-4deg)' : 'scale(1)',
           }}
         >
-          <Icon size={22} strokeWidth={1.8} />
+          <Icon size={38} strokeWidth={1.8} />
         </div>
 
         {/* Label — pre-line preserves the \n */}
         <span
-          className="relative z-10 text-xs font-bold text-gray-700 leading-snug whitespace-pre-line"
+          className="relative z-10 text-base font-bold text-gray-700 leading-snug whitespace-pre-line"
           style={{ color: hov ? box.accent : undefined, transition: 'color 0.2s' }}
         >
           {box.label}
