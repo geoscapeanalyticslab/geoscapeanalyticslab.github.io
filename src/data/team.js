@@ -28,7 +28,7 @@ export const team = [
     name: 'Syeda Sadia Bano Bukhari',
     role: 'Graduate Research Assistant',
     title: 'Doctoral Candidate',
-    photo: '/images/team/sadia-bano.jpg',
+    photo: '/images/team/SADIA.jpeg',
     bio: '',
     linkedin: 'https://www.linkedin.com/in/syeda-sadia-bano/',
     email: 'syedasadiabanobukhari@gmail.com',
