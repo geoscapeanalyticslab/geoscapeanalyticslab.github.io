@@ -1,4 +1,3 @@
-import ThemeToggle from './ThemeToggle'
 import { useState, useEffect } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
@@ -21,7 +20,7 @@ export default function Navbar() {
   const scrollTop = () => window.scrollTo({ top: 0, behavior: 'smooth' })
 
   return (
-    <nav className="fixed inset-x-0 top-0 z-50 bg-white border-b border-gray-200 shadow-sm dark:bg-[#0f2538] dark:border-white/10 dark:shadow-none">
+    <nav className="fixed inset-x-0 top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 flex items-center gap-8 h-14 md:h-18">
 
         {/* Brand */}
@@ -31,7 +30,7 @@ export default function Navbar() {
             alt="GSAL Logo"
             className="w-auto h-10 md:h-12"
           />
-          <span className="text-base md:text-lg font-black tracking-wide whitespace-nowrap text-gray-900 dark:text-white">
+          <span className="text-base md:text-lg font-black tracking-wide whitespace-nowrap text-gray-900">
             GeoScape Analytics Lab
           </span>
         </NavLink>
@@ -46,8 +45,8 @@ export default function Navbar() {
                 className={({ isActive }) =>
                   `text-sm font-semibold tracking-wide transition-colors pb-0.5 ${
                     isActive
-                      ? 'text-forest-700 border-b-2 border-forest-700 dark:text-forest-300 dark:border-forest-300'
-                      : 'text-gray-900 hover:text-forest-700 dark:text-gray-200 dark:hover:text-forest-300'
+                      ? 'text-forest-700 border-b-2 border-forest-700'
+                      : 'text-gray-900 hover:text-forest-700'
                   }`
                 }
               >
@@ -57,12 +56,10 @@ export default function Navbar() {
           ))}
         </ul>
 
-        <ThemeToggle />
-
         {/* Mobile toggle */}
         <button
           onClick={() => setOpen(o => !o)}
-          className="md:hidden p-2 rounded-lg text-gray-800 hover:bg-gray-100 transition-colors dark:text-gray-200 dark:hover:bg-white/10"
+          className="md:hidden p-2 rounded-lg text-gray-800 hover:bg-gray-100 transition-colors"
           aria-label="Toggle menu"
         >
           {open ? <X size={20} /> : <Menu size={20} />}
@@ -71,7 +68,8 @@ export default function Navbar() {
 
       {/* Mobile drawer */}
       <div
-        className={`md:hidden overflow-hidden transition-all duration-300 bg-white border-b border-gray-200 dark:bg-[#0f2538] dark:border-white/10 ${open ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}
+        className={`md:hidden overflow-hidden transition-all duration-300 ${open ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}
+        style={{ background: '#4b5563', borderBottom: '1px solid #6b7280' }}
       >
         <ul className="px-6 py-4 flex flex-col gap-1">
           {links.map(({ to, label }) => (
@@ -82,8 +80,8 @@ export default function Navbar() {
                 className={({ isActive }) =>
                   `block py-2.5 px-3 rounded-lg text-sm font-semibold transition-colors ${
                     isActive
-                      ? 'bg-forest-50 text-forest-700 dark:bg-white/10 dark:text-forest-300'
-                      : 'text-gray-700 hover:bg-gray-100 hover:text-forest-700 dark:text-gray-200 dark:hover:bg-white/10 dark:hover:text-white'
+                      ? 'bg-white/10 text-white'
+                      : 'text-white/70 hover:bg-white/10 hover:text-white'
                   }`
                 }
               >
