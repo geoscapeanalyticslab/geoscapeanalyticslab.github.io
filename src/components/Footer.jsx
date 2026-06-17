@@ -1,24 +1,13 @@
 import { NavLink } from 'react-router-dom'
 import { Mail, MapPin, Globe } from 'lucide-react'
 
-
-const cols = [
-  {
-    heading: 'Lab',
-    links: [
-      { to: '/',              label: 'Home'          },
-      { to: '/research',      label: 'Research'      },
-      { to: '/people',        label: 'People'        },
-      { to: '/blogs',         label: 'Blogs'         },
-    ],
-  },
-  {
-    heading: 'Work',
-    links: [
-      { to: '/visualization', label: 'Visualization' },
-      { to: '/contact',       label: 'Contact'       },
-    ],
-  },
+const links = [
+  { to: '/',              label: 'Home'          },
+  { to: '/research',      label: 'Research'      },
+  { to: '/people',        label: 'People'        },
+  { to: '/blogs',         label: 'Blogs'         },
+  { to: '/visualization', label: 'Visualization' },
+  { to: '/contact',       label: 'Contact'       },
 ]
 
 export default function Footer() {
@@ -27,7 +16,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 pt-16 pb-10">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 pb-10 border-b border-forest-800">
           {/* Brand */}
-          <div className="md:col-span-2">
+          <div className="md:col-span-3">
             <img src="/images/team/GSAL_V3.png" alt="GSAL Logo" className="h-30 w-auto" />
             <p className="mt-5 text-sm text-forest-300 leading-relaxed max-w-sm">
               Advancing research and training in GIS, remote sensing, GeoAI, and spatial
@@ -47,32 +36,27 @@ export default function Footer() {
               <div className="flex items-center gap-2.5">
                 <Globe size={14} className="shrink-0 text-forest-400" />
                 <a href="https://geoscapeanalyticslab.github.io" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
-  geoscapeanalyticslab.github.io
-</a>
+                  geoscapeanalyticslab.github.io
+                </a>
               </div>
             </div>
           </div>
 
-          {/* Nav columns */}
-          {cols.map(col => (
-            <div key={col.heading}>
-              <h4 className="text-xs font-bold uppercase tracking-widest text-forest-400 mb-4">
-                {col.heading}
-              </h4>
-              <ul className="space-y-2">
-                {col.links.map(({ to, label }) => (
-                  <li key={to}>
-                    <NavLink
-                      to={to}
-                      className="text-sm text-forest-300 hover:text-white transition-colors"
-                    >
-                      {label}
-                    </NavLink>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          {/* Nav links — single even list, no headings */}
+          <div>
+            <ul className="space-y-3">
+              {links.map(({ to, label }) => (
+                <li key={to}>
+                  <NavLink
+                    to={to}
+                    className="text-sm text-forest-300 hover:text-white transition-colors"
+                  >
+                    {label}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-forest-500">
