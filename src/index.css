@@ -52,7 +52,7 @@
 
 /* ─── RESPONSIVE BASE FONT SIZE (THE FIX) ─── */
 html {
-  font-size: 18px;
+  font-size: 19px;
   scroll-behavior: smooth;
 }
 
@@ -146,3 +146,10 @@ html {
 ::-webkit-scrollbar       { width: 5px; }
 ::-webkit-scrollbar-track { background: #fff; }
 ::-webkit-scrollbar-thumb { background: #264653; border-radius: 4px; }
+
+/* ─── Saare paragraphs ka text near-black ─── */
+p.text-gray-400,
+p.text-gray-500,
+p.text-gray-600 {
+  color: #111827;
+}
