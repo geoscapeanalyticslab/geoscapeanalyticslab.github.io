@@ -76,7 +76,7 @@ export const team = [
     title: 'Graduate Researcher',
     photo: '/images/team/Hamna.jpeg',
     bio: '',
-    linkedin: 'https://linkedin.com',
+    linkedin: 'https://www.linkedin.com/in/hamna-habib-4813b2341/',
     email: 'hamnarajput24@gmail.com',
     isIntern: true,
     phone: '',
