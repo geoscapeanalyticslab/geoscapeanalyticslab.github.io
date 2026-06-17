@@ -123,7 +123,7 @@ export default function Home() {
       <section className="bg-gray-50 py-24">
         <div className="max-w-7xl mx-auto px-6">
           <ScrollReveal className="text-center mb-14">
-            <span className="text-xs font-bold uppercase tracking-widest text-forest-600">What We Study</span>
+            <span className="text-xs font-bold uppercase tracking-widest text-forest-600"></span>
             <h2 className="text-4xl md:text-5xl font-black text-gray-900 mt-3">Research Areas</h2>
           </ScrollReveal>
 
@@ -175,6 +175,13 @@ export default function Home() {
               <TeamCard member={m} />
             </ScrollReveal>
           ))}
+        </div>
+
+        <div className="text-center mt-12">
+          <Link to="/people"
+            className="inline-flex items-center gap-2 px-8 py-3 border-2 border-forest-700 text-forest-700 font-bold rounded-full hover:bg-forest-700 hover:text-white transition-all text-sm uppercase tracking-wide">
+            See Full Team <ArrowRight size={14} />
+          </Link>
         </div>
       </section>
 
