@@ -58,7 +58,7 @@ export default function Blogs() {
   return (
     <div>
       <PageHeader
-        label=""
+        label="Lab Blog"
         title="Blogs"
         subtitle=""
       />
@@ -75,27 +75,11 @@ export default function Blogs() {
       <section className="max-w-3xl mx-auto px-6 py-28 text-center">
         <ScrollReveal>
           <span className="text-xs font-bold uppercase tracking-widest text-forest-600">Coming Soon</span>
-          <h2 className="text-3xl md:text-4xl font-black text-gray-900 mt-3">Articles On the Way</h2>
+          <h2 className="text-3xl md:text-4xl font-black text-gray-900 mt-3">Blogs On the Way</h2>
           <p className="text-gray-500 mt-5 max-w-lg mx-auto leading-relaxed">
-            Our latest articles are on the way — findings, tutorials, and updates from GSAL's
+            Our latest blogs are on the way — findings, tutorials, and updates from GSAL's
             research will be published here soon. Check back shortly.
           </p>
-        </ScrollReveal>
-      </section>
-
-      {/* Contribute CTA */}
-      <section className="bg-gray-50 border-t border-gray-100 py-16 text-center">
-        <ScrollReveal>
-          <span className="text-xs font-bold uppercase tracking-widest text-forest-600">Contribute</span>
-          <h3 className="text-3xl font-black text-gray-900 mt-3">Want to Write a Post?</h3>
-          <p className="text-gray-500 mt-3 max-w-md mx-auto text-sm leading-relaxed">
-            GSAL team members and collaborators are welcome to share research summaries,
-            tutorials, or field reports.
-          </p>
-          <a href="mailto:adeel.ahmad@uog.edu.pk"
-            className="inline-flex items-center gap-2 mt-7 px-7 py-3.5 bg-forest-900 hover:bg-forest-800 text-white font-bold rounded-full transition-all text-sm uppercase tracking-wide">
-            Submit a Post <ArrowRight size={14} />
-          </a>
         </ScrollReveal>
       </section>
     </div>
