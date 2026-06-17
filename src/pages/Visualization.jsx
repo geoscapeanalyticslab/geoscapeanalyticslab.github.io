@@ -76,8 +76,8 @@ export default function Visualization() {
   return (
     <div className="pt-16">
       <PageHeader
-        label="Maps & Dashboards"
-        title="Visualization"
+        label=""
+        title="Visualizations"
         subtitle="Interactive maps, GEE apps, and geospatial dashboards from GSAL research outputs."
       />
 
