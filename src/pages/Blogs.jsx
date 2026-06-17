@@ -59,8 +59,8 @@ export default function Blogs() {
     <div>
       <PageHeader
         label="Lab Blog"
-        title="Research Insights"
-        subtitle="Findings, tutorials, and updates from GSAL research activities."
+        title="title=Blogs"
+        subtitle=""
       />
 
       <section className="max-w-7xl mx-auto px-6 py-20">
