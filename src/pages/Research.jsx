@@ -7,8 +7,8 @@ const iconMap = { Trees, Cpu, CloudRain, Building2, Wind, Sprout, MapPin, Drople
 function ResearchCard({ area, index }) {
   const Icon = iconMap[area.icon] || MapPin
   return (
-    <ScrollReveal delay={index * 0.05}>
-      <div className="bg-white rounded-2xl border border-gray-100 hover:border-gray-200 hover:shadow-lg transition-all duration-300 group overflow-hidden">
+    <ScrollReveal delay={index * 0.05} className="h-full">
+      <div className="bg-white rounded-2xl border border-gray-100 hover:border-gray-200 hover:shadow-lg transition-all duration-300 group overflow-hidden h-full flex flex-col">
         <div className="h-1 w-full" style={{ background: area.accent }} />
         <div className="p-7">
           <div className="flex items-start justify-between mb-5">
