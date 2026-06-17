@@ -15,7 +15,7 @@ export default function People() {
       <PageHeader
         label=""
         title="People"
-        subtitle="Researchers, and students advancing geospatial knowledge."
+        subtitle="Researchers advancing geospatial knowledge."
       />
 
       <div className="max-w-7xl mx-auto px-6 py-20 space-y-20">
