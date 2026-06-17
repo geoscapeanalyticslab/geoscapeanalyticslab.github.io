@@ -58,7 +58,7 @@ export default function Blogs() {
   return (
     <div>
       <PageHeader
-        label="Lab Blog"
+        label=""
         title="Blogs"
         subtitle=""
       />
