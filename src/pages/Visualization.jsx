@@ -81,13 +81,13 @@ export default function Visualization() {
         subtitle="Interactive maps, GEE apps, and geospatial dashboards from GSAL research outputs."
       />
 
+      {/* ── Visualizations hidden for now — will be added soon. Code kept below for later. ──
       <section className="max-w-7xl mx-auto px-6 py-20">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {VIZ.map((item, i) => <VizCard key={item.title} item={item} index={i} />)}
         </div>
       </section>
 
-      {/* GEE embed */}
       <section className="max-w-7xl mx-auto px-6 pb-20">
         <ScrollReveal>
           <div className="bg-gray-50 rounded-2xl border border-gray-100 p-8">
@@ -97,18 +97,25 @@ export default function Visualization() {
                 <h2 className="text-2xl font-black text-gray-900 mt-1">Embed a GEE Application</h2>
               </div>
             </div>
-            <p className="text-gray-500 text-sm mb-6">
-              Replace the placeholder below with a published Google Earth Engine app URL to embed it directly on this page.
-              In <code className="bg-white border border-gray-200 px-1.5 py-0.5 rounded text-xs text-forest-800 font-mono">Visualization.jsx</code>,
-              swap the div for:
-              {' '}<code className="bg-white border border-gray-200 px-1.5 py-0.5 rounded text-xs text-forest-800 font-mono">{'<iframe src="GEE_URL" className="w-full h-full" />'}</code>
-            </p>
             <div className="rounded-xl border-2 border-dashed border-gray-200 h-96 flex flex-col items-center justify-center bg-white text-gray-400 gap-3">
               <Globe2 size={36} className="text-gray-200" />
               <p className="text-sm font-semibold text-gray-400">GEE App Placeholder</p>
               <p className="text-xs text-gray-300">Drop your published app src here</p>
             </div>
           </div>
+        </ScrollReveal>
+      </section>
+      */}
+
+      {/* Coming soon placeholder */}
+      <section className="max-w-3xl mx-auto px-6 py-28 text-center">
+        <ScrollReveal>
+          <span className="text-xs font-bold uppercase tracking-widest text-forest-600">Coming Soon</span>
+          <h2 className="text-3xl md:text-4xl font-black text-gray-900 mt-3">Visualizations On the Way</h2>
+          <p className="text-gray-500 mt-5 max-w-lg mx-auto leading-relaxed">
+            Interactive maps, GEE apps, and geospatial dashboards from our research will be
+            published here soon. Check back shortly.
+          </p>
         </ScrollReveal>
       </section>
     </div>
