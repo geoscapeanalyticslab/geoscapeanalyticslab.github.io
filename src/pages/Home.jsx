@@ -181,13 +181,13 @@ export default function Home() {
       {/* ── CTA ── */}
       <section className="bg-forest-950 py-20 text-center">
         <ScrollReveal>
-          <span className="text-xs text-forest-400 font-bold uppercase tracking-widest">Collaborate</span>
-          <h2 className="text-4xl md:text-5xl font-black text-white mt-3">
-            Join the Research
+          <h2 className="text-4xl md:text-5xl font-black text-white">
+            Collaborate
           </h2>
-          <p className="text-forest-300 mt-4 max-w-lg mx-auto text-base leading-relaxed">
-            We welcome motivated students and researchers. Open positions for MS and PhD candidates
-            in GIS, remote sensing, and GeoAI.
+          <p className="text-forest-300 mt-5 max-w-2xl mx-auto text-base leading-relaxed">
+            We welcome organizations and individuals to develop and submit innovative geospatial
+            research and industry projects, with support for securing funding at both national and
+            international scales.
           </p>
           <div className="flex flex-wrap gap-4 justify-center mt-10">
             <Link to="/contact"

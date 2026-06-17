@@ -105,6 +105,14 @@ export default function Research() {
         </div>
       </section>
 
+      {/* Publications */}
+      <section className="max-w-7xl mx-auto px-6 py-20">
+        <ScrollReveal className="text-center">
+          <h2 className="text-4xl font-black text-gray-900">Publications</h2>
+          <p className="text-gray-500 mt-5 text-lg">Will be added soon.</p>
+        </ScrollReveal>
+      </section>
+
       {/* Tools */}
       <section className="max-w-7xl mx-auto px-6 py-20">
         <ScrollReveal className="text-center mb-10">
