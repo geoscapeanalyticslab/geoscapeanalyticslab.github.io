@@ -59,14 +59,28 @@ export default function Blogs() {
     <div>
       <PageHeader
         label="Lab Blog"
-        title="title=Blogs"
+        title="Blogs"
         subtitle=""
       />
 
+      {/* ── Blog posts hidden for now — will upload soon. Keeping the code below for later. ──
       <section className="max-w-7xl mx-auto px-6 py-20">
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
           {blogs.map((b, i) => <BlogCard key={b.id} blog={b} index={i} />)}
         </div>
+      </section>
+      */}
+
+      {/* Coming soon placeholder */}
+      <section className="max-w-3xl mx-auto px-6 py-28 text-center">
+        <ScrollReveal>
+          <span className="text-xs font-bold uppercase tracking-widest text-forest-600">Coming Soon</span>
+          <h2 className="text-3xl md:text-4xl font-black text-gray-900 mt-3">Articles On the Way</h2>
+          <p className="text-gray-500 mt-5 max-w-lg mx-auto leading-relaxed">
+            Our latest articles are on the way — findings, tutorials, and updates from GSAL's
+            research will be published here soon. Check back shortly.
+          </p>
+        </ScrollReveal>
       </section>
 
       {/* Contribute CTA */}
