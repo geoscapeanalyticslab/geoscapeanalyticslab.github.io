@@ -34,7 +34,7 @@ export default function Contact() {
   return (
     <div>
       <PageHeader
-        label="Get in Touch"
+        label=""
         title="Contact Us"
         subtitle="Research collaborations, student applications, and general inquiries."
       />
@@ -55,7 +55,6 @@ export default function Contact() {
                       Lahore, Punjab, Pakistan
                       <br />
                       <span className="font-mono text-xs text-earth-600 mt-1 inline-block">
-                        31°29′38.8″N  74°17′55.3″E
                       </span>
                     </>
                   ),
@@ -64,7 +63,7 @@ export default function Contact() {
                   icon: Mail,
                   title: 'Email',
                   body: (
-                    <a href="mailto:adeel.geog@pu.edu.pk"
+                    <a href="geoscapeanalyticslab@gmail.com"
                       className="text-forest-700 hover:text-forest-500 transition-colors">
                       adeel.geog@pu.edu.pk
                     </a>
