@@ -53,7 +53,7 @@ export const team = [
     title: 'Graduate Researcher',
     photo: '/images/team/muhammad-mehdi.jpg',
     bio: '',
-    linkedin: 'https://linkedin.com',
+    linkedin: 'https://www.linkedin.com/in/muhammad-mehdi-2726872a7/',
     github: 'https://github.com/MUHAMMAD-MEHDI12',
     email: 'geomehdi12@gmail.com',
     phone: '',
