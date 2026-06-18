@@ -141,7 +141,7 @@ export default function Home() {
                   <h3 className="font-bold text-gray-900 text-sm leading-snug group-hover:text-forest-800 transition-colors">
                     {area.title}
                   </h3>
-                  <p className="text-gray-400 text-xs mt-2 leading-relaxed line-clamp-3">{area.desc}</p>
+                  <p className="text-gray-400 text-sm mt-2 leading-relaxed line-clamp-3">{area.desc}</p>
                 </Link>
               </ScrollReveal>
             ))}
