@@ -14,11 +14,8 @@ export const gallery = [
   },
   {
     section: 'Lab Visits',
-    items: {
-    section: 'Lab Visits',
     items: [
-      { image: '/images/team/gsal_pic.jpeg', caption: 'Lab visit — Lahore' },
+      { image:  '/images/team/gsal_pic.jpeg', caption: 'University delegation visit' },
     ],
-  },
   },
 ]
