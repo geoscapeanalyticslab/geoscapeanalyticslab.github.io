@@ -51,13 +51,11 @@ export default function Footer() {
             </div>
 
             {/* Social */}
-            <div className="mt-6 flex gap-3">
-              <a href="https://www.linkedin.com/company/geoscape-analytics-lab-gsal/" target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-forest-800 text-forest-300 hover:bg-forest-800 hover:text-white transition-all"
-                aria-label="LinkedIn">
-                <LinkedInIcon size={18} />
-              </a>
-            </div>
+            <a href="https://www.linkedin.com/company/geoscape-analytics-lab-gsal/" target="_blank" rel="noopener noreferrer"
+              className="mt-6 inline-flex items-center gap-2 text-sm text-forest-300 hover:text-white transition-colors">
+              <LinkedInIcon size={16} />
+              <span>Follow us on LinkedIn</span>
+            </a>
           </div>
 
           {/* Nav links — single even list, no headings */}
