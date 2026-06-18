@@ -27,7 +27,7 @@ export default function Contact() {
     e.preventDefault()
     const sub  = encodeURIComponent(form.subject || 'GSAL Inquiry')
     const body = encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`)
-    window.location.href = `mailto:geoscapeanalyticslab@gmail.com?subject=${sub}&body=${body}`
+    window.location.href = `https://mail.google.com/mail/?view=cm&fs=1&to=geoscapeanalyticslab@gmail.com?subject=${sub}&body=${body}`
     setSent(true)
   }
 
