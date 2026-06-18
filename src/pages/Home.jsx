@@ -203,7 +203,7 @@ export default function Home() {
             </Link>
             <Link to="/research"
               className="px-8 py-3.5 border border-forest-700 hover:border-forest-500 text-forest-300 font-semibold rounded-full transition-all text-sm uppercase tracking-wide">
-              Our Research
+              Publications
             </Link>
           </div>
         </ScrollReveal>
