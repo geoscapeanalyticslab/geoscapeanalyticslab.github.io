@@ -25,16 +25,17 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 flex items-center gap-8 h-14 md:h-18">
 
         {/* Brand */}
-        <NavLink to="/" onClick={scrollTop} className="flex items-center gap-3 flex-1 min-w-0 select-none">
+        <div className="flex items-center gap-3 flex-1 min-w-0 select-none">
           <img
             src="/gsal_trans_logo1.png"
             alt="GSAL Logo"
             className="w-auto h-10 md:h-12"
           />
-          <span className="text-base md:text-lg font-black tracking-wide whitespace-nowrap text-gray-900">
+          <NavLink to="/" onClick={scrollTop}
+            className="text-base md:text-lg font-black tracking-wide whitespace-nowrap text-gray-900 hover:text-forest-700 transition-colors">
             GeoScape Analytics Lab
-          </span>
-        </NavLink>
+          </NavLink>
+        </div>
 
         {/* Desktop links */}
         <ul className="hidden md:flex items-center gap-6 shrink-0">

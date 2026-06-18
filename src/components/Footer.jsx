@@ -48,14 +48,12 @@ export default function Footer() {
                   geoscapeanalyticslab.github.io
                 </a>
               </div>
+              <a href="https://www.linkedin.com/company/geoscape-analytics-lab-gsal/" target="_blank" rel="noopener noreferrer"
+                className="flex items-center gap-2.5 hover:text-white transition-colors">
+                <LinkedInIcon size={14} />
+                <span>Follow us on LinkedIn</span>
+              </a>
             </div>
-
-            {/* Social */}
-            <a href="https://www.linkedin.com/company/geoscape-analytics-lab-gsal/" target="_blank" rel="noopener noreferrer"
-              className="mt-6 inline-flex items-center gap-2 text-sm text-forest-300 hover:text-white transition-colors">
-              <LinkedInIcon size={16} />
-              <span>Follow us on LinkedIn</span>
-            </a>
           </div>
 
           {/* Nav links — single even list, no headings */}
