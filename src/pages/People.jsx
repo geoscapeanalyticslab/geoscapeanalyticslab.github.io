@@ -23,7 +23,7 @@ export default function People() {
         <section>
           <ScrollReveal>
             <div className="flex items-center gap-4 mb-8">
-              <span className="text-xs font-bold uppercase tracking-widest text-forest-600">Leadership</span>
+              <span className="text-sm font-bold uppercase tracking-widest text-forest-600">Leadership</span>
               <div className="flex-1 h-px bg-gray-100" />
             </div>
             {director && <TeamCard member={director} featured />}
@@ -34,7 +34,7 @@ export default function People() {
         <section>
           <ScrollReveal>
             <div className="flex items-center gap-4 mb-8">
-              <span className="text-xs font-bold uppercase tracking-widest text-forest-600">Current Team</span>
+              <span className="text-sm font-bold uppercase tracking-widest text-forest-600">Current Team</span>
               <div className="flex-1 h-px bg-gray-100" />
             </div>
           </ScrollReveal>
@@ -52,7 +52,7 @@ export default function People() {
           <section>
             <ScrollReveal>
               <div className="flex items-center gap-4 mb-8">
-                <span className="text-xs font-bold uppercase tracking-widest text-forest-600">Summer Interns</span>
+                <span className="text-sm font-bold uppercase tracking-widest text-forest-600">Summer Interns</span>
                 <div className="flex-1 h-px bg-gray-100" />
               </div>
             </ScrollReveal>
@@ -71,7 +71,7 @@ export default function People() {
           <section>
             <ScrollReveal>
               <div className="flex items-center gap-4 mb-8">
-                <span className="text-xs font-bold uppercase tracking-widest text-forest-600">Volunteer Researchers</span>
+                <span className="text-sm font-bold uppercase tracking-widest text-forest-600">Volunteer Researchers</span>
                 <div className="flex-1 h-px bg-gray-100" />
               </div>
             </ScrollReveal>

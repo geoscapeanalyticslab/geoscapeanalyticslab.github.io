@@ -147,9 +147,10 @@ html {
 ::-webkit-scrollbar-track { background: #fff; }
 ::-webkit-scrollbar-thumb { background: #264653; border-radius: 4px; }
 
-/* ─── Saare paragraphs ka text near-black ─── */
-p.text-gray-400,
-p.text-gray-500,
-p.text-gray-600 {
-  color: #111827;
+/* ─── Saara grey body text pure black (headings/teal/dark-bg untouched) ─── */
+.text-gray-400,
+.text-gray-500,
+.text-gray-600,
+.text-gray-700 {
+  color: #000000 !important;
 }
