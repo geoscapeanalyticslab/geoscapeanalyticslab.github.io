@@ -48,7 +48,7 @@ export default function Research() {
     <div>
       <PageHeader
         label=""
-        title="Our Research"
+        title="Publications"
         subtitle="Geospatial science with emphasis on GIS and satellite remote sensing for addressing environmental and urban challenges."
       />
 

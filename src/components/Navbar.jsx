@@ -27,7 +27,7 @@ export default function Navbar() {
         {/* Brand */}
         <NavLink to="/" onClick={scrollTop} className="flex items-center gap-3 flex-1 min-w-0 select-none">
           <img
-            src="/gsal_trans_logo.png"
+            src="/gsal_trans_logo1.png"
             alt="GSAL Logo"
             className="w-auto h-10 md:h-12"
           />
