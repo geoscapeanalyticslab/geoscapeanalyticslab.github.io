@@ -37,7 +37,7 @@ export const team = [
   {
     id: 'nimra-sarwar',
     name: 'Nimra Sarwar',
-    role: 'Research Associate',
+    role: 'Graduate Research Associate',
     title: 'Graduate Researcher',
     photo: '/images/team/nimra-sarwar.jpg',
     photoPosition: '50% 20%',
