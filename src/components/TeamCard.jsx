@@ -57,7 +57,7 @@ export default function TeamCard({ member, featured = false }) {
               {member.name}
             </a>
           </h3>
-          {member.title && <p className="text-gray-500 text-sm font-normal mt-1">{member.title}</p>}
+          {member.title && <p className="text-gray-500 text-xs font-normal mt-1">{member.title}</p>}
           <p className="text-gray-500 text-sm mt-3 leading-relaxed max-w-xl">{member.bio}</p>
           <div className="flex gap-2 mt-5">
             {member.linkedin && (
@@ -101,7 +101,7 @@ export default function TeamCard({ member, featured = false }) {
       <Avatar photo={member.photo} name={member.name} position={member.photoPosition} className="w-20 h-20 mx-auto" />
       <div className="mt-4 text-center flex-1">
         <h3 className="font-bold text-gray-900 text-base leading-snug">{member.name}</h3>
-        <p className="text-gray-500 text-sm font-normal mt-1">{member.role}</p>
+        <p className="text-gray-500 text-xs font-normal mt-1">{member.role}</p>
         <p className="text-gray-400 text-xs mt-2 leading-relaxed">{member.bio}</p>
       </div>
       <div className="flex justify-center gap-2 mt-4 pt-4 border-t border-gray-100">
