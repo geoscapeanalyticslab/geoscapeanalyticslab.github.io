@@ -154,3 +154,9 @@ html {
 .text-gray-700 {
   color: #000000 !important;
 }
+/* ─── Body paragraph text bara (bade headings untouched) ─── */
+
+.text-xs   { font-size: 0.82rem; }
+.text-sm   { font-size: 1rem; }
+.text-base { font-size: 1.1rem; }
+p { font-size: clamp(1.3rem, 1.4vw, 1.5rem); }
