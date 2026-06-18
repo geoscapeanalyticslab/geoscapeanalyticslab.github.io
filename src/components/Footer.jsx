@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom'
-import { Mail, MapPin, Globe } from 'lucide-react'
+import { Mail, MapPin, Globe, Linkedin } from 'lucide-react'
+
 
 const links = [
   { to: '/',              label: 'Home'          },
@@ -17,7 +18,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 pb-10 border-b border-forest-800">
           {/* Brand */}
           <div className="md:col-span-3">
-            <img src="/gsal_trans_logo1" alt="GSAL Logo" className="h-25 w-auto" />
+            <img src="/gsal_trans_logo1.png" alt="GSAL Logo" className="h-23 w-auto" />
             <p className="mt-5 text-sm text-forest-300 leading-relaxed max-w-sm">
               Advancing research and training in GIS, remote sensing, GeoAI, and spatial
               data analytics. Independent research lab based in Lahore, Pakistan.
@@ -39,6 +40,15 @@ export default function Footer() {
                   geoscapeanalyticslab.github.io
                 </a>
               </div>
+            </div>
+
+            {/* Social */}
+            <div className="mt-6 flex gap-3">
+              <a href="https://www.linkedin.com/company/geoscape-analytics-lab-gsal/" target="_blank" rel="noopener noreferrer"
+                className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-forest-800 text-forest-300 hover:bg-forest-800 hover:text-white transition-all"
+                aria-label="LinkedIn">
+                <Linkedin size={18} />
+              </a>
             </div>
           </div>
 
