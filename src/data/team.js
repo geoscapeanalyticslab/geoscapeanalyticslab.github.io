@@ -91,6 +91,7 @@ export const team = [
     linkedin: 'https://www.linkedin.com/in/shah-zaib-ali-656a70393/',
     email: 'shahzaib.geo.spatial@gmail.com',
     isIntern: true,
+    github: 'https://github.com/shahzaibgeospatial-cmd',
     phone: '',
   },
   {
