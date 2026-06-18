@@ -8,6 +8,7 @@ const links = [
   { to: '/people',       label: 'People'        },
   { to: '/blogs',        label: 'Blogs'         },
   { to: '/visualization',label: 'Visualizations' },
+  { to: '/news',         label: 'News'          },
   { to: '/contact',      label: 'Contact'       },
 ]
 
