@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import { Mail, MapPin, Globe } from 'lucide-react'
+
 function LinkedInIcon({ size = 18 }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
@@ -16,6 +17,7 @@ const links = [
   { to: '/people',        label: 'People'        },
   { to: '/blogs',         label: 'Blogs'         },
   { to: '/visualization', label: 'Visualization' },
+  { to: '/news',          label: 'News'          },
   { to: '/contact',       label: 'Contact'       },
 ]
 
@@ -23,11 +25,16 @@ export default function Footer() {
   return (
     <footer className="bg-forest-950 text-forest-200">
       <div className="max-w-7xl mx-auto px-6 pt-16 pb-10">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 pb-10 border-b border-forest-800">
-          {/* Brand */}
-          <div className="md:col-span-3">
-            <img src="/gsal_trans_logo1.png" alt="GSAL Logo" className="h-23 w-auto" />
-            <p className="mt-5 text-sm text-forest-300 leading-relaxed max-w-sm">
+
+        {/* Logo on top */}
+        <img src="/gsal_trans_logo1.png" alt="GSAL Logo" className="h-23 w-auto" />
+
+        {/* Below logo: brand info (left)  +  nav links (right), aligned at same level */}
+        <div className="mt-6 flex flex-col md:flex-row md:justify-between gap-10 pb-10 border-b border-forest-800">
+
+          {/* Left — description + contact */}
+          <div className="max-w-md">
+            <p className="text-sm text-forest-300 leading-relaxed">
               Advancing research and training in GIS, remote sensing, GeoAI, and spatial
               data analytics. Independent research lab based in Lahore, Pakistan.
             </p>
@@ -38,7 +45,7 @@ export default function Footer() {
               </div>
               <div className="flex items-center gap-2.5">
                 <Mail size={14} className="shrink-0 text-forest-400" />
-                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=geoscapeanalyticslab@gmail.com" className="hover:text-white transition-colors">
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=geoscapeanalyticslab@gmail.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
                   geoscapeanalyticslab@gmail.com
                 </a>
               </div>
@@ -56,9 +63,9 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Nav links — single even list, no headings */}
-          <div>
-            <ul className="space-y-3">
+          {/* Right — nav links */}
+          <div className="shrink-0">
+            <ul className="space-y-3 md:text-right">
               {links.map(({ to, label }) => (
                 <li key={to}>
                   <NavLink
@@ -71,6 +78,7 @@ export default function Footer() {
               ))}
             </ul>
           </div>
+
         </div>
 
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-forest-500">

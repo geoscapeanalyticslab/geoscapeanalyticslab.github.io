@@ -63,7 +63,7 @@ export default function Contact() {
                   icon: Mail,
                   title: 'Email',
                   body: (
-                    <a href="geoscapeanalyticslab@gmail.com"
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=geoscapeanalyticslab@gmail.com" target="_blank" rel="noopener noreferrer"
                       className="text-forest-700 hover:text-forest-500 transition-colors">
                       geoscapeanalyticslab@gmail.com
                     </a>

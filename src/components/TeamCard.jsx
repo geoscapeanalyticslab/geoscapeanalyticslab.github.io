@@ -77,7 +77,7 @@ export default function TeamCard({ member, featured = false }) {
               </a>
             )}
             {member.email && (
-              <a href={`https://mail.google.com/mail/?view=cm&fs=1&to=${member.email}`}
+              <a href={`https://mail.google.com/mail/?view=cm&fs=1&to=${member.email}`} target="_blank" rel="noopener noreferrer"
                 className="w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center text-gray-500 hover:border-forest-600 hover:text-forest-700 hover:bg-forest-50 transition-all"
                 aria-label="Email">
                 <Mail size={15} />
@@ -120,7 +120,7 @@ export default function TeamCard({ member, featured = false }) {
           </a>
         )}
         {member.email && (
-          <a href={`https://mail.google.com/mail/?view=cm&fs=1&to=${member.email}`}
+          <a href={`https://mail.google.com/mail/?view=cm&fs=1&to=${member.email}`} target="_blank" rel="noopener noreferrer"
             className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:border-forest-500 hover:text-forest-600 hover:bg-forest-50 transition-all"
             aria-label="Email">
             <Mail size={13} />
