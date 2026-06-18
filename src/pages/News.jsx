@@ -6,7 +6,7 @@ export default function News() {
   return (
     <div>
       <PageHeader
-        label="Latest Updates"
+        label=""
         title="News"
         subtitle="Announcements, projects, and updates from GeoScape Analytics Lab."
       />
