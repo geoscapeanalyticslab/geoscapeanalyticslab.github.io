@@ -1,6 +1,14 @@
 import { NavLink } from 'react-router-dom'
-import { Mail, MapPin, Globe, Linkedin } from 'lucide-react'
-
+import { Mail, MapPin, Globe } from 'lucide-react'
+function LinkedInIcon({ size = 18 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+      <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z" />
+      <rect x="2" y="9" width="4" height="12" />
+      <circle cx="4" cy="4" r="2" />
+    </svg>
+  )
+}
 
 const links = [
   { to: '/',              label: 'Home'          },
@@ -47,7 +55,7 @@ export default function Footer() {
               <a href="https://www.linkedin.com/company/geoscape-analytics-lab-gsal/" target="_blank" rel="noopener noreferrer"
                 className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-forest-800 text-forest-300 hover:bg-forest-800 hover:text-white transition-all"
                 aria-label="LinkedIn">
-                <Linkedin size={18} />
+                <LinkedInIcon size={18} />
               </a>
             </div>
           </div>
