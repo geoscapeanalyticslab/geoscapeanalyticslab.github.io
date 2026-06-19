@@ -33,7 +33,7 @@ export default function Navbar() {
             className="w-auto h-11.5 md:h-13.5"
           />
           <NavLink to="/" onClick={scrollTop}
-            className="text-xl md:text-2xl font-black tracking-wide whitespace-nowrap text-gray-900 hover:text-forest-700 transition-colors">
+            className="text-[1.15rem] md:text-[1.4rem] font-black tracking-wide whitespace-nowrap text-gray-900 hover:text-forest-700 transition-colors">
             GeoScape Analytics Lab (GSAL)
           </NavLink>
         </div>
