@@ -29,10 +29,10 @@ export default function Navbar() {
           <img
             src="/gsal_trans_logo1.png"
             alt="GSAL Logo"
-            className="w-auto h-10.5 md:h-12.5"
+            className="w-auto h-11.5 md:h-13.5"
           />
           <NavLink to="/" onClick={scrollTop}
-            className="text-lg md:text-xl font-black tracking-wide whitespace-nowrap text-gray-900 hover:text-forest-700 transition-colors">
+            className="text-xl md:text-2xl font-black tracking-wide whitespace-nowrap text-gray-900 hover:text-forest-700 transition-colors">
             GeoScape Analytics Lab (GSAL)
           </NavLink>
         </div>
