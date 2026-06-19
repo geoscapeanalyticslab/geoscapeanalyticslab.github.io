@@ -24,7 +24,7 @@ const links = [
 export default function Footer() {
   return (
     <footer className="bg-forest-950 text-forest-200">
-      <div className="max-w-6xl mx-auto px-6 pt-16 pb-10">
+      <div className="max-w-5xl mx-auto px-6 pt-16 pb-10">
         <div className="flex flex-col md:flex-row md:justify-between gap-12 pb-10 border-b border-forest-800">
 
           {/* Brand / contact — left */}
