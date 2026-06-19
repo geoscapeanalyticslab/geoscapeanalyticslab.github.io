@@ -45,7 +45,7 @@ export default function Navbar() {
                 to={to} end={to === '/'}
                 onClick={scrollTop}
                 className={({ isActive }) =>
-                  `text-sm font-semibold tracking-wide transition-colors pb-0.5 ${
+                  `text-xs font-semibold tracking-wide transition-colors pb-0.5 ${
                     isActive
                       ? 'text-forest-700 border-b-2 border-forest-700'
                       : 'text-gray-900 hover:text-forest-700'
