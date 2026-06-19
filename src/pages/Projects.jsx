@@ -20,7 +20,6 @@ function ProjectCard({ project, index }) {
   return (
     <ScrollReveal delay={index * 0.08}>
       <div className="bg-white rounded-2xl border border-gray-100 hover:border-gray-200 hover:shadow-lg transition-all duration-300 overflow-hidden group flex flex-col h-full">
-        {/* Header strip */}
         <div className="h-40 relative flex items-center justify-center overflow-hidden"
           style={{ background: project.accent + '1a' }}>
           <div className="w-16 h-16 rounded-2xl flex items-center justify-center z-10 group-hover:scale-110 transition-transform duration-300"
@@ -41,13 +40,9 @@ function ProjectCard({ project, index }) {
           </h3>
           <p className="text-forest-700 text-sm font-semibold mt-1">{project.tagline}</p>
           <p className="text-gray-500 text-sm mt-3 leading-relaxed flex-1">{project.desc}</p>
-          
-            href={project.url}
-            target="_blank"
-            rel="noopener noreferrer"
+          <a href={project.url} target="_blank" rel="noopener noreferrer"
             className="mt-5 w-full py-2.5 rounded-xl font-bold flex items-center justify-center gap-2 text-sm transition-all hover:opacity-90"
-            style={{ background: project.accent, color: '#fff' }}
-          >
+            style={{ background: project.accent, color: '#fff' }}>
             Visit Site <ExternalLink size={15} />
           </a>
         </div>
