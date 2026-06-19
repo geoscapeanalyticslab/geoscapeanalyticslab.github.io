@@ -12,7 +12,8 @@ const GlobeHero = lazy(() => import('../components/GlobeHero'))
 /* ─── Word-by-word animated heading ─── */
 function HeroHeading() {
   const lines = [
-    ['ENABLING', 'GEOSPATIAL', 'RESEARCH'],
+    ['ENABLING', 'GEOSPATIAL'],
+    ['RESEARCH'],
     ['THAT', 'DRIVES', 'IMPACT'],
   ]
   let idx = 0

@@ -24,17 +24,13 @@ const links = [
 export default function Footer() {
   return (
     <footer className="bg-forest-950 text-forest-200">
-      <div className="max-w-7xl mx-auto px-6 pt-16 pb-10">
+      <div className="max-w-6xl mx-auto px-6 pt-16 pb-10">
+        <div className="flex flex-col md:flex-row md:justify-between gap-12 pb-10 border-b border-forest-800">
 
-        {/* Logo on top */}
-        <img src="/gsal_trans_logo1.png" alt="GSAL Logo" className="h-23 w-auto" />
-
-        {/* Below logo: brand info (left)  +  nav links (right), aligned at same level */}
-        <div className="mt-6 flex flex-col md:flex-row md:justify-between gap-10 pb-10 border-b border-forest-800">
-
-          {/* Left — description + contact */}
+          {/* Brand / contact — left */}
           <div className="max-w-md">
-            <p className="text-sm text-forest-300 leading-relaxed">
+            <img src="/gsal_trans_logo1.png" alt="GSAL Logo" className="h-16 w-auto" />
+            <p className="mt-5 text-sm text-forest-300 leading-relaxed">
               Advancing research and training in GIS, remote sensing, GeoAI, and spatial
               data analytics. Independent research lab based in Lahore, Pakistan.
             </p>
@@ -55,30 +51,27 @@ export default function Footer() {
                   geoscapeanalyticslab.github.io
                 </a>
               </div>
-              <a href="https://www.linkedin.com/company/geoscape-analytics-lab-gsal/" target="_blank" rel="noopener noreferrer"
-                className="flex items-center gap-2.5 hover:text-white transition-colors">
-                <LinkedInIcon size={14} />
-                <span>Follow us on LinkedIn</span>
-              </a>
             </div>
+
+            <a href="https://www.linkedin.com/company/geoscape-analytics-lab-gsal/" target="_blank" rel="noopener noreferrer"
+              className="mt-6 inline-flex items-center gap-2 text-sm text-forest-300 hover:text-white transition-colors">
+              <LinkedInIcon size={16} />
+              <span>Follow us on LinkedIn</span>
+            </a>
           </div>
 
-          {/* Right — nav links */}
-          <div className="shrink-0">
-            <ul className="space-y-3 md:text-right">
+          {/* Nav links — right */}
+          <div className="md:text-right">
+            <ul className="space-y-3">
               {links.map(({ to, label }) => (
                 <li key={to}>
-                  <NavLink
-                    to={to}
-                    className="text-sm text-forest-300 hover:text-white transition-colors"
-                  >
+                  <NavLink to={to} className="text-sm text-forest-300 hover:text-white transition-colors">
                     {label}
                   </NavLink>
                 </li>
               ))}
             </ul>
           </div>
-
         </div>
 
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-forest-500">
