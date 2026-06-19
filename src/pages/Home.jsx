@@ -186,26 +186,28 @@ export default function Home() {
 
       {/* ── CTA ── */}
       <section className="bg-forest-950 py-20 text-center">
-        <ScrollReveal>
-          <h2 className="text-4xl md:text-5xl font-black text-white">
-            Collaborate
-          </h2>
-          <p className="text-forest-300 mt-5 max-w-2xl mx-auto text-base leading-relaxed">
-            We welcome organizations and individuals to develop and submit innovative geospatial
-            research and industry projects, with support for securing funding at both national and
-            international scales.
-          </p>
-          <div className="flex flex-wrap gap-4 justify-center mt-10">
-            <Link to="/contact"
-              className="px-8 py-3.5 bg-forest-400 hover:bg-forest-300 text-forest-950 font-bold rounded-full transition-all text-sm uppercase tracking-wide">
-              Get in Touch
-            </Link>
-            <Link to="/research"
-              className="px-8 py-3.5 border border-forest-700 hover:border-forest-500 text-forest-300 font-semibold rounded-full transition-all text-sm uppercase tracking-wide">
-              Publications
-            </Link>
-          </div>
-        </ScrollReveal>
+        <div className="max-w-5xl mx-auto px-6">
+          <ScrollReveal>
+            <h2 className="text-4xl md:text-5xl font-black text-white">
+              Collaborate
+            </h2>
+            <p className="text-forest-300 mt-5 max-w-2xl mx-auto text-base leading-relaxed">
+              We welcome organizations and individuals to develop and submit innovative geospatial
+              research and industry projects, with support for securing funding at both national and
+              international scales.
+            </p>
+            <div className="flex flex-wrap gap-4 justify-center mt-10">
+              <Link to="/contact"
+                className="px-8 py-3.5 bg-forest-400 hover:bg-forest-300 text-forest-950 font-bold rounded-full transition-all text-sm uppercase tracking-wide">
+                Get in Touch
+              </Link>
+              <Link to="/research"
+                className="px-8 py-3.5 border border-forest-700 hover:border-forest-500 text-forest-300 font-semibold rounded-full transition-all text-sm uppercase tracking-wide">
+                Publications
+              </Link>
+            </div>
+          </ScrollReveal>
+        </div>
       </section>
     </>
   )
