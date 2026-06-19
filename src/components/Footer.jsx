@@ -14,6 +14,7 @@ function LinkedInIcon({ size = 18 }) {
 const links = [
   { to: '/',              label: 'Home'          },
   { to: '/research',      label: 'Research'      },
+  { to: '/projects',      label: 'Projects'      },
   { to: '/people',        label: 'People'        },
   { to: '/blogs',         label: 'Blogs'         },
   { to: '/visualization', label: 'Visualization' },

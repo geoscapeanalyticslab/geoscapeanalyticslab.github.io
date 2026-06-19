@@ -16,13 +16,13 @@ export default function Gallery() {
               </div>
             </ScrollReveal>
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 gap-8">
               {sec.items.map((item, i) => (
                 <ScrollReveal key={i} delay={i * 0.07} className="h-full">
                   <figure className="bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-lg transition-all duration-300 h-full flex flex-col">
-                    <div className="h-52 bg-forest-950 overflow-hidden">
+                    <div className="w-full bg-forest-950 overflow-hidden">
                       <img src={item.image} alt={item.caption}
-                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                        className="w-full h-auto object-cover"
                         onError={e => { e.currentTarget.parentElement.style.display = 'none' }} />
                     </div>
                     {item.caption && (

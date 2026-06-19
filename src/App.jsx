@@ -3,6 +3,7 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Home from './pages/Home'
 import Research from './pages/Research'
+import Projects from './pages/Projects'
 import People from './pages/People'
 import Blogs from './pages/Blogs'
 import Visualization from './pages/Visualization'
@@ -21,6 +22,7 @@ export default function App() {
           <Routes>
             <Route path="/"              element={<Home />}          />
             <Route path="/research"      element={<Research />}      />
+            <Route path="/projects" element={<Projects />} />
             <Route path="/people"        element={<People />}        />
             <Route path="/blogs"         element={<Blogs />}         />
             <Route path="/visualization" element={<Visualization />} />
