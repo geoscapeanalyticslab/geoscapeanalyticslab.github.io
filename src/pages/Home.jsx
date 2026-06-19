@@ -11,23 +11,21 @@ const GlobeHero = lazy(() => import('../components/GlobeHero'))
 
 /* ─── Word-by-word animated heading ─── */
 function HeroHeading() {
-  const line1 = ['ENABLING', 'GEOSPATIAL', 'RESEARCH']
-  const line2 = ['THAT', 'DRIVES', 'IMPACT']
+  const lines = [
+    ['ENABLING', 'GEOSPATIAL'],['RESEARCH'],
+    ['THAT', 'DRIVES', 'IMPACT'],
+  ]
   let idx = 0
   return (
     <h1 className="hero-heading font-black text-white leading-none tracking-tight mt-4">
-      <span className="block text-3xl md:text-5xl xl:text-6xl word-reveal">
-        {line1.map(w => {
-          const d = (idx++ * 0.09).toFixed(2)
-          return <span key={w} className="word mr-3 md:mr-4" style={{ animationDelay: `${d}s` }}>{w}</span>
-        })}
-      </span>
-      <span className="block text-3xl md:text-5xl xl:text-6xl word-reveal mt-1">
-        {line2.map(w => {
-          const d = (idx++ * 0.09).toFixed(2)
-          return <span key={w} className="word mr-3 md:mr-4" style={{ animationDelay: `${d}s` }}>{w}</span>
-        })}
-      </span>
+      {lines.map((line, li) => (
+        <span key={li} className="block text-2xl md:text-4xl xl:text-5xl word-reveal whitespace-nowrap mt-1">
+          {line.map(w => {
+            const d = (idx++ * 0.09).toFixed(2)
+            return <span key={w} className="word mr-3 md:mr-4" style={{ animationDelay: `${d}s` }}>{w}</span>
+          })}
+        </span>
+      ))}
     </h1>
   )
 }
