@@ -1,7 +1,17 @@
+import { useState, useEffect } from 'react'
 import { gallery } from '../data/gallery'
 import ScrollReveal from './ScrollReveal'
 
 export default function Gallery() {
+  const [selected, setSelected] = useState(null)
+
+  // Escape key se band karne ke liye
+  useEffect(() => {
+    const onKey = (e) => { if (e.key === 'Escape') setSelected(null) }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [])
+
   if (!gallery.length) return null
 
   return (
@@ -16,14 +26,17 @@ export default function Gallery() {
               </div>
             </ScrollReveal>
 
-            <div className="grid grid-cols-1 gap-8">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {sec.items.map((item, i) => (
                 <ScrollReveal key={i} delay={i * 0.07} className="h-full">
                   <figure className="bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-lg transition-all duration-300 h-full flex flex-col">
-                    <div className="w-full bg-forest-950 overflow-hidden">
+                    <div
+                      onClick={() => setSelected(item)}
+                      className="h-52 bg-forest-950 overflow-hidden cursor-pointer"
+                    >
                       <img src={item.image} alt={item.caption}
-                        className="w-full h-auto object-cover"
-                        onError={e => { e.currentTarget.parentElement.style.display = 'none' }} />
+                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                        onError={e => { e.currentTarget.closest('figure').style.display = 'none' }} />
                     </div>
                     {item.caption && (
                       <figcaption className="p-4 text-sm text-gray-700 font-medium leading-snug">
@@ -36,6 +49,32 @@ export default function Gallery() {
             </div>
           </section>
         ) : null
+      )}
+
+      {/* Fullscreen lightbox — image click par khulta hai */}
+      {selected && (
+        <div
+          onClick={() => setSelected(null)}
+          className="fixed inset-0 z-[100] bg-black/90 flex flex-col items-center justify-center p-4 cursor-zoom-out"
+        >
+          <button
+            type="button"
+            onClick={() => setSelected(null)}
+            className="absolute top-5 right-6 text-white/80 hover:text-white text-4xl leading-none"
+            aria-label="Close"
+          >
+            ×
+          </button>
+          <img
+            src={selected.image}
+            alt={selected.caption}
+            onClick={(e) => e.stopPropagation()}
+            className="max-w-full max-h-[85vh] object-contain rounded-lg"
+          />
+          {selected.caption && (
+            <p className="mt-4 text-white/90 text-sm text-center max-w-2xl">{selected.caption}</p>
+          )}
+        </div>
       )}
     </div>
   )

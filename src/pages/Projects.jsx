@@ -10,6 +10,7 @@ const projects = [
     type: 'Web Application',
     accent: '#2d9462',
     icon: Database,
+    logo: '/GeoDROP-Logo_Transparent.png',
     url: 'https://geoscapeanalyticslab.github.io/GeoDROP/',
   },
   // Add a new project below as another { ... } block
@@ -20,12 +21,20 @@ function ProjectCard({ project, index }) {
   return (
     <ScrollReveal delay={index * 0.08}>
       <div className="bg-white rounded-2xl border border-gray-100 hover:border-gray-200 hover:shadow-lg transition-all duration-300 overflow-hidden group flex flex-col h-full">
-        <div className="h-40 relative flex items-center justify-center overflow-hidden"
+        <div className="h-40 relative flex items-center justify-center overflow-hidden p-6"
           style={{ background: project.accent + '1a' }}>
-          <div className="w-16 h-16 rounded-2xl flex items-center justify-center z-10 group-hover:scale-110 transition-transform duration-300"
-            style={{ background: project.accent + '22', color: project.accent }}>
-            <Icon size={30} strokeWidth={1.5} />
-          </div>
+          {project.logo ? (
+            <img
+              src={project.logo}
+              alt={`${project.title} logo`}
+              className="max-h-24 max-w-[75%] object-contain z-10 group-hover:scale-105 transition-transform duration-300"
+            />
+          ) : (
+            <div className="w-16 h-16 rounded-2xl flex items-center justify-center z-10 group-hover:scale-110 transition-transform duration-300"
+              style={{ background: project.accent + '22', color: project.accent }}>
+              <Icon size={30} strokeWidth={1.5} />
+            </div>
+          )}
           <span className="absolute top-3 right-3 text-xs font-bold px-2.5 py-1 rounded-full bg-white/90"
             style={{ color: project.accent }}>
             {project.type}
