@@ -160,3 +160,8 @@ p,
 .text-sm,
 .text-base { font-size: clamp(1.20rem, 1.3vw, 1.40rem); }
 .text-xs   { font-size: 0.9rem; }
+/* Hero heading ko Archivo Black do (andar ke spans samet) */
+.hero-heading,
+.hero-heading * {
+  font-family: 'Archivo Black', sans-serif !important;
+}
