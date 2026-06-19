@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
 @theme {
   /* Verdigris teal → Charcoal Blue (primary) */
   --color-forest-50:  #e8faf8;

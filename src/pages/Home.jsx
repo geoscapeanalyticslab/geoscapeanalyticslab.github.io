@@ -15,7 +15,7 @@ function HeroHeading() {
   const line2 = ['THAT', 'DRIVES', 'IMPACT']
   let idx = 0
   return (
-    <h1 className="font-black text-white leading-none tracking-tight mt-4">
+    <h1 className="font-black text-white leading-none tracking-tight mt-4" style={{ fontFamily: "'Archivo Black', sans-serif" }}>
       <span className="block text-3xl md:text-5xl xl:text-6xl word-reveal">
         {line1.map(w => {
           const d = (idx++ * 0.09).toFixed(2)
