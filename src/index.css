@@ -168,7 +168,7 @@ p,
 /* ─── "What We Do" boxes: globe-color, static, equal height, clean text ─── */
 .feature-card {
   height: 100% !important;                  /* sab boxes barabar height */
-  background: #34596b !important;
+  background: #264653 !important;
   border-color: rgba(255, 255, 255, 0.14) !important;
   transform: none !important;
 }
@@ -178,7 +178,7 @@ p,
 }
 /* ─── Saare card boxes (Research Areas, Team, Blogs, News, Gallery, Projects) → globe-color + clean white text ─── */
 .rounded-2xl.border-gray-100 {
-  background: #34596b !important;            /* globe jaisa dark */
+  background: #264653 !important;            /* globe jaisa dark */
   border-color: rgba(255, 255, 255, 0.14) !important;
 }
 .rounded-2xl.border-gray-100 .text-gray-900,
