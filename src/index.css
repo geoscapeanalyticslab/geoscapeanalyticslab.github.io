@@ -176,3 +176,16 @@ p,
   color: #ffffff !important;
   transform: none !important;
 }
+/* ─── Saare card boxes (Research Areas, Team, Blogs, News, Gallery, Projects) → globe-color + clean white text ─── */
+.rounded-2xl.border-gray-100 {
+  background: #264653 !important;            /* globe jaisa dark */
+  border-color: rgba(255, 255, 255, 0.14) !important;
+}
+.rounded-2xl.border-gray-100 .text-gray-900,
+.rounded-2xl.border-gray-100 .text-gray-700,
+.rounded-2xl.border-gray-100 .text-gray-600,
+.rounded-2xl.border-gray-100 .text-gray-500,
+.rounded-2xl.border-gray-100 .text-gray-400,
+.rounded-2xl.border-gray-100 .text-gray-300 {
+  color: #ffffff !important;                /* card ke andar ka text saaf white */
+}
