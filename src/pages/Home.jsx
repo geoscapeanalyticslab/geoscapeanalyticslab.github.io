@@ -70,11 +70,11 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Scroll cue */}
+        {/* Scroll cue
         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/40">
           <span className="text-[9px] uppercase tracking-widest">Scroll</span>
           <div className="w-px h-8 bg-white/20 relative overflow-hidden scroll-line" />
-        </div>
+        </div> */}
       </section>
 
       {/* ── FEATURE BOXES ── */}
