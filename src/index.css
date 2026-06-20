@@ -165,13 +165,14 @@ p,
 .hero-heading * {
   font-family: 'Archivo Black', sans-serif !important;
 }
-/* ─── "What We Do" boxes: globe-color, static, clean white text ─── */
+/* ─── "What We Do" boxes: globe-color, static, equal height, clean text ─── */
 .feature-card {
-  background: #264653 !important;            /* globe jaisa dark color */
+  height: 100% !important;                  /* sab boxes barabar height */
+  background: #264653 !important;
   border-color: rgba(255, 255, 255, 0.14) !important;
-  transform: none !important;               /* static — hover par move nahi */
+  transform: none !important;
 }
 .feature-card * {
-  color: #ffffff !important;                /* saaf, clear white text + icons */
-  transform: none !important;               /* andar ki cheezein bhi static */
+  color: #ffffff !important;
+  transform: none !important;
 }
