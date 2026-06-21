@@ -26,7 +26,7 @@ export default function Footer() {
   return (
     <footer className="bg-forest-950 text-forest-200">
       <div className="max-w-5xl mx-auto px-6 pt-16 pb-10">
-        <div className="flex flex-col md:flex-row md:justify-between gap-12 pb-10 border-b border-forest-800">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-12 pb-10 border-b border-forest-800">
 
           {/* Brand / contact — left */}
           <div className="max-w-md">
