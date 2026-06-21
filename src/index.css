@@ -189,3 +189,7 @@ p,
 .rounded-2xl.border-gray-100 .text-gray-300 {
   color: #ffffff !important;                /* card ke andar ka text saaf white */
 }
+/* Har "What We Do" box ke andar icon ke peeche barabar sub-box */
+.feature-card .rounded-xl {
+  background: rgba(255, 255, 255, 0.08) !important;
+}
