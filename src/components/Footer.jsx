@@ -35,7 +35,9 @@ export default function Footer() {
               Advancing research and training in GIS, remote sensing, GeoAI, and spatial
               data analytics. Independent research lab based in Lahore, Pakistan.
             </p>
-            <div className="mt-6 space-y-2 text-sm text-forest-300">
+
+            {/* Location, email, website, LinkedIn — sab barabar gap (space-y-3) */}
+            <div className="mt-6 space-y-3 text-sm text-forest-300">
               <div className="flex items-start gap-2.5">
                 <MapPin size={14} className="mt-0.5 shrink-0 text-forest-400" />
                 <span>31°29′38.8″N 74°17′55.3″E — Lahore, Pakistan</span>
@@ -52,13 +54,12 @@ export default function Footer() {
                   geoscapeanalyticslab.github.io
                 </a>
               </div>
+              <a href="https://www.linkedin.com/company/geoscape-analytics-lab-gsal/" target="_blank" rel="noopener noreferrer"
+                className="flex items-center gap-2.5 hover:text-white transition-colors">
+                <LinkedInIcon size={14} />
+                <span>Follow us on LinkedIn</span>
+              </a>
             </div>
-
-            <a href="https://www.linkedin.com/company/geoscape-analytics-lab-gsal/" target="_blank" rel="noopener noreferrer"
-              className="mt-6 inline-flex items-center gap-2 text-sm text-forest-300 hover:text-white transition-colors">
-              <LinkedInIcon size={16} />
-              <span>Follow us on LinkedIn</span>
-            </a>
           </div>
 
           {/* Nav links — right */}
