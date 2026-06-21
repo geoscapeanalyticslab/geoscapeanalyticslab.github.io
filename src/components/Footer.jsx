@@ -63,7 +63,7 @@ export default function Footer() {
           </div>
 
           {/* Nav links — right */}
-          <div className="md:text-right">
+          <div>
             <ul className="space-y-3">
               {links.map(({ to, label }) => (
                 <li key={to}>
