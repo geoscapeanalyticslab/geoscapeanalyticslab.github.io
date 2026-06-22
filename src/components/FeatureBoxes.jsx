@@ -2,14 +2,14 @@ import { useEffect, useRef, useState } from 'react'
 import { Satellite, Globe2, Cpu, Layers, Map, CloudRain, Trees, BarChart3 } from 'lucide-react'
 
 const BOXES = [
-  { id: 'sat', label: 'Satellite\nImaging',   icon: Satellite, accent: '#2a9d8f', speed: 3.2, floatIdx: 0 },
-  { id: 'gee', label: 'Earth\nEngine',         icon: Globe2,    accent: '#264653', speed: 3.8, floatIdx: 1 },
-  { id: 'ai',  label: 'GeoAI',                 icon: Cpu,       accent: '#e76f51', speed: 3.0, floatIdx: 2 },
-  { id: 'lc',  label: 'Land\nCover',           icon: Layers,    accent: '#e9c46a', speed: 4.0, floatIdx: 3 },
-  { id: 'gis', label: 'GIS\nMapping',          icon: Map,       accent: '#2a9d8f', speed: 3.5, floatIdx: 1 },
-  { id: 'cl',  label: 'Climate\nRisk',         icon: CloudRain, accent: '#264653', speed: 2.9, floatIdx: 0 },
-  { id: 'fm',  label: 'Forest\nMapping',       icon: Trees,     accent: '#f4a261', speed: 3.6, floatIdx: 3 },
-  { id: 'sa',  label: 'Spatial\nAnalytics',    icon: BarChart3, accent: '#e76f51', speed: 3.3, floatIdx: 2 },
+  { id: 'sat', label: 'Satellite\nImaging', desc: 'Earth observation from space',       icon: Satellite, accent: '#2a9d8f', speed: 3.2, floatIdx: 0 },
+  { id: 'gee', label: 'Earth\nEngine',      desc: 'Cloud geospatial analysis (GEE)',    icon: Globe2,    accent: '#264653', speed: 3.8, floatIdx: 1 },
+  { id: 'ai',  label: 'GeoAI',              desc: 'AI & deep learning on geodata',      icon: Cpu,       accent: '#e76f51', speed: 3.0, floatIdx: 2 },
+  { id: 'lc',  label: 'Land\nCover',        desc: 'Land use & cover change mapping',    icon: Layers,    accent: '#e9c46a', speed: 4.0, floatIdx: 3 },
+  { id: 'gis', label: 'GIS\nMapping',       desc: 'Mapping, analysis & visualization',  icon: Map,       accent: '#2a9d8f', speed: 3.5, floatIdx: 1 },
+  { id: 'cl',  label: 'Climate\nRisk',      desc: 'Climate & disaster risk assessment', icon: CloudRain, accent: '#264653', speed: 2.9, floatIdx: 0 },
+  { id: 'fm',  label: 'Forest\nMapping',    desc: 'Forest, biomass & biodiversity',     icon: Trees,     accent: '#f4a261', speed: 3.6, floatIdx: 3 },
+  { id: 'sa',  label: 'Spatial\nAnalytics', desc: 'Spatial & statistical modeling',     icon: BarChart3, accent: '#e76f51', speed: 3.3, floatIdx: 2 },
 ]
 
 /* Four distinct float patterns for visual variety */
@@ -59,7 +59,6 @@ function FeatureCard({ box, index }) {
         style={{
           transform:  vis ? 'translateY(0)' : 'translateY(22px) scale(0.95)',
           transition: `transform 0.55s cubic-bezier(0.22,1,0.36,1) ${delay}s`,
-          
         }}
         className="feature-card relative bg-white rounded-2xl border border-gray-100 p-5 flex flex-col items-center text-center gap-3 cursor-default select-none"
       >
@@ -99,13 +98,18 @@ function FeatureCard({ box, index }) {
           <Icon size={38} strokeWidth={1.8} />
         </div>
 
-        {/* Label — pre-line preserves the \n */}
-        <span
-          className="relative z-10 text-base font-bold text-gray-700 leading-snug whitespace-pre-line"
-          style={{ color: hov ? box.accent : undefined, transition: 'color 0.2s' }}
-        >
-          {box.label}
-        </span>
+        {/* Label + description */}
+        <div className="relative z-10 flex flex-col items-center gap-1">
+          <span
+            className="text-base font-bold text-gray-700 leading-snug whitespace-pre-line"
+            style={{ color: hov ? box.accent : undefined, transition: 'color 0.2s' }}
+          >
+            {box.label}
+          </span>
+          <p className="text-xs font-normal leading-snug opacity-80">
+            {box.desc}
+          </p>
+        </div>
       </div>
     </div>
   )
