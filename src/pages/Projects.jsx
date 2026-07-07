@@ -19,7 +19,7 @@ const projects = [
     tagline: 'Interactive Campus Map — University of the Punjab',
     desc: 'An interactive web map of the University of the Punjab (Quaid-e-Azam Campus) showing academic departments, hostels, research centers, libraries and the GeoScape Analytics Lab location.',
     type: 'Web Application',
-    accent: '#2a9d8f',
+    accent: '#2d9462',
     logo: '/Punjab_University_Campus_Map.png',
     url: 'https://huggingface.co/spaces/GEOMEHDI12/punjab_university_map',
   },
@@ -37,7 +37,7 @@ function ProjectCard({ project, index }) {
             <img
               src={project.logo}
               alt={`${project.title} logo`}
-              className="max-h-24 max-w-[75%] object-contain z-10 group-hover:scale-105 transition-transform duration-300"
+              className="max-h-16 max-w-[75%] object-contain z-10 group-hover:scale-105 transition-transform duration-300"
             />
           ) : (
             <div className="w-16 h-16 rounded-2xl flex items-center justify-center z-10 group-hover:scale-110 transition-transform duration-300"
