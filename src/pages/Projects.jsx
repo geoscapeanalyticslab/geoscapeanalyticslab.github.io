@@ -15,6 +15,15 @@ const projects = [
   },
   // Add a new project below as another { ... } block
 ]
+{
+    title: 'PU Campus Map',
+    tagline: 'Interactive Campus Map — University of the Punjab',
+    desc: 'An interactive web map of the University of the Punjab (Quaid-e-Azam Campus) showing academic departments, hostels, research centers, libraries and the GeoScape Analytics Lab location.',
+    type: 'Web Application',
+    accent: '#2a9d8f',
+    logo: '/Punjab_University_Campus_Map.png',
+    url: 'https://huggingface.co/spaces/GEOMEHDI12/punjab_university_map',
+  },
 
 function ProjectCard({ project, index }) {
   const Icon = project.icon

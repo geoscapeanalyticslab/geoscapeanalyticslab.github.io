@@ -15,7 +15,7 @@ export const gallery = [
   {
     section: 'Lab Visits',
     items: [
-      { image:  '', caption: 'University delegation visit' },
+      // { image:  '', caption: 'University delegation visit' },
     ],
   },
     {
