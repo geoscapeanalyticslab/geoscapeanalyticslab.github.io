@@ -107,4 +107,17 @@ export const team = [
     phone: '',
     isVolunteer: true,
   },
+  {
+  id: 'hammad-gilani',
+  name: 'Dr. Hammad Gilani',
+  role: 'Contributor',
+  title: '',
+  photo: '/images/team/hammad-gilani.jpg',
+  bio: '',
+  linkedin: 'https://www.linkedin.com/in/hammad-gilani-7273b9a/',
+  email: 'hammad.gilani@gmail.com',
+  github: '',
+  phone: '+92 333 4383063',
+  isContributor: true,
+  },
 ]
