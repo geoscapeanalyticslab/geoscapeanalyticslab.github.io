@@ -90,7 +90,7 @@ export default function People() {
   <section>
     <ScrollReveal>
       <div className="flex items-center gap-4 mb-8">
-        <span className="text-sm font-bold uppercase tracking-widest text-forest-600">Contributors</span>
+        <span className="text-sm font-bold uppercase tracking-widest text-forest-600">Collaborators</span>
         <div className="flex-1 h-px bg-gray-100" />
       </div>
     </ScrollReveal>
