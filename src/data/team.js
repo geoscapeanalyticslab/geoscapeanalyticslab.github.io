@@ -110,7 +110,7 @@ export const team = [
   {
   id: 'hammad-gilani',
   name: 'Dr. Hammad Gilani',
-  role: 'Contributor',
+  role: 'Collaborator',
   title: '',
   photo: '/images/team/hammad-gilani.jpg',
   bio: '',
