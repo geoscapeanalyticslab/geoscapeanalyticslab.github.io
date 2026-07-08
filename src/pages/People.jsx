@@ -9,7 +9,6 @@ export default function People() {
   const volunteers = team.filter(m => !m.isDirector && m.role === 'Volunteer Researcher')
   const interns    = team.filter(m => !m.isDirector && m.isIntern)
   const members    = team.filter(m => !m.isDirector && m.role !== 'Volunteer Researcher' && !m.isIntern)
-  const contributors = team.filter(m => !m.isDirector && m.role === 'Contributor')
   const contributors = team.filter(m => !m.isDirector && m.isContributor)
 
   return (
