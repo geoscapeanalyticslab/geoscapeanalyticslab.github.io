@@ -112,7 +112,7 @@ export const team = [
   name: 'Raheel Shaukat',
   role: 'Volunteer Researcher',
   title: '',
-  photo: '/images/team/raheel-shaukat.png',
+  photo: '/images/team/raheel-shaukat.jpg',
   bio: '',
   linkedin: 'https://www.linkedin.com/in/raheel-shaukat-b93a79304',
   email: 'mr.raheelshaukat@gmail.com',
