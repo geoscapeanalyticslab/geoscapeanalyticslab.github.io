@@ -117,7 +117,8 @@ export const team = [
   linkedin: 'https://www.linkedin.com/in/raheel-shaukat-b93a79304',
   email: 'mr.raheelshaukat@gmail.com',
   github: 'https://github.com/raheelsha',
-  phone: '',
+  phone: '+92 307 6964439',
+  website: 'https://symptom-insight-map.lovable.app/',
   isVolunteer: true,
   },
   {
