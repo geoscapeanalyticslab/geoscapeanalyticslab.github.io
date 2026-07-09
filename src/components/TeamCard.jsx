@@ -105,7 +105,11 @@ export default function TeamCard({ member, featured = false }) {
             <a href="https://hammadgilani.wordpress.com/" target="_blank" rel="noopener noreferrer" className="hover:text-forest-600 transition-colors">
              {member.name}
             </a>
-         ) : (
+         ) : member.id === 'raheel-shaukat' ? (
+        <a href={member.website} target="_blank" rel="noopener noreferrer" className="hover:text-forest-600 transition-colors">
+        {member.name}
+           </a>
+          ) : (
           member.name
            )}
           </h3>
