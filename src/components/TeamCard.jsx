@@ -100,7 +100,19 @@ export default function TeamCard({ member, featured = false }) {
     <div className="bg-white rounded-2xl border border-gray-100 p-6 flex flex-col hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group">
       <Avatar photo={member.photo} name={member.name} position={member.photoPosition} className="w-20 h-20 mx-auto" />
       <div className="mt-4 text-center flex-1">
-        <h3 className="font-bold text-gray-900 text-base leading-snug">{member.name}</h3>
+        <h3 className="font-bold text-gray-900 text-base leading-snug">
+           {member.id === 'hammad-gilani' ? (
+            <a href="https://hammadgilani.wordpress.com/" target="_blank" rel="noopener noreferrer" className="hover:text-forest-600 transition-colors">
+             {member.name}
+            </a>
+         ) : member.id === 'raheel-shaukat' ? (
+        <a href={member.website} target="_blank" rel="noopener noreferrer" className="hover:text-forest-600 transition-colors">
+        {member.name}
+           </a>
+          ) : (
+          member.name
+           )}
+          </h3>
         <p className="text-gray-500 text-xs font-normal mt-1">{member.role}</p>
         <p className="text-gray-400 text-xs mt-2 leading-relaxed">{member.bio}</p>
       </div>
