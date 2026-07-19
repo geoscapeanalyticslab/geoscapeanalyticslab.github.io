@@ -127,6 +127,7 @@ export const team = [
   role: 'Collaborator',
   title: '',
   photo: '/images/team/hammad-gilani.jpg',
+  photoPosition: '50% 25%',
   bio: '',
   linkedin: 'https://www.linkedin.com/in/hammad-gilani-7273b9a/',
   email: 'hammad.gilani@gmail.com',
