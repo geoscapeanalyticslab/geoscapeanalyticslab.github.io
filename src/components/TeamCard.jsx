@@ -50,7 +50,7 @@ export default function TeamCard({ member, featured = false }) {
         </div>
         <div className="flex-1 p-8">
           <span className="inline-block text-xs font-bold uppercase tracking-widest text-forest-600 bg-forest-50 px-3 py-1 rounded-full mb-3">
-            Lab Director
+            Lab Incharge
           </span>
           <h3 className="text-2xl font-bold text-gray-900">
             <a href="https://adeelpu.github.io/" target="_blank" rel="noopener noreferrer" className="hover:text-forest-600 transition-colors">
