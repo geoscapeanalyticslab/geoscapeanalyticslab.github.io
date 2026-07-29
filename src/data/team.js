@@ -2,8 +2,8 @@ export const team = [
   {
     id: 'adeel-ahmad',
     name: 'Dr. Adeel Ahmad',
-    title: 'Director GSAL, Assistant Professor (PU, Geography)',
-    role: 'Lab Director',
+    title: 'Incharge GSAL, Assistant Professor (PU, Geography)',
+    role: 'Lab Incharge',
     photo: '/images/team/adeel-ahmad.jpg',
     bio: '',
     linkedin: 'https://www.linkedin.com/in/adeel-ahmad-gis/',
