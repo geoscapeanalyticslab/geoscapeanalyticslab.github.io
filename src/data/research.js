@@ -76,8 +76,19 @@ export const focusAreas = [
   'Capacity building in GIS and remote sensing',
 ]
 
+// Each tool: { name, logo }. `logo` can be a CDN URL or a local file in public/logos/.
+// If a logo image fails to load (or logo is ''), the pill gracefully shows just the name.
 export const tools = [
-  'Google Earth Engine', 'ArcGIS Pro', 'QGIS', 'Python', 'R',
-  'PyTorch', 'TensorFlow', 'Sentinel-1 / 2', 'Landsat', 'MODIS',
-  'LiDAR', 'SAR', 'MaxEnt', 'Random Forest', 'U-Net', 'Google Colab',
+  { name: 'Google Earth Engine', logo: 'https://cdn.jsdelivr.net/npm/simple-icons/icons/googleearthengine.svg' },
+  { name: 'ArcGIS Pro',          logo: 'https://cdn.jsdelivr.net/npm/simple-icons/icons/arcgis.svg' },
+  { name: 'QGIS',                logo: 'https://cdn.jsdelivr.net/npm/simple-icons/icons/qgis.svg' },
+  { name: 'Python',              logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
+  { name: 'R',                   logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/r/r-original.svg' },
+  { name: 'PyTorch',             logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg' },
+  { name: 'TensorFlow',          logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg' },
+  { name: 'Sentinel-1 / 2',      logo: '/logos/sentinel.png' },
+  { name: 'Landsat',             logo: '/logos/landsat.png' },
+  { name: 'MODIS',               logo: '/logos/modis.png' },
+  { name: 'LiDAR',               logo: '' },
+  { name: 'SAR',                 logo: '' },
 ]

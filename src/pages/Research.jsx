@@ -122,9 +122,18 @@ export default function Research() {
         <ScrollReveal delay={0.1}>
           <div className="flex flex-wrap justify-center gap-2.5">
             {tools.map(tool => (
-              <span key={tool}
-                className="px-4 py-2 bg-white border border-gray-200 rounded-full text-sm font-medium text-gray-700 hover:border-forest-400 hover:text-forest-700 transition-colors cursor-default">
-                {tool}
+              <span key={tool.name}
+                className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-full text-sm font-medium text-gray-700 hover:border-forest-400 hover:text-forest-700 transition-colors cursor-default">
+                {tool.logo && (
+                  <img
+                    src={tool.logo}
+                    alt=""
+                    loading="lazy"
+                    className="w-5 h-5 object-contain shrink-0"
+                    onError={e => { e.currentTarget.style.display = 'none' }}
+                  />
+                )}
+                {tool.name}
               </span>
             ))}
           </div>
