@@ -3,6 +3,7 @@ import ScrollReveal from '../components/ScrollReveal'
 import { PageHeader } from './Research'
 
 const projects = [
+  /* ── Projects temporarily hidden — will be shown again later ──
   {
     title: 'GeoDROP',
     tagline: 'Open Geospatial Data Repository for Pakistan',
@@ -23,6 +24,7 @@ const projects = [
     logo: '/Punjab_University_Campus_Map.png',
     url: 'https://huggingface.co/spaces/GEOMEHDI12/punjab_university_map',
   },
+  ── end hidden projects ── */
 ]
 
 
@@ -87,9 +89,24 @@ export default function Projects() {
           </div>
         </ScrollReveal>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {projects.map((p, i) => <ProjectCard key={p.title} project={p} index={i} />)}
-        </div>
+        {projects.length > 0 ? (
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {projects.map((p, i) => <ProjectCard key={p.title} project={p} index={i} />)}
+          </div>
+        ) : (
+          <ScrollReveal>
+            <div className="rounded-2xl border border-dashed border-gray-200 bg-gray-50 py-24 px-6 text-center">
+              <div className="w-14 h-14 rounded-2xl bg-forest-50 border border-forest-100 flex items-center justify-center text-forest-600 mx-auto mb-5">
+                <Database size={24} strokeWidth={1.5} />
+              </div>
+              <h3 className="text-2xl font-black text-gray-900">Projects Coming Soon</h3>
+              <p className="text-gray-500 text-sm mt-3 max-w-md mx-auto leading-relaxed">
+                We're currently building and preparing our projects. New geospatial tools,
+                platforms, and web applications will be added here soon.
+              </p>
+            </div>
+          </ScrollReveal>
+        )}
       </section>
     </div>
   )
