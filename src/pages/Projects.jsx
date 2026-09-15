@@ -2,7 +2,14 @@ import { ExternalLink, Database } from 'lucide-react'
 import ScrollReveal from '../components/ScrollReveal'
 import { PageHeader } from './Research'
 
+// ============================================================================
+// ALL PROJECTS ARE COMMENTED OUT — the Projects page shows no cards right now.
+// To bring one back live: move its { ... } block OUT of its /* ... */ comment
+// (delete that block's opening and closing comment marker lines).
+// ============================================================================
 const projects = [
+
+  /* ===== GeoDROP — to go live, delete this line and the closing comment line below =====
   {
     title: 'GeoDROP',
     tagline: 'Open Geospatial Data Repository for Pakistan',
@@ -13,7 +20,9 @@ const projects = [
     logo: '/GeoDROP-Logo_Transparent.png',
     url: 'https://geoscapeanalyticslab.github.io/GeoDROP/',
   },
-  // Add a new project below as another { ... } block
+  ===== end GeoDROP ===== */
+
+  /* ===== PU Campus Map — to go live, delete this line and the closing comment line below =====
   {
     title: 'PU Campus Map',
     tagline: 'Interactive Campus Map — University of the Punjab',
@@ -23,6 +32,7 @@ const projects = [
     logo: '/Punjab_University_Campus_Map.png',
     url: 'https://huggingface.co/spaces/GEOMEHDI12/punjab_university_map',
   },
+  ===== end PU Campus Map ===== */
 
   /* ===== GRIPS — launching tomorrow. TO GO LIVE: delete this line and the closing comment line below. =====
   {
@@ -35,6 +45,7 @@ const projects = [
     url: 'https://geoscapeanalyticslab.github.io/GRIPS/',   // <-- confirm final URL
   },
   ===== end GRIPS ===== */
+
 ]
 
 
@@ -92,16 +103,31 @@ export default function Projects() {
       />
 
       <section className="max-w-7xl mx-auto px-6 py-20">
-        <ScrollReveal>
-          <div className="flex items-center gap-4 mb-8">
-            <span className="text-sm font-bold uppercase tracking-widest text-forest-600">Web Applications</span>
-            <div className="flex-1 h-px bg-gray-100" />
-          </div>
-        </ScrollReveal>
+        {projects.length > 0 ? (
+          <>
+            <ScrollReveal>
+              <div className="flex items-center gap-4 mb-8">
+                <span className="text-sm font-bold uppercase tracking-widest text-forest-600">Web Applications</span>
+                <div className="flex-1 h-px bg-gray-100" />
+              </div>
+            </ScrollReveal>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {projects.map((p, i) => <ProjectCard key={p.title} project={p} index={i} />)}
-        </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {projects.map((p, i) => <ProjectCard key={p.title} project={p} index={i} />)}
+            </div>
+          </>
+        ) : (
+          <ScrollReveal>
+            <div className="text-center py-24">
+              <h2 className="text-3xl sm:text-4xl font-black text-gray-900">Our Work</h2>
+              <p className="text-forest-700 font-semibold mt-3 text-lg">Coming soon</p>
+              <p className="text-gray-500 mt-4 max-w-2xl mx-auto leading-relaxed">
+                We're putting the finishing touches on our geospatial tools and platforms.
+                Check back shortly to explore the applications built at GeoScape Analytics Lab.
+              </p>
+            </div>
+          </ScrollReveal>
+        )}
       </section>
     </div>
   )
