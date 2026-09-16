@@ -34,17 +34,15 @@ const projects = [
   },
   ===== end PU Campus Map ===== */
 
-  /* ===== GRIPS — launching tomorrow. TO GO LIVE: delete this line and the closing comment line below. =====
   {
     title: 'GRIPS',
-    tagline: 'Geospatial Research & Information Platform System',   // <-- confirm exact full name/tagline
-    desc: 'GRIPS is a web platform developed at GSAL for geospatial research and information access. Update this description with the finalized project summary before launch.',   // <-- confirm description
+    tagline: 'Geospatial Research Index of Pakistan Studies',
+    desc: 'A free literature-discovery tool for Pakistan-focused GIS, remote sensing, earth & environmental science, geography and space science research. Search live results from open academic databases by keyword and year, locked to Pakistan-specific studies by default.',
     type: 'Web Application',
     accent: '#2d9462',
-    icon: Database,   // shows the database icon; swap for a logo by adding e.g. logo: '/GRIPS-Logo.png'
-    url: 'https://geoscapeanalyticslab.github.io/GRIPS/',   // <-- confirm final URL
+    icon: Database,
+    url: 'https://grips-gsal.netlify.app/',
   },
-  ===== end GRIPS ===== */
 
 ]
 
