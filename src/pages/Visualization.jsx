@@ -84,7 +84,6 @@ export default function Visualization() {
   const playerRef = useRef(null)
   const videoRef = useRef(null)
   const [isFullscreen, setIsFullscreen] = useState(false)
-  const [isBuffering, setIsBuffering] = useState(false)
   const [isPlaying, setIsPlaying] = useState(false)
   const [isMuted, setIsMuted] = useState(false)
   const [hasAudio, setHasAudio] = useState(true)
@@ -103,7 +102,7 @@ export default function Visualization() {
     const video = videoRef.current
     if (!video) return
     if (video.paused || video.ended) {
-      video.play().catch(() => setIsBuffering(false))
+      video.play().catch(() => setIsPlaying(false))
     } else {
       video.pause()
     }
@@ -208,16 +207,9 @@ export default function Visualization() {
                     playsInline
                     preload="metadata"
                     onClick={e => e.stopPropagation()}
-                    onLoadStart={() => setIsBuffering(true)}
-                    onWaiting={() => setIsBuffering(true)}
-                    onStalled={() => setIsBuffering(true)}
-                    onSeeking={() => setIsBuffering(true)}
-                    onCanPlay={() => setIsBuffering(false)}
-                    onPlaying={() => { setIsBuffering(false); setIsPlaying(true) }}
-                    onPause={() => { setIsBuffering(false); setIsPlaying(false) }}
-                    onSeeked={() => setIsBuffering(false)}
-                    onEnded={() => { setIsBuffering(false); setIsPlaying(false) }}
-                    onError={() => setIsBuffering(false)}
+                    onPlaying={() => setIsPlaying(true)}
+                    onPause={() => setIsPlaying(false)}
+                    onEnded={() => setIsPlaying(false)}
                     onLoadedMetadata={onLoadedMetadata}
                     onTimeUpdate={onTimeUpdate}
                     onVolumeChange={onVolumeChange}
@@ -227,13 +219,7 @@ export default function Visualization() {
                     <a href="/videos/GRACE_Viz.mp4" download>Download the video</a>
                   </video>
 
-                  {isBuffering && (
-                    <div className="absolute inset-0 z-[5] pointer-events-none flex items-center justify-center">
-                      <span className="w-11 h-11 rounded-full border-[3px] border-white/25 border-t-forest-300 border-r-forest-400 animate-spin" />
-                    </div>
-                  )}
-
-                  {!isPlaying && !isBuffering && (
+                  {!isPlaying && (
                     <div className="absolute inset-0 z-[5] pointer-events-none flex items-center justify-center">
                       <span className="flex items-center justify-center w-16 h-16 rounded-full bg-black/45 text-white backdrop-blur-sm">
                         <Play size={26} strokeWidth={2} fill="currentColor" className="ml-1" />
