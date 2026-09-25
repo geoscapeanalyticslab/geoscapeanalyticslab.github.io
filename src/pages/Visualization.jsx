@@ -161,7 +161,7 @@ export default function Visualization() {
                 <div className="flex flex-wrap gap-1.5 mt-6">
                   {VIDEO_TAGS.map(tag => (
                     <span key={tag}
-                      className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-white/10 text-white border border-white/15">
+                      className="text-[11px] font-bold px-3 py-1 rounded-full bg-white/10 text-white border border-white/15">
                       {tag}
                     </span>
                   ))}
