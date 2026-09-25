@@ -79,7 +79,7 @@ function ProjectCard({ project, index }) {
               {project.title}
             </a>
           </h3>
-          <p className="text-forest-800 text-base font-bold mt-1">{project.tagline}</p>
+          <p className="text-white font-semibold mt-1">{project.tagline}</p>
           <p className="text-gray-500 text-sm mt-3 leading-relaxed flex-1">{project.desc}</p>
           <a href={project.url} target="_blank" rel="noopener noreferrer"
             className="mt-5 w-full py-2.5 rounded-xl font-bold flex items-center justify-center gap-2 text-sm transition-all hover:opacity-90"

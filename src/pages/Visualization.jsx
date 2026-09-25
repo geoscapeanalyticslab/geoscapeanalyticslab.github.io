@@ -176,21 +176,23 @@ export default function Visualization() {
                   ))}
                 </div>
 
-                <dl className="mt-7 rounded-xl bg-white/5 border border-white/10 divide-y divide-white/10 overflow-hidden">
-                  {VIDEO_SPECS.map(row => (
-                    <div key={row.k} className="px-4 py-2.5 flex gap-3">
-                      <dt className="w-24 shrink-0 text-xs font-black uppercase tracking-wide text-forest-300">
-                        {row.k}
-                      </dt>
-                      <dd className="text-xs leading-relaxed text-gray-200">{row.v}</dd>
-                    </div>
-                  ))}
-                </dl>
+                <div className="mt-7 max-w-md">
+                  <dl className="rounded-xl bg-white/5 border border-white/10 divide-y divide-white/10 overflow-hidden">
+                    {VIDEO_SPECS.map(row => (
+                      <div key={row.k} className="px-4 py-2 flex gap-3">
+                        <dt className="w-20 shrink-0 text-xs font-black uppercase tracking-wide text-forest-300">
+                          {row.k}
+                        </dt>
+                        <dd className="text-xs leading-relaxed text-gray-200">{row.v}</dd>
+                      </div>
+                    ))}
+                  </dl>
 
-                <div className="mt-5 space-y-1.5">
-                  {VIDEO_CREDITS.map(line => (
-                    <p key={line} className="text-[11px] leading-relaxed text-forest-300/70">{line}</p>
-                  ))}
+                  <div className="mt-4 space-y-1.5">
+                    {VIDEO_CREDITS.map(line => (
+                      <p key={line} className="text-xs leading-relaxed text-forest-300/70">{line}</p>
+                    ))}
+                  </div>
                 </div>
               </div>
 
