@@ -38,13 +38,6 @@ const VIZ = [
   },
 ]
 
-const VIDEO_TAGS = [
-  'GRACE / GRACE-FO',
-  '2002 – present',
-  'Annual mean',
-  'Asia',
-]
-
 const VIDEO_CREDITS = [
   'Data: NASA JPL GRACE/GRACE-FO Mascon CRI RL06.3Mv04 (doi:10.5067/TEMSC-3JC634)',
   'Anomalies relative to the 2004–2009 mean. Night lights: NASA Black Marble 2016. Boundaries: Natural Earth 1:10m.',
@@ -157,15 +150,6 @@ export default function Visualization() {
                   Annual mean estimates of how much water is stored on and beneath Asia&rsquo;s land
                   surface, measured from space since 2002 using GRACE and GRACE-FO satellite gravimetry.
                 </p>
-
-                <div className="flex flex-wrap gap-1.5 mt-6">
-                  {VIDEO_TAGS.map(tag => (
-                    <span key={tag}
-                      className="text-[11px] font-bold px-3 py-1 rounded-full bg-white/10 text-white border border-white/15">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
 
                 <div className="mt-5 max-w-md space-y-1.5">
                   {VIDEO_CREDITS.map(line => (
