@@ -37,6 +37,18 @@ const VIZ = [
   },
 ]
 
+const VIDEO_TAGS = [
+  'GRACE / GRACE-FO',
+  '2002 – present',
+  'Annual mean',
+  'Asia',
+]
+
+const VIDEO_CREDITS = [
+  'Data: NASA JPL GRACE/GRACE-FO Mascon CRI RL06.3Mv04 (doi:10.5067/TEMSC-3JC634)',
+  'Anomalies relative to the 2004–2009 mean. Night lights: NASA Black Marble 2016. Boundaries: Natural Earth 1:10m.',
+]
+
 function VizCard({ item, index }) {
   const Icon = item.icon
   return (
@@ -107,11 +119,62 @@ export default function Visualization() {
       </section>
       */}
 
+      {/* ── GRACE / GRACE-FO visualization video ── */}
+      <section className="max-w-5xl mx-auto px-6 pb-20">
+        <ScrollReveal>
+          <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm">
+            <div className="px-6 pt-6 pb-5">
+              <span className="text-xs font-bold uppercase tracking-widest text-forest-600">
+                Satellite Gravimetry
+              </span>
+              <h2 className="text-2xl md:text-3xl font-black text-gray-900 mt-2 leading-tight">
+                Terrestrial Water Storage Anomaly over Asia
+              </h2>
+              <p className="text-gray-500 text-sm mt-3 max-w-2xl leading-relaxed">
+                Annual mean estimates of how much water is stored on and beneath Asia&rsquo;s land
+                surface, measured from space since 2002 using GRACE and GRACE-FO satellite gravimetry.
+              </p>
+            </div>
+
+            <div className="px-6">
+              <div className="rounded-xl overflow-hidden bg-black aspect-video">
+                <video
+                  className="w-full h-full"
+                  src="/videos/GRACE_Viz.mp4"
+                  controls
+                  playsInline
+                  preload="metadata"
+                  aria-label="GRACE and GRACE-FO terrestrial water storage anomaly over Asia"
+                >
+                  Your browser does not support embedded video.{' '}
+                  <a href="/videos/GRACE_Viz.mp4" download>Download the video</a>
+                </video>
+              </div>
+            </div>
+
+            <div className="px-6 py-5 flex flex-wrap items-center gap-2">
+              {VIDEO_TAGS.map(tag => (
+                <span key={tag}
+                  className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-forest-50 text-forest-700 border border-forest-100">
+                  {tag}
+                </span>
+              ))}
+            </div>
+
+            <div className="px-6 pb-6 space-y-1.5">
+              {VIDEO_CREDITS.map(line => (
+                <p key={line} className="text-[11px] leading-relaxed text-gray-400">{line}</p>
+              ))}
+            </div>
+          </div>
+        </ScrollReveal>
+      </section>
+
       {/* Coming soon placeholder */}
-      <section className="max-w-3xl mx-auto px-6 py-28 text-center">
+      <section className="max-w-3xl mx-auto px-6 py-20 text-center">
         <ScrollReveal>
           <span className="text-xs font-bold uppercase tracking-widest text-forest-600">Coming Soon</span>
-          <h2 className="text-3xl md:text-4xl font-black text-gray-900 mt-3">Visualizations On the Way</h2>
+          <h2 className="text-3xl md:text-4xl font-black text-gray-900 mt-3">More Visualizations On the Way</h2>
           <p className="text-gray-500 mt-5 max-w-lg mx-auto leading-relaxed">
             Interactive maps, GEE apps, and geospatial dashboards from our research will be
             published here soon. Check back shortly.
