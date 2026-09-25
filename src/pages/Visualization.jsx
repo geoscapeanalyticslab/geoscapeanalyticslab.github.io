@@ -38,11 +38,6 @@ const VIZ = [
   },
 ]
 
-const VIDEO_CREDITS = [
-  'Data: NASA JPL GRACE/GRACE-FO Mascon CRI RL06.3Mv04 (doi:10.5067/TEMSC-3JC634)',
-  'Anomalies relative to the 2004–2009 mean. Night lights: NASA Black Marble 2016. Boundaries: Natural Earth 1:10m.',
-]
-
 function VizCard({ item, index }) {
   const Icon = item.icon
   return (
@@ -151,12 +146,6 @@ export default function Visualization() {
                   Annual mean estimates of how much water is stored on and beneath Asia&rsquo;s land
                   surface, measured from space since 2002 using GRACE and GRACE-FO satellite gravimetry.
                 </p>
-
-                <div className="mt-5 max-w-md space-y-1.5">
-                  {VIDEO_CREDITS.map(line => (
-                    <p key={line} className="text-xs leading-relaxed text-forest-300/70">{line}</p>
-                  ))}
-                </div>
               </div>
 
               {/* Video column */}
