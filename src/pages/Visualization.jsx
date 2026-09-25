@@ -45,15 +45,6 @@ const VIDEO_TAGS = [
   'Asia',
 ]
 
-const VIDEO_SPECS = [
-  { k: 'Dataset', v: 'NASA JPL GRACE/GRACE-FO Mascon CRI RL06.3Mv04' },
-  { k: 'Satellites', v: 'GRACE (2002–2017) · GRACE-FO (2018–present), twin-satellite gravimetry' },
-  { k: 'Method', v: 'Monthly mass change solved to 300 km grids, averaged annually' },
-  { k: 'Baseline', v: 'Anomalies relative to the 2004–2009 mean' },
-  { k: 'Region', v: 'Asia — land surface and subsurface water storage' },
-  { k: 'DOI', v: '10.5067/TEMSC-3JC634' },
-]
-
 const VIDEO_CREDITS = [
   'Data: NASA JPL GRACE/GRACE-FO Mascon CRI RL06.3Mv04 (doi:10.5067/TEMSC-3JC634)',
   'Anomalies relative to the 2004–2009 mean. Night lights: NASA Black Marble 2016. Boundaries: Natural Earth 1:10m.',
@@ -176,23 +167,10 @@ export default function Visualization() {
                   ))}
                 </div>
 
-                <div className="mt-7 max-w-md">
-                  <dl className="rounded-xl bg-white/5 border border-white/10 divide-y divide-white/10 overflow-hidden">
-                    {VIDEO_SPECS.map(row => (
-                      <div key={row.k} className="px-4 py-2 flex gap-3">
-                        <dt className="w-20 shrink-0 text-xs font-black uppercase tracking-wide text-forest-300">
-                          {row.k}
-                        </dt>
-                        <dd className="text-xs leading-relaxed text-gray-200">{row.v}</dd>
-                      </div>
-                    ))}
-                  </dl>
-
-                  <div className="mt-4 space-y-1.5">
-                    {VIDEO_CREDITS.map(line => (
-                      <p key={line} className="text-xs leading-relaxed text-forest-300/70">{line}</p>
-                    ))}
-                  </div>
+                <div className="mt-5 max-w-md space-y-1.5">
+                  {VIDEO_CREDITS.map(line => (
+                    <p key={line} className="text-xs leading-relaxed text-forest-300/70">{line}</p>
+                  ))}
                 </div>
               </div>
 
