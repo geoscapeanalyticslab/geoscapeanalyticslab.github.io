@@ -81,6 +81,7 @@ function VizCard({ item, index }) {
 export default function Visualization() {
   const playerRef = useRef(null)
   const [isFullscreen, setIsFullscreen] = useState(false)
+  const [isBuffering, setIsBuffering] = useState(false)
 
   useEffect(() => {
     const onChange = () => {
@@ -167,11 +168,30 @@ export default function Visualization() {
                     controls
                     playsInline
                     preload="metadata"
+                    style={{ accentColor: '#58ccbf' }}
+                    onLoadStart={() => setIsBuffering(true)}
+                    onWaiting={() => setIsBuffering(true)}
+                    onStalled={() => setIsBuffering(true)}
+                    onCanPlay={() => setIsBuffering(false)}
+                    onPlaying={() => setIsBuffering(false)}
+                    onSeeked={() => setIsBuffering(false)}
+                    onPause={() => setIsBuffering(false)}
+                    onEnded={() => setIsBuffering(false)}
+                    onError={() => setIsBuffering(false)}
                     aria-label="GRACE and GRACE-FO terrestrial water storage anomaly over Asia"
                   >
                     Your browser does not support embedded video.{' '}
                     <a href="/videos/GRACE_Viz.mp4" download>Download the video</a>
                   </video>
+
+                  {isBuffering && (
+                    <div className="absolute inset-0 z-[5] pointer-events-none flex flex-col items-center justify-center gap-3 bg-black/30">
+                      <span className="w-11 h-11 rounded-full border-[3px] border-white/25 border-t-forest-300 border-r-forest-400 animate-spin" />
+                      <span className="text-[11px] font-bold uppercase tracking-widest text-forest-300 drop-shadow">
+                        Buffering
+                      </span>
+                    </div>
+                  )}
 
                   <button
                     onClick={toggleFullscreen}
