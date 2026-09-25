@@ -158,10 +158,10 @@ export default function Visualization() {
                   surface, measured from space since 2002 using GRACE and GRACE-FO satellite gravimetry.
                 </p>
 
-                <div className="flex flex-wrap gap-2 mt-6">
+                <div className="flex flex-wrap gap-1.5 mt-6">
                   {VIDEO_TAGS.map(tag => (
                     <span key={tag}
-                      className="text-sm font-bold px-3.5 py-1.5 rounded-full bg-white/10 text-white border border-white/15">
+                      className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-white/10 text-white border border-white/15">
                       {tag}
                     </span>
                   ))}
