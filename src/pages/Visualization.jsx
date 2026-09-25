@@ -149,77 +149,81 @@ export default function Visualization() {
       */}
 
       {/* ── GRACE / GRACE-FO visualization video ── */}
-      <section className="max-w-xl mx-auto px-6 pb-20">
-        <ScrollReveal>
-          <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm">
-            <div className="px-6 pt-6 pb-5">
-              <span className="text-xs font-black uppercase tracking-widest text-forest-800">
-                Satellite Gravimetry
-              </span>
-              <h2 className="text-2xl font-black text-gray-900 mt-2 leading-tight">
-                Terrestrial Water Storage Anomaly over Asia
-              </h2>
-              <p className="text-gray-500 text-sm mt-3 leading-relaxed">
-                Annual mean estimates of how much water is stored on and beneath Asia&rsquo;s land
-                surface, measured from space since 2002 using GRACE and GRACE-FO satellite gravimetry.
-              </p>
-            </div>
+      <section className="bg-forest-950 py-20">
+        <div className="max-w-7xl mx-auto px-6">
+          <ScrollReveal>
+            <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-start">
 
-            <div className="px-6 pb-2 flex justify-center">
-              <div ref={playerRef} className="relative w-full max-w-sm rounded-xl overflow-hidden bg-black aspect-video group/player [&:fullscreen]:max-w-none [&:fullscreen]:rounded-none [&:fullscreen]:aspect-auto [&:fullscreen]:bg-black">
-                <video
-                  className="w-full h-full object-contain"
-                  src="/videos/GRACE_Viz.mp4"
-                  controls
-                  playsInline
-                  preload="metadata"
-                  aria-label="GRACE and GRACE-FO terrestrial water storage anomaly over Asia"
-                >
-                  Your browser does not support embedded video.{' '}
-                  <a href="/videos/GRACE_Viz.mp4" download>Download the video</a>
-                </video>
-
-                <button
-                  onClick={toggleFullscreen}
-                  aria-label={isFullscreen ? 'Exit full screen' : 'Play full screen'}
-                  className="absolute bottom-2 right-2 z-10 flex items-center justify-center w-9 h-9 rounded-full bg-black/55 text-white backdrop-blur-sm hover:bg-forest-700 transition-colors"
-                >
-                  {isFullscreen
-                    ? <Minimize2 size={16} strokeWidth={2} />
-                    : <Maximize2 size={16} strokeWidth={2} />}
-                </button>
-              </div>
-            </div>
-
-            <div className="px-6 py-4 flex flex-wrap items-center justify-center gap-2">
-              {VIDEO_TAGS.map(tag => (
-                <span key={tag}
-                  className="text-sm font-bold px-3.5 py-1.5 rounded-full bg-forest-50 text-forest-800 border border-forest-100">
-                  {tag}
+              {/* Text column */}
+              <div>
+                <span className="text-xs font-black uppercase tracking-widest text-forest-300">
+                  Satellite Gravimetry
                 </span>
-              ))}
-            </div>
+                <h2 className="text-3xl font-black text-white mt-3 leading-tight">
+                  Terrestrial Water Storage Anomaly over Asia
+                </h2>
+                <p className="text-forest-200 text-sm mt-4 leading-relaxed">
+                  Annual mean estimates of how much water is stored on and beneath Asia&rsquo;s land
+                  surface, measured from space since 2002 using GRACE and GRACE-FO satellite gravimetry.
+                </p>
 
-            <div className="px-6 pb-5">
-              <dl className="rounded-xl bg-gray-50 border border-gray-100 divide-y divide-gray-100">
-                {VIDEO_SPECS.map(row => (
-                  <div key={row.k} className="px-4 py-2.5 flex gap-3">
-                    <dt className="w-24 shrink-0 text-xs font-black uppercase tracking-wide text-forest-800">
-                      {row.k}
-                    </dt>
-                    <dd className="text-xs leading-relaxed text-gray-600">{row.v}</dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
+                <div className="flex flex-wrap gap-2 mt-6">
+                  {VIDEO_TAGS.map(tag => (
+                    <span key={tag}
+                      className="text-sm font-bold px-3.5 py-1.5 rounded-full bg-white/10 text-white border border-white/15">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
 
-            <div className="px-6 pb-6 space-y-1.5">
-              {VIDEO_CREDITS.map(line => (
-                <p key={line} className="text-[11px] leading-relaxed text-gray-400">{line}</p>
-              ))}
+                <dl className="mt-7 rounded-xl bg-white/5 border border-white/10 divide-y divide-white/10 overflow-hidden">
+                  {VIDEO_SPECS.map(row => (
+                    <div key={row.k} className="px-4 py-2.5 flex gap-3">
+                      <dt className="w-24 shrink-0 text-xs font-black uppercase tracking-wide text-forest-300">
+                        {row.k}
+                      </dt>
+                      <dd className="text-xs leading-relaxed text-gray-200">{row.v}</dd>
+                    </div>
+                  ))}
+                </dl>
+
+                <div className="mt-5 space-y-1.5">
+                  {VIDEO_CREDITS.map(line => (
+                    <p key={line} className="text-[11px] leading-relaxed text-forest-300/70">{line}</p>
+                  ))}
+                </div>
+              </div>
+
+              {/* Video column */}
+              <div className="w-full">
+                <div ref={playerRef} className="relative w-full rounded-xl overflow-hidden bg-black aspect-video shadow-xl group/player [&:fullscreen]:max-w-none [&:fullscreen]:rounded-none [&:fullscreen]:aspect-auto [&:fullscreen]:bg-black">
+                  <video
+                    className="w-full h-full object-contain"
+                    src="/videos/GRACE_Viz.mp4"
+                    controls
+                    playsInline
+                    preload="metadata"
+                    aria-label="GRACE and GRACE-FO terrestrial water storage anomaly over Asia"
+                  >
+                    Your browser does not support embedded video.{' '}
+                    <a href="/videos/GRACE_Viz.mp4" download>Download the video</a>
+                  </video>
+
+                  <button
+                    onClick={toggleFullscreen}
+                    aria-label={isFullscreen ? 'Exit full screen' : 'Play full screen'}
+                    className="absolute bottom-2 right-2 z-10 flex items-center justify-center w-9 h-9 rounded-full bg-black/55 text-white backdrop-blur-sm hover:bg-forest-700 transition-colors"
+                  >
+                    {isFullscreen
+                      ? <Minimize2 size={16} strokeWidth={2} />
+                      : <Maximize2 size={16} strokeWidth={2} />}
+                  </button>
+                </div>
+              </div>
+
             </div>
-          </div>
-        </ScrollReveal>
+          </ScrollReveal>
+        </div>
       </section>
 
       {/* Coming soon placeholder */}
