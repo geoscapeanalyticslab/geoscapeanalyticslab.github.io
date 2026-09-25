@@ -45,6 +45,15 @@ const VIDEO_TAGS = [
   'Asia',
 ]
 
+const VIDEO_SPECS = [
+  { k: 'Dataset', v: 'NASA JPL GRACE/GRACE-FO Mascon CRI RL06.3Mv04' },
+  { k: 'Satellites', v: 'GRACE (2002–2017) · GRACE-FO (2018–present), twin-satellite gravimetry' },
+  { k: 'Method', v: 'Monthly mass change solved to 300 km grids, averaged annually' },
+  { k: 'Baseline', v: 'Anomalies relative to the 2004–2009 mean' },
+  { k: 'Region', v: 'Asia — land surface and subsurface water storage' },
+  { k: 'DOI', v: '10.5067/TEMSC-3JC634' },
+]
+
 const VIDEO_CREDITS = [
   'Data: NASA JPL GRACE/GRACE-FO Mascon CRI RL06.3Mv04 (doi:10.5067/TEMSC-3JC634)',
   'Anomalies relative to the 2004–2009 mean. Night lights: NASA Black Marble 2016. Boundaries: Natural Earth 1:10m.',
@@ -140,17 +149,17 @@ export default function Visualization() {
       */}
 
       {/* ── GRACE / GRACE-FO visualization video ── */}
-      <section className="max-w-5xl mx-auto px-6 pb-20">
+      <section className="max-w-xl mx-auto px-6 pb-20">
         <ScrollReveal>
           <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm">
             <div className="px-6 pt-6 pb-5">
-              <span className="text-xs font-bold uppercase tracking-widest text-forest-600">
+              <span className="text-xs font-black uppercase tracking-widest text-forest-800">
                 Satellite Gravimetry
               </span>
-              <h2 className="text-2xl md:text-3xl font-black text-gray-900 mt-2 leading-tight">
+              <h2 className="text-2xl font-black text-gray-900 mt-2 leading-tight">
                 Terrestrial Water Storage Anomaly over Asia
               </h2>
-              <p className="text-gray-500 text-sm mt-3 max-w-2xl leading-relaxed">
+              <p className="text-gray-500 text-sm mt-3 leading-relaxed">
                 Annual mean estimates of how much water is stored on and beneath Asia&rsquo;s land
                 surface, measured from space since 2002 using GRACE and GRACE-FO satellite gravimetry.
               </p>
@@ -182,13 +191,26 @@ export default function Visualization() {
               </div>
             </div>
 
-            <div className="px-6 py-5 flex flex-wrap items-center justify-center gap-2.5">
+            <div className="px-6 py-4 flex flex-wrap items-center justify-center gap-2">
               {VIDEO_TAGS.map(tag => (
                 <span key={tag}
-                  className="text-base font-bold px-4 py-1.5 rounded-full bg-forest-50 text-forest-700 border border-forest-100">
+                  className="text-sm font-bold px-3.5 py-1.5 rounded-full bg-forest-50 text-forest-800 border border-forest-100">
                   {tag}
                 </span>
               ))}
+            </div>
+
+            <div className="px-6 pb-5">
+              <dl className="rounded-xl bg-gray-50 border border-gray-100 divide-y divide-gray-100">
+                {VIDEO_SPECS.map(row => (
+                  <div key={row.k} className="px-4 py-2.5 flex gap-3">
+                    <dt className="w-24 shrink-0 text-xs font-black uppercase tracking-wide text-forest-800">
+                      {row.k}
+                    </dt>
+                    <dd className="text-xs leading-relaxed text-gray-600">{row.v}</dd>
+                  </div>
+                ))}
+              </dl>
             </div>
 
             <div className="px-6 pb-6 space-y-1.5">
