@@ -1,7 +1,14 @@
 import { useEffect, useRef, useState } from 'react'
-import { ExternalLink, Globe2, Map, BarChart3, Layers, Maximize2, Minimize2 } from 'lucide-react'
+import { ExternalLink, Globe2, Map, BarChart3, Layers, Maximize2, Minimize2, Play, Pause, Volume2, VolumeX, Download } from 'lucide-react'
 import ScrollReveal from '../components/ScrollReveal'
 import { PageHeader } from './Research'
+
+const formatTime = seconds => {
+  if (!Number.isFinite(seconds) || seconds < 0) seconds = 0
+  const m = Math.floor(seconds / 60)
+  const s = Math.floor(seconds % 60)
+  return `${m}:${String(s).padStart(2, '0')}`
+}
 
 const VIZ = [
   {
@@ -75,8 +82,14 @@ function VizCard({ item, index }) {
 
 export default function Visualization() {
   const playerRef = useRef(null)
+  const videoRef = useRef(null)
   const [isFullscreen, setIsFullscreen] = useState(false)
   const [isBuffering, setIsBuffering] = useState(false)
+  const [isPlaying, setIsPlaying] = useState(false)
+  const [isMuted, setIsMuted] = useState(false)
+  const [hasAudio, setHasAudio] = useState(true)
+  const [currentTime, setCurrentTime] = useState(0)
+  const [duration, setDuration] = useState(0)
 
   useEffect(() => {
     const onChange = () => {
@@ -85,6 +98,39 @@ export default function Visualization() {
     document.addEventListener('fullscreenchange', onChange)
     return () => document.removeEventListener('fullscreenchange', onChange)
   }, [])
+
+  const togglePlay = () => {
+    const video = videoRef.current
+    if (!video) return
+    if (video.paused || video.ended) {
+      video.play().catch(() => setIsBuffering(false))
+    } else {
+      video.pause()
+    }
+  }
+
+  const toggleMute = () => {
+    const video = videoRef.current
+    if (!video) return
+    video.muted = !video.muted
+    setIsMuted(video.muted)
+  }
+
+  const onLoadedMetadata = e => {
+    const video = e.currentTarget
+    setDuration(Number.isFinite(video.duration) ? video.duration : 0)
+    setHasAudio(video.mozHasAudio || Boolean(video.webkitAudioDecodedByteCount) || (video.audioTracks ? video.audioTracks.length > 0 : true))
+  }
+
+  const onTimeUpdate = e => setCurrentTime(e.currentTarget.currentTime)
+
+  const onVolumeChange = e => setIsMuted(e.currentTarget.muted)
+
+  const onSeek = e => {
+    const time = Number(e.target.value)
+    setCurrentTime(time)
+    if (videoRef.current) videoRef.current.currentTime = time
+  }
 
   const toggleFullscreen = () => {
     if (document.fullscreenElement) {
@@ -150,23 +196,31 @@ export default function Visualization() {
 
               {/* Video column */}
               <div className="w-full">
-                <div ref={playerRef} className="relative w-full rounded-xl overflow-hidden bg-black aspect-video shadow-xl group/player [&:fullscreen]:max-w-none [&:fullscreen]:rounded-none [&:fullscreen]:aspect-auto [&:fullscreen]:bg-black">
+                <div
+                  ref={playerRef}
+                  className="relative w-full rounded-xl overflow-hidden bg-black aspect-video shadow-xl group/player [&:fullscreen]:max-w-none [&:fullscreen]:rounded-none [&:fullscreen]:aspect-auto [&:fullscreen]:bg-black [&:fullscreen]:cursor-default"
+                  onClick={togglePlay}
+                >
                   <video
+                    ref={videoRef}
                     className="w-full h-full object-contain"
                     src="/videos/GRACE_Viz.mp4"
-                    controls
                     playsInline
                     preload="metadata"
-                    style={{ accentColor: '#58ccbf' }}
+                    onClick={e => e.stopPropagation()}
                     onLoadStart={() => setIsBuffering(true)}
                     onWaiting={() => setIsBuffering(true)}
                     onStalled={() => setIsBuffering(true)}
+                    onSeeking={() => setIsBuffering(true)}
                     onCanPlay={() => setIsBuffering(false)}
-                    onPlaying={() => setIsBuffering(false)}
+                    onPlaying={() => { setIsBuffering(false); setIsPlaying(true) }}
+                    onPause={() => { setIsBuffering(false); setIsPlaying(false) }}
                     onSeeked={() => setIsBuffering(false)}
-                    onPause={() => setIsBuffering(false)}
-                    onEnded={() => setIsBuffering(false)}
+                    onEnded={() => { setIsBuffering(false); setIsPlaying(false) }}
                     onError={() => setIsBuffering(false)}
+                    onLoadedMetadata={onLoadedMetadata}
+                    onTimeUpdate={onTimeUpdate}
+                    onVolumeChange={onVolumeChange}
                     aria-label="GRACE and GRACE-FO terrestrial water storage anomaly over Asia"
                   >
                     Your browser does not support embedded video.{' '}
@@ -174,23 +228,84 @@ export default function Visualization() {
                   </video>
 
                   {isBuffering && (
-                    <div className="absolute inset-0 z-[5] pointer-events-none flex flex-col items-center justify-center gap-3 bg-black/30">
+                    <div className="absolute inset-0 z-[5] pointer-events-none flex items-center justify-center">
                       <span className="w-11 h-11 rounded-full border-[3px] border-white/25 border-t-forest-300 border-r-forest-400 animate-spin" />
-                      <span className="text-[11px] font-bold uppercase tracking-widest text-forest-300 drop-shadow">
-                        Buffering
+                    </div>
+                  )}
+
+                  {!isPlaying && !isBuffering && (
+                    <div className="absolute inset-0 z-[5] pointer-events-none flex items-center justify-center">
+                      <span className="flex items-center justify-center w-16 h-16 rounded-full bg-black/45 text-white backdrop-blur-sm">
+                        <Play size={26} strokeWidth={2} fill="currentColor" className="ml-1" />
                       </span>
                     </div>
                   )}
 
-                  <button
-                    onClick={toggleFullscreen}
-                    aria-label={isFullscreen ? 'Exit full screen' : 'Play full screen'}
-                    className="absolute bottom-2 right-2 z-10 flex items-center justify-center w-9 h-9 rounded-full bg-black/55 text-white backdrop-blur-sm hover:bg-forest-700 transition-colors"
+                  {/* Controls */}
+                  <div
+                    onClick={e => e.stopPropagation()}
+                    className="absolute inset-x-0 bottom-0 z-10 flex flex-col gap-1.5 px-3 pb-2.5 pt-6 bg-gradient-to-t from-black/85 to-transparent opacity-0 group-hover/player:opacity-100 focus-within:opacity-100 transition-opacity"
                   >
-                    {isFullscreen
-                      ? <Minimize2 size={16} strokeWidth={2} />
-                      : <Maximize2 size={16} strokeWidth={2} />}
-                  </button>
+                    <input
+                      type="range"
+                      min={0}
+                      max={duration || 0}
+                      step={0.05}
+                      value={currentTime}
+                      disabled={!duration}
+                      onChange={onSeek}
+                      aria-label="Seek"
+                      className="w-full h-1.5 cursor-pointer disabled:cursor-default"
+                      style={{ accentColor: '#58ccbf' }}
+                    />
+
+                    <div className="flex items-center gap-2 text-white">
+                      <button
+                        onClick={togglePlay}
+                        aria-label={isPlaying ? 'Pause' : 'Play'}
+                        className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-white/20 transition-colors"
+                      >
+                        {isPlaying
+                          ? <Pause size={17} strokeWidth={2} fill="currentColor" />
+                          : <Play size={17} strokeWidth={2} fill="currentColor" className="ml-0.5" />}
+                      </button>
+
+                      <button
+                        onClick={toggleMute}
+                        aria-label={isMuted ? 'Unmute' : 'Mute'}
+                        className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-white/20 transition-colors"
+                      >
+                        {isMuted || !hasAudio
+                          ? <VolumeX size={17} strokeWidth={2} />
+                          : <Volume2 size={17} strokeWidth={2} />}
+                      </button>
+
+                      <span className="text-[11px] font-semibold tabular-nums text-white/85">
+                        {formatTime(currentTime)} / {formatTime(duration)}
+                      </span>
+
+                      <div className="flex-1" />
+
+                      <a
+                        href="/videos/GRACE_Viz.mp4"
+                        download
+                        aria-label="Download video"
+                        className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-white/20 transition-colors"
+                      >
+                        <Download size={16} strokeWidth={2} />
+                      </a>
+
+                      <button
+                        onClick={toggleFullscreen}
+                        aria-label={isFullscreen ? 'Exit full screen' : 'Play full screen'}
+                        className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-white/20 transition-colors"
+                      >
+                        {isFullscreen
+                          ? <Minimize2 size={16} strokeWidth={2} />
+                          : <Maximize2 size={16} strokeWidth={2} />}
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
 
