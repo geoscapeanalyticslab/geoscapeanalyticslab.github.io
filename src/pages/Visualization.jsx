@@ -1,4 +1,5 @@
-import { ExternalLink, Globe2, Map, BarChart3, Layers } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
+import { ExternalLink, Globe2, Map, BarChart3, Layers, Maximize2, Minimize2 } from 'lucide-react'
 import ScrollReveal from '../components/ScrollReveal'
 import { PageHeader } from './Research'
 
@@ -85,6 +86,25 @@ function VizCard({ item, index }) {
 }
 
 export default function Visualization() {
+  const playerRef = useRef(null)
+  const [isFullscreen, setIsFullscreen] = useState(false)
+
+  useEffect(() => {
+    const onChange = () => {
+      setIsFullscreen(document.fullscreenElement === playerRef.current)
+    }
+    document.addEventListener('fullscreenchange', onChange)
+    return () => document.removeEventListener('fullscreenchange', onChange)
+  }, [])
+
+  const toggleFullscreen = () => {
+    if (document.fullscreenElement) {
+      document.exitFullscreen()
+    } else {
+      playerRef.current?.requestFullscreen?.().catch(() => {})
+    }
+  }
+
   return (
     <div className="pt-16">
       <PageHeader
@@ -136,10 +156,10 @@ export default function Visualization() {
               </p>
             </div>
 
-            <div className="px-6">
-              <div className="rounded-xl overflow-hidden bg-black aspect-video">
+            <div className="px-6 pb-2 flex justify-center">
+              <div ref={playerRef} className="relative w-full max-w-sm rounded-xl overflow-hidden bg-black aspect-video group/player [&:fullscreen]:max-w-none [&:fullscreen]:rounded-none [&:fullscreen]:aspect-auto [&:fullscreen]:bg-black">
                 <video
-                  className="w-full h-full"
+                  className="w-full h-full object-contain"
                   src="/videos/GRACE_Viz.mp4"
                   controls
                   playsInline
@@ -149,13 +169,23 @@ export default function Visualization() {
                   Your browser does not support embedded video.{' '}
                   <a href="/videos/GRACE_Viz.mp4" download>Download the video</a>
                 </video>
+
+                <button
+                  onClick={toggleFullscreen}
+                  aria-label={isFullscreen ? 'Exit full screen' : 'Play full screen'}
+                  className="absolute bottom-2 right-2 z-10 flex items-center justify-center w-9 h-9 rounded-full bg-black/55 text-white backdrop-blur-sm hover:bg-forest-700 transition-colors"
+                >
+                  {isFullscreen
+                    ? <Minimize2 size={16} strokeWidth={2} />
+                    : <Maximize2 size={16} strokeWidth={2} />}
+                </button>
               </div>
             </div>
 
-            <div className="px-6 py-5 flex flex-wrap items-center gap-2">
+            <div className="px-6 py-5 flex flex-wrap items-center justify-center gap-2.5">
               {VIDEO_TAGS.map(tag => (
                 <span key={tag}
-                  className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-forest-50 text-forest-700 border border-forest-100">
+                  className="text-base font-bold px-4 py-1.5 rounded-full bg-forest-50 text-forest-700 border border-forest-100">
                   {tag}
                 </span>
               ))}
