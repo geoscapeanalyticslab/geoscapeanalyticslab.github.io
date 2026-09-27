@@ -188,7 +188,7 @@ function VideoBlock({ label, title, description, source, links, file, alt }) {
     <div className="flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04]">
       <div
         ref={playerRef}
-        className="relative w-full max-w-[520px] mx-auto bg-black aspect-video cursor-pointer group/player [&:fullscreen]:w-[min(92vw,1000px)] [&:fullscreen]:h-[calc(min(92vw,1000px)*0.5625)] [&:fullscreen]:max-h-[85vh] [&:fullscreen]:m-auto [&:fullscreen]:rounded-2xl [&:fullscreen]:shadow-2xl [&:fullscreen]:bg-black [&::backdrop]:bg-forest-950"
+        className="relative w-full bg-black aspect-video cursor-pointer group/player [&:fullscreen]:w-[min(92vw,1000px)] [&:fullscreen]:h-[calc(min(92vw,1000px)*0.5625)] [&:fullscreen]:max-h-[85vh] [&:fullscreen]:m-auto [&:fullscreen]:rounded-2xl [&:fullscreen]:shadow-2xl [&:fullscreen]:bg-black [&::backdrop]:bg-forest-950"
         onClick={togglePlay}
       >
         <video
