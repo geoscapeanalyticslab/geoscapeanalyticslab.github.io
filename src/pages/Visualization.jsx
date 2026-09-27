@@ -44,8 +44,6 @@ const VIDEO_BLOCKS = [
     title: 'Daily Temperature Anomaly over South Asia, June 2026',
     description:
       'Temperature anomaly for every day of June 2026 across South Asia. Each day\u2019s temperature is compared with its 1991\u20132020 normal. Warm areas rise and turn red, cool areas sink and turn blue.',
-    source:
-      'Data: ERA5-Land daily means from Copernicus ECMWF Climate Change Service / European Centre for Medium-Range Weather Forecasts \u2013 ECMWF',
     links: [
       { network: 'linkedin', label: 'LinkedIn', href: 'https://tinyurl.com/south-asia-june-temp-2026' },
     ],
