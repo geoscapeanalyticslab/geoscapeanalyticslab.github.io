@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { ExternalLink, Globe2, Map, BarChart3, Layers, Maximize2, Minimize2, Play, Pause, Volume2, VolumeX, Download } from 'lucide-react'
 import ScrollReveal from '../components/ScrollReveal'
 import { PageHeader } from './Research'
@@ -9,6 +9,21 @@ const formatTime = seconds => {
   const s = Math.floor(seconds % 60)
   return `${m}:${String(s).padStart(2, '0')}`
 }
+
+// lucide-react v1 no longer ships brand marks, so the social logos are inlined.
+const LinkedInIcon = ({ size = 14 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+  </svg>
+)
+
+const FacebookIcon = ({ size = 14 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M24 12.073C24 5.446 18.627 0 12 0S0 5.446 0 12.073c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+  </svg>
+)
+
+const SOCIAL_ICONS = { linkedin: LinkedInIcon, facebook: FacebookIcon }
 
 // Every video block on this page. Layout is rendered by <VideoBlock> so each entry
 // is guaranteed to have exactly the same structure.
@@ -28,6 +43,9 @@ const VIDEO_BLOCKS = [
       'Temperature anomaly for every day of June 2026 across South Asia. Each day\u2019s temperature is compared with its 1991\u20132020 normal. Warm areas rise and turn red, cool areas sink and turn blue.',
     source:
       'Data: ERA5-Land daily means from Copernicus ECMWF Climate Change Service / European Centre for Medium-Range Weather Forecasts \u2013 ECMWF',
+    links: [
+      { network: 'linkedin', label: 'LinkedIn', href: 'https://tinyurl.com/south-asia-june-temp-2026' },
+    ],
     file: 'south_asia_temp.mp4',
     alt: 'Daily temperature anomaly across South Asia for every day of June 2026 against its 1991 to 2020 normal',
   },
@@ -103,7 +121,7 @@ function VizCard({ item, index }) {
   )
 }
 
-function VideoBlock({ label, title, description, source, file, alt }) {
+function VideoBlock({ label, title, description, source, links, file, alt }) {
   const playerRef = useRef(null)
   const videoRef = useRef(null)
   const src = `/videos/${file}`
@@ -164,128 +182,136 @@ function VideoBlock({ label, title, description, source, file, alt }) {
   }
 
   return (
-    <section className="bg-forest-950 py-20">
-      <div className="max-w-7xl mx-auto px-6">
-        <ScrollReveal>
-          <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-start">
+    <div className="flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04]">
+      <div
+        ref={playerRef}
+        className="relative w-full bg-black aspect-video cursor-pointer group/player [&:fullscreen]:max-w-none [&:fullscreen]:rounded-none [&:fullscreen]:aspect-auto [&:fullscreen]:bg-black"
+        onClick={togglePlay}
+      >
+        <video
+          ref={videoRef}
+          className="w-full h-full object-contain"
+          src={src}
+          playsInline
+          preload="metadata"
+          onPlaying={() => setIsPlaying(true)}
+          onPause={() => setIsPlaying(false)}
+          onEnded={() => setIsPlaying(false)}
+          onLoadedMetadata={onLoadedMetadata}
+          onTimeUpdate={onTimeUpdate}
+          onVolumeChange={onVolumeChange}
+          aria-label={alt}
+        >
+          Your browser does not support embedded video.{' '}
+          <a href={src} download>Download the video</a>
+        </video>
 
-            {/* Text column */}
-            <div>
-              <span className="text-xs font-black uppercase tracking-widest text-forest-300">
-                {label}
-              </span>
-              <h2 className="text-3xl font-black text-white mt-3 leading-tight">{title}</h2>
-              <p className="text-forest-200 text-sm mt-4 leading-relaxed">{description}</p>
-              {source && (
-                <p className="text-forest-300/70 text-xs mt-4 leading-relaxed max-w-md">{source}</p>
-              )}
-            </div>
+            {!isPlaying && (
+              <div className="absolute inset-0 z-[5] pointer-events-none flex items-center justify-center">
+                <span className="flex items-center justify-center w-16 h-16 rounded-full bg-black/45 text-white backdrop-blur-sm">
+                  <Play size={26} strokeWidth={2} fill="currentColor" className="ml-1" />
+                </span>
+              </div>
+            )}
 
-            {/* Video column */}
-            <div className="w-full">
-              <div
-                ref={playerRef}
-                className="relative w-full rounded-xl overflow-hidden bg-black aspect-video shadow-xl cursor-pointer group/player [&:fullscreen]:max-w-none [&:fullscreen]:rounded-none [&:fullscreen]:aspect-auto [&:fullscreen]:bg-black"
-                onClick={togglePlay}
-              >
-                <video
-                  ref={videoRef}
-                  className="w-full h-full object-contain"
-                  src={src}
-                  playsInline
-                  preload="metadata"
-                  onPlaying={() => setIsPlaying(true)}
-                  onPause={() => setIsPlaying(false)}
-                  onEnded={() => setIsPlaying(false)}
-                  onLoadedMetadata={onLoadedMetadata}
-                  onTimeUpdate={onTimeUpdate}
-                  onVolumeChange={onVolumeChange}
-                  aria-label={alt}
+            {/* Controls — clicks here must not toggle playback */}
+            <div
+              onClick={e => e.stopPropagation()}
+              className="absolute inset-x-0 bottom-0 z-10 flex flex-col gap-1.5 px-3 pb-2.5 pt-6 bg-gradient-to-t from-black/85 to-transparent opacity-0 group-hover/player:opacity-100 focus-within:opacity-100 transition-opacity"
+            >
+              <input
+                type="range"
+                min={0}
+                max={duration || 0}
+                step={0.05}
+                value={currentTime}
+                disabled={!duration}
+                onChange={onSeek}
+                aria-label="Seek"
+                className="w-full h-1.5 cursor-pointer disabled:cursor-default"
+                style={{ accentColor: '#58ccbf' }}
+              />
+
+              <div className="flex items-center gap-2 text-white">
+                <button
+                  onClick={togglePlay}
+                  aria-label={isPlaying ? 'Pause' : 'Play'}
+                  className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-white/20 transition-colors"
                 >
-                  Your browser does not support embedded video.{' '}
-                  <a href={src} download>Download the video</a>
-                </video>
+                  {isPlaying
+                    ? <Pause size={17} strokeWidth={2} fill="currentColor" />
+                    : <Play size={17} strokeWidth={2} fill="currentColor" className="ml-0.5" />}
+                </button>
 
-                {!isPlaying && (
-                  <div className="absolute inset-0 z-[5] pointer-events-none flex items-center justify-center">
-                    <span className="flex items-center justify-center w-16 h-16 rounded-full bg-black/45 text-white backdrop-blur-sm">
-                      <Play size={26} strokeWidth={2} fill="currentColor" className="ml-1" />
-                    </span>
-                  </div>
-                )}
-
-                {/* Controls — clicks here must not toggle playback */}
-                <div
-                  onClick={e => e.stopPropagation()}
-                  className="absolute inset-x-0 bottom-0 z-10 flex flex-col gap-1.5 px-3 pb-2.5 pt-6 bg-gradient-to-t from-black/85 to-transparent opacity-0 group-hover/player:opacity-100 focus-within:opacity-100 transition-opacity"
+                <button
+                  onClick={toggleMute}
+                  aria-label={isMuted ? 'Unmute' : 'Mute'}
+                  className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-white/20 transition-colors"
                 >
-                  <input
-                    type="range"
-                    min={0}
-                    max={duration || 0}
-                    step={0.05}
-                    value={currentTime}
-                    disabled={!duration}
-                    onChange={onSeek}
-                    aria-label="Seek"
-                    className="w-full h-1.5 cursor-pointer disabled:cursor-default"
-                    style={{ accentColor: '#58ccbf' }}
-                  />
+                  {isMuted || !hasAudio
+                    ? <VolumeX size={17} strokeWidth={2} />
+                    : <Volume2 size={17} strokeWidth={2} />}
+                </button>
 
-                  <div className="flex items-center gap-2 text-white">
-                    <button
-                      onClick={togglePlay}
-                      aria-label={isPlaying ? 'Pause' : 'Play'}
-                      className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-white/20 transition-colors"
-                    >
-                      {isPlaying
-                        ? <Pause size={17} strokeWidth={2} fill="currentColor" />
-                        : <Play size={17} strokeWidth={2} fill="currentColor" className="ml-0.5" />}
-                    </button>
+                <span className="text-[11px] font-semibold tabular-nums text-white/85">
+                  {formatTime(currentTime)} / {formatTime(duration)}
+                </span>
 
-                    <button
-                      onClick={toggleMute}
-                      aria-label={isMuted ? 'Unmute' : 'Mute'}
-                      className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-white/20 transition-colors"
-                    >
-                      {isMuted || !hasAudio
-                        ? <VolumeX size={17} strokeWidth={2} />
-                        : <Volume2 size={17} strokeWidth={2} />}
-                    </button>
+                <div className="flex-1" />
 
-                    <span className="text-[11px] font-semibold tabular-nums text-white/85">
-                      {formatTime(currentTime)} / {formatTime(duration)}
-                    </span>
+                <a
+                  href={src}
+                  download
+                  aria-label="Download video"
+                  className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-white/20 transition-colors"
+                >
+                  <Download size={16} strokeWidth={2} />
+                </a>
 
-                    <div className="flex-1" />
-
-                    <a
-                      href={src}
-                      download
-                      aria-label="Download video"
-                      className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-white/20 transition-colors"
-                    >
-                      <Download size={16} strokeWidth={2} />
-                    </a>
-
-                    <button
-                      onClick={toggleFullscreen}
-                      aria-label={isFullscreen ? 'Exit full screen' : 'Play full screen'}
-                      className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-white/20 transition-colors"
-                    >
-                      {isFullscreen
-                        ? <Minimize2 size={16} strokeWidth={2} />
-                        : <Maximize2 size={16} strokeWidth={2} />}
-                    </button>
-                  </div>
-                </div>
+                <button
+                  onClick={toggleFullscreen}
+                  aria-label={isFullscreen ? 'Exit full screen' : 'Play full screen'}
+                  className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-white/20 transition-colors"
+                >
+                  {isFullscreen
+                    ? <Minimize2 size={16} strokeWidth={2} />
+                    : <Maximize2 size={16} strokeWidth={2} />}
+                </button>
               </div>
             </div>
-
           </div>
-        </ScrollReveal>
+
+      {/* Text block */}
+      <div className="flex flex-1 flex-col gap-2.5 p-5">
+        <span className="text-[11px] font-black uppercase tracking-widest text-forest-300">{label}</span>
+        <h2 className="text-lg font-black text-white leading-snug">{title}</h2>
+        <p className="text-[13px] text-forest-200/85 leading-relaxed">{description}</p>
+        {source && (
+          <p className="text-[11px] text-forest-300/60 leading-relaxed">{source}</p>
+        )}
+        {links?.length > 0 && (
+          <div className="flex flex-wrap items-center gap-2 pt-1 mt-auto">
+            {links.map(link => {
+              const Icon = SOCIAL_ICONS[link.network]
+              return (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title={`${link.label} post`}
+                  aria-label={`${link.label} post`}
+                  className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-xs font-semibold text-forest-100 transition-colors hover:bg-white/15 hover:text-white"
+                >
+                  {Icon && <Icon size={14} />}
+                  {link.label}
+                </a>
+              )
+            })}
+          </div>
+        )}
       </div>
-    </section>
+    </div>
   )
 }
 
@@ -324,28 +350,17 @@ export default function Visualization() {
       </section>
       */}
 
-      {/* ── Video blocks (identical layout for every entry) ── */}
-      {VIDEO_BLOCKS.map((v, i) => (
-        <Fragment key={v.file}>
-          {i > 0 && (
-            <div className="max-w-7xl mx-auto px-6">
-              <div className="h-px bg-white/10" />
-            </div>
-          )}
-          <VideoBlock {...v} />
-        </Fragment>
-      ))}
-
-      {/* Coming soon placeholder */}
-      <section className="max-w-3xl mx-auto px-6 py-20 text-center">
-        <ScrollReveal>
-          <span className="text-xs font-bold uppercase tracking-widest text-forest-600">Coming Soon</span>
-          <h2 className="text-3xl md:text-4xl font-black text-gray-900 mt-3">More Visualizations On the Way</h2>
-          <p className="text-gray-500 mt-5 max-w-lg mx-auto leading-relaxed">
-            Interactive maps, GEE apps, and geospatial dashboards from our research will be
-            published here soon. Check back shortly.
-          </p>
-        </ScrollReveal>
+      {/* ── Video blocks: two per row, identical card layout ── */}
+      <section className="bg-forest-950 py-14">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid sm:grid-cols-2 gap-6">
+            {VIDEO_BLOCKS.map((v, i) => (
+              <ScrollReveal key={v.file} delay={i * 0.08}>
+                <VideoBlock {...v} />
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
       </section>
     </div>
   )
