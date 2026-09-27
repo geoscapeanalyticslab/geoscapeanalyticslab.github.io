@@ -353,12 +353,14 @@ export default function Visualization() {
 
       {/* ── Video blocks: two per row, identical card layout ── */}
       <section className="bg-forest-950 py-14">
-        {/* px (not rem) on purpose: the site's root font-size scales up to
-            22px on 4K, which would balloon a rem-based container and make the
-            video box huge. Cards stay ~444px wide on every screen, and the
-            video fills the card so there is no empty space at the sides. */}
-        <div className="max-w-[960px] mx-auto px-6">
-          <div className="grid sm:grid-cols-2 gap-6">
+        {/* Outer div matches the page's standard content container so the cards
+            line up with the left edge of everything else on the site.
+            Inner grid is px-capped (not rem) on purpose: the site's root
+            font-size scales up to 22px on 4K, which would balloon a rem-based
+            container and make the video box huge. Left-aligned, not centered,
+            so the space sits on the right instead of both sides. */}
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid sm:grid-cols-2 gap-6 max-w-[960px]">
             {VIDEO_BLOCKS.map((v, i) => (
               <ScrollReveal key={v.file} delay={i * 0.08}>
                 <VideoBlock {...v} />
