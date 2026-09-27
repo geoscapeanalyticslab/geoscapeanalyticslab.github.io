@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 import { ExternalLink, Globe2, Map, BarChart3, Layers, Maximize2, Minimize2, Play, Pause, Volume2, VolumeX, Download } from 'lucide-react'
 import ScrollReveal from '../components/ScrollReveal'
 import { PageHeader } from './Research'
@@ -9,6 +9,29 @@ const formatTime = seconds => {
   const s = Math.floor(seconds % 60)
   return `${m}:${String(s).padStart(2, '0')}`
 }
+
+// Every video block on this page. Layout is rendered by <VideoBlock> so each entry
+// is guaranteed to have exactly the same structure.
+const VIDEO_BLOCKS = [
+  {
+    label: 'Satellite Gravimetry',
+    title: 'Terrestrial Water Storage Anomaly over Asia',
+    description:
+      'Annual mean estimates of how much water is stored on and beneath Asia\u2019s land surface, measured from space since 2002 using GRACE and GRACE-FO satellite gravimetry.',
+    file: 'GRACE_Viz.mp4',
+    alt: 'GRACE and GRACE-FO terrestrial water storage anomaly over Asia',
+  },
+  {
+    label: 'Climate Anomaly',
+    title: 'Daily Temperature Anomaly over South Asia, June 2026',
+    description:
+      'Temperature anomaly for every day of June 2026 across South Asia. Each day\u2019s temperature is compared with its 1991\u20132020 normal. Warm areas rise and turn red, cool areas sink and turn blue.',
+    source:
+      'Data: ERA5-Land daily means from Copernicus ECMWF Climate Change Service / European Centre for Medium-Range Weather Forecasts \u2013 ECMWF',
+    file: 'south_asia_temp.mp4',
+    alt: 'Daily temperature anomaly across South Asia for every day of June 2026 against its 1991 to 2020 normal',
+  },
+]
 
 const VIZ = [
   {
@@ -80,9 +103,10 @@ function VizCard({ item, index }) {
   )
 }
 
-export default function Visualization() {
+function VideoBlock({ label, title, description, source, file, alt }) {
   const playerRef = useRef(null)
   const videoRef = useRef(null)
+  const src = `/videos/${file}`
   const [isFullscreen, setIsFullscreen] = useState(false)
   const [isPlaying, setIsPlaying] = useState(false)
   const [isMuted, setIsMuted] = useState(false)
@@ -140,6 +164,133 @@ export default function Visualization() {
   }
 
   return (
+    <section className="bg-forest-950 py-20">
+      <div className="max-w-7xl mx-auto px-6">
+        <ScrollReveal>
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-start">
+
+            {/* Text column */}
+            <div>
+              <span className="text-xs font-black uppercase tracking-widest text-forest-300">
+                {label}
+              </span>
+              <h2 className="text-3xl font-black text-white mt-3 leading-tight">{title}</h2>
+              <p className="text-forest-200 text-sm mt-4 leading-relaxed">{description}</p>
+              {source && (
+                <p className="text-forest-300/70 text-xs mt-4 leading-relaxed max-w-md">{source}</p>
+              )}
+            </div>
+
+            {/* Video column */}
+            <div className="w-full">
+              <div
+                ref={playerRef}
+                className="relative w-full rounded-xl overflow-hidden bg-black aspect-video shadow-xl cursor-pointer group/player [&:fullscreen]:max-w-none [&:fullscreen]:rounded-none [&:fullscreen]:aspect-auto [&:fullscreen]:bg-black"
+                onClick={togglePlay}
+              >
+                <video
+                  ref={videoRef}
+                  className="w-full h-full object-contain"
+                  src={src}
+                  playsInline
+                  preload="metadata"
+                  onPlaying={() => setIsPlaying(true)}
+                  onPause={() => setIsPlaying(false)}
+                  onEnded={() => setIsPlaying(false)}
+                  onLoadedMetadata={onLoadedMetadata}
+                  onTimeUpdate={onTimeUpdate}
+                  onVolumeChange={onVolumeChange}
+                  aria-label={alt}
+                >
+                  Your browser does not support embedded video.{' '}
+                  <a href={src} download>Download the video</a>
+                </video>
+
+                {!isPlaying && (
+                  <div className="absolute inset-0 z-[5] pointer-events-none flex items-center justify-center">
+                    <span className="flex items-center justify-center w-16 h-16 rounded-full bg-black/45 text-white backdrop-blur-sm">
+                      <Play size={26} strokeWidth={2} fill="currentColor" className="ml-1" />
+                    </span>
+                  </div>
+                )}
+
+                {/* Controls — clicks here must not toggle playback */}
+                <div
+                  onClick={e => e.stopPropagation()}
+                  className="absolute inset-x-0 bottom-0 z-10 flex flex-col gap-1.5 px-3 pb-2.5 pt-6 bg-gradient-to-t from-black/85 to-transparent opacity-0 group-hover/player:opacity-100 focus-within:opacity-100 transition-opacity"
+                >
+                  <input
+                    type="range"
+                    min={0}
+                    max={duration || 0}
+                    step={0.05}
+                    value={currentTime}
+                    disabled={!duration}
+                    onChange={onSeek}
+                    aria-label="Seek"
+                    className="w-full h-1.5 cursor-pointer disabled:cursor-default"
+                    style={{ accentColor: '#58ccbf' }}
+                  />
+
+                  <div className="flex items-center gap-2 text-white">
+                    <button
+                      onClick={togglePlay}
+                      aria-label={isPlaying ? 'Pause' : 'Play'}
+                      className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-white/20 transition-colors"
+                    >
+                      {isPlaying
+                        ? <Pause size={17} strokeWidth={2} fill="currentColor" />
+                        : <Play size={17} strokeWidth={2} fill="currentColor" className="ml-0.5" />}
+                    </button>
+
+                    <button
+                      onClick={toggleMute}
+                      aria-label={isMuted ? 'Unmute' : 'Mute'}
+                      className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-white/20 transition-colors"
+                    >
+                      {isMuted || !hasAudio
+                        ? <VolumeX size={17} strokeWidth={2} />
+                        : <Volume2 size={17} strokeWidth={2} />}
+                    </button>
+
+                    <span className="text-[11px] font-semibold tabular-nums text-white/85">
+                      {formatTime(currentTime)} / {formatTime(duration)}
+                    </span>
+
+                    <div className="flex-1" />
+
+                    <a
+                      href={src}
+                      download
+                      aria-label="Download video"
+                      className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-white/20 transition-colors"
+                    >
+                      <Download size={16} strokeWidth={2} />
+                    </a>
+
+                    <button
+                      onClick={toggleFullscreen}
+                      aria-label={isFullscreen ? 'Exit full screen' : 'Play full screen'}
+                      className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-white/20 transition-colors"
+                    >
+                      {isFullscreen
+                        ? <Minimize2 size={16} strokeWidth={2} />
+                        : <Maximize2 size={16} strokeWidth={2} />}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </ScrollReveal>
+      </div>
+    </section>
+  )
+}
+
+export default function Visualization() {
+  return (
     <div className="pt-16">
       <PageHeader
         label=""
@@ -173,132 +324,17 @@ export default function Visualization() {
       </section>
       */}
 
-      {/* ── GRACE / GRACE-FO visualization video ── */}
-      <section className="bg-forest-950 py-20">
-        <div className="max-w-7xl mx-auto px-6">
-          <ScrollReveal>
-            <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-start">
-
-              {/* Text column */}
-              <div>
-                <span className="text-xs font-black uppercase tracking-widest text-forest-300">
-                  Satellite Gravimetry
-                </span>
-                <h2 className="text-3xl font-black text-white mt-3 leading-tight">
-                  Terrestrial Water Storage Anomaly over Asia
-                </h2>
-                <p className="text-forest-200 text-sm mt-4 leading-relaxed">
-                  Annual mean estimates of how much water is stored on and beneath Asia&rsquo;s land
-                  surface, measured from space since 2002 using GRACE and GRACE-FO satellite gravimetry.
-                </p>
-              </div>
-
-              {/* Video column */}
-              <div className="w-full">
-                <div
-                  ref={playerRef}
-                  className="relative w-full rounded-xl overflow-hidden bg-black aspect-video shadow-xl group/player [&:fullscreen]:max-w-none [&:fullscreen]:rounded-none [&:fullscreen]:aspect-auto [&:fullscreen]:bg-black [&:fullscreen]:cursor-default"
-                  onClick={togglePlay}
-                >
-                  <video
-                    ref={videoRef}
-                    className="w-full h-full object-contain"
-                    src="/videos/GRACE_Viz.mp4"
-                    playsInline
-                    preload="metadata"
-                    onClick={e => e.stopPropagation()}
-                    onPlaying={() => setIsPlaying(true)}
-                    onPause={() => setIsPlaying(false)}
-                    onEnded={() => setIsPlaying(false)}
-                    onLoadedMetadata={onLoadedMetadata}
-                    onTimeUpdate={onTimeUpdate}
-                    onVolumeChange={onVolumeChange}
-                    aria-label="GRACE and GRACE-FO terrestrial water storage anomaly over Asia"
-                  >
-                    Your browser does not support embedded video.{' '}
-                    <a href="/videos/GRACE_Viz.mp4" download>Download the video</a>
-                  </video>
-
-                  {!isPlaying && (
-                    <div className="absolute inset-0 z-[5] pointer-events-none flex items-center justify-center">
-                      <span className="flex items-center justify-center w-16 h-16 rounded-full bg-black/45 text-white backdrop-blur-sm">
-                        <Play size={26} strokeWidth={2} fill="currentColor" className="ml-1" />
-                      </span>
-                    </div>
-                  )}
-
-                  {/* Controls */}
-                  <div
-                    onClick={e => e.stopPropagation()}
-                    className="absolute inset-x-0 bottom-0 z-10 flex flex-col gap-1.5 px-3 pb-2.5 pt-6 bg-gradient-to-t from-black/85 to-transparent opacity-0 group-hover/player:opacity-100 focus-within:opacity-100 transition-opacity"
-                  >
-                    <input
-                      type="range"
-                      min={0}
-                      max={duration || 0}
-                      step={0.05}
-                      value={currentTime}
-                      disabled={!duration}
-                      onChange={onSeek}
-                      aria-label="Seek"
-                      className="w-full h-1.5 cursor-pointer disabled:cursor-default"
-                      style={{ accentColor: '#58ccbf' }}
-                    />
-
-                    <div className="flex items-center gap-2 text-white">
-                      <button
-                        onClick={togglePlay}
-                        aria-label={isPlaying ? 'Pause' : 'Play'}
-                        className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-white/20 transition-colors"
-                      >
-                        {isPlaying
-                          ? <Pause size={17} strokeWidth={2} fill="currentColor" />
-                          : <Play size={17} strokeWidth={2} fill="currentColor" className="ml-0.5" />}
-                      </button>
-
-                      <button
-                        onClick={toggleMute}
-                        aria-label={isMuted ? 'Unmute' : 'Mute'}
-                        className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-white/20 transition-colors"
-                      >
-                        {isMuted || !hasAudio
-                          ? <VolumeX size={17} strokeWidth={2} />
-                          : <Volume2 size={17} strokeWidth={2} />}
-                      </button>
-
-                      <span className="text-[11px] font-semibold tabular-nums text-white/85">
-                        {formatTime(currentTime)} / {formatTime(duration)}
-                      </span>
-
-                      <div className="flex-1" />
-
-                      <a
-                        href="/videos/GRACE_Viz.mp4"
-                        download
-                        aria-label="Download video"
-                        className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-white/20 transition-colors"
-                      >
-                        <Download size={16} strokeWidth={2} />
-                      </a>
-
-                      <button
-                        onClick={toggleFullscreen}
-                        aria-label={isFullscreen ? 'Exit full screen' : 'Play full screen'}
-                        className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-white/20 transition-colors"
-                      >
-                        {isFullscreen
-                          ? <Minimize2 size={16} strokeWidth={2} />
-                          : <Maximize2 size={16} strokeWidth={2} />}
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
+      {/* ── Video blocks (identical layout for every entry) ── */}
+      {VIDEO_BLOCKS.map((v, i) => (
+        <Fragment key={v.file}>
+          {i > 0 && (
+            <div className="max-w-7xl mx-auto px-6">
+              <div className="h-px bg-white/10" />
             </div>
-          </ScrollReveal>
-        </div>
-      </section>
+          )}
+          <VideoBlock {...v} />
+        </Fragment>
+      ))}
 
       {/* Coming soon placeholder */}
       <section className="max-w-3xl mx-auto px-6 py-20 text-center">
