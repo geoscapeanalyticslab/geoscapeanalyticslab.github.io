@@ -33,6 +33,9 @@ const VIDEO_BLOCKS = [
     title: 'Terrestrial Water Storage Anomaly over Asia',
     description:
       'Annual mean estimates of how much water is stored on and beneath Asia\u2019s land surface, measured from space since 2002 using GRACE and GRACE-FO satellite gravimetry.',
+    links: [
+      { network: 'linkedin', label: 'LinkedIn', href: 'https://tinyurl.com/asia-water-storage-grace' },
+    ],
     file: 'GRACE_Viz.mp4',
     alt: 'GRACE and GRACE-FO terrestrial water storage anomaly over Asia',
   },
@@ -185,7 +188,7 @@ function VideoBlock({ label, title, description, source, links, file, alt }) {
     <div className="flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04]">
       <div
         ref={playerRef}
-        className="relative w-full bg-black aspect-video cursor-pointer group/player [&:fullscreen]:max-w-none [&:fullscreen]:rounded-none [&:fullscreen]:aspect-auto [&:fullscreen]:bg-black"
+        className="relative w-full max-w-[520px] mx-auto bg-black aspect-video cursor-pointer group/player [&:fullscreen]:w-[min(92vw,1000px)] [&:fullscreen]:h-[calc(min(92vw,1000px)*0.5625)] [&:fullscreen]:max-h-[85vh] [&:fullscreen]:m-auto [&:fullscreen]:rounded-2xl [&:fullscreen]:shadow-2xl [&:fullscreen]:bg-black [&::backdrop]:bg-forest-950"
         onClick={togglePlay}
       >
         <video
@@ -352,7 +355,7 @@ export default function Visualization() {
 
       {/* ── Video blocks: two per row, identical card layout ── */}
       <section className="bg-forest-950 py-14">
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-6xl mx-auto px-6">
           <div className="grid sm:grid-cols-2 gap-6">
             {VIDEO_BLOCKS.map((v, i) => (
               <ScrollReveal key={v.file} delay={i * 0.08}>
