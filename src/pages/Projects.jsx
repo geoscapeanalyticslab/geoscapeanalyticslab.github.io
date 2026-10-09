@@ -9,7 +9,6 @@ import { PageHeader } from './Research'
 // ============================================================================
 const projects = [
 
-  /* ===== GeoDROP — to go live, delete this line and the closing comment line below =====
   {
     title: 'GeoDROP',
     tagline: 'Open Geospatial Data Repository for Pakistan',
@@ -20,7 +19,6 @@ const projects = [
     logo: '/GeoDROP-Logo_Transparent.png',
     url: 'https://geoscapeanalyticslab.github.io/GeoDROP/',
   },
-  ===== end GeoDROP ===== */
 
   /* ===== PU Campus Map — to go live, delete this line and the closing comment line below =====
   {
