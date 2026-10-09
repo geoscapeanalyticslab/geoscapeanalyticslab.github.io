@@ -18,6 +18,15 @@ function GithubIcon({ size = 16 }) {
   )
 }
 
+function ScholarIcon({ size = 16 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+      <path d="M12 3 1 9l11 6 9-4.91V17h2V9L12 3z" />
+      <path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z" />
+    </svg>
+  )
+}
+
 function Avatar({ photo, name, position, zoom, className = '' }) {
   const initials = name.split(' ').filter(w => w.length > 2).slice(-2).map(w => w[0]).join('')
   return (
@@ -76,6 +85,13 @@ export default function TeamCard({ member, featured = false }) {
                 <GithubIcon size={15} />
               </a>
             )}
+            {member.scholar && (
+              <a href={member.scholar} target="_blank" rel="noopener noreferrer"
+                className="w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center text-gray-500 hover:border-forest-600 hover:text-forest-700 hover:bg-forest-50 transition-all"
+                aria-label="Google Scholar">
+                <ScholarIcon size={15} />
+              </a>
+            )}
             {member.email && (
               <a href={`https://mail.google.com/mail/?view=cm&fs=1&to=${member.email}`} target="_blank" rel="noopener noreferrer"
                 className="w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center text-gray-500 hover:border-forest-600 hover:text-forest-700 hover:bg-forest-50 transition-all"
@@ -129,6 +145,13 @@ export default function TeamCard({ member, featured = false }) {
             className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:border-forest-500 hover:text-forest-600 hover:bg-forest-50 transition-all"
             aria-label="GitHub">
             <GithubIcon size={13} />
+          </a>
+        )}
+        {member.scholar && (
+          <a href={member.scholar} target="_blank" rel="noopener noreferrer"
+            className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:border-forest-500 hover:text-forest-600 hover:bg-forest-50 transition-all"
+            aria-label="Google Scholar">
+            <ScholarIcon size={13} />
           </a>
         )}
         {member.email && (
