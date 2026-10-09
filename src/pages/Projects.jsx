@@ -54,7 +54,7 @@ function ProjectCard({ project, index }) {
   return (
     <ScrollReveal delay={index * 0.08}>
       <article
-        className="group relative flex h-full max-w-[340px] flex-col overflow-hidden rounded-3xl bg-white shadow-lg shadow-slate-900/10 ring-1 ring-slate-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+        className="group relative flex h-full flex-col overflow-hidden rounded-3xl bg-white shadow-lg shadow-slate-900/10 ring-1 ring-slate-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
         style={inter}
       >
 
@@ -131,7 +131,7 @@ export default function Projects() {
           <span className="h-px flex-1 bg-teal-700/25" />
         </div>
 
-        <div className="grid grid-cols-1 items-stretch gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 items-stretch gap-[24px] sm:grid-cols-2 lg:grid-cols-3">
           {projects.map((p, i) => <ProjectCard key={p.title} project={p} index={i} />)}
         </div>
       </section>
