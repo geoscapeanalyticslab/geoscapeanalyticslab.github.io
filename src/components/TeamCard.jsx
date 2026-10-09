@@ -18,11 +18,13 @@ function GithubIcon({ size = 16 }) {
   )
 }
 
-function ScholarIcon({ size = 16 }) {
+function OutlookIcon({ size = 16 }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-      <path d="M12 3 1 9l11 6 9-4.91V17h2V9L12 3z" />
-      <path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z" />
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden>
+      <rect x="1.5" y="2.5" width="21" height="19" rx="3.2" fill="#0F6CBD" />
+      <rect x="10.3" y="7.2" width="9.4" height="9.6" rx="1.4" fill="#fff" />
+      <path d="M10.9 8.1 15 11.6 19.1 8.1" stroke="#0F6CBD" strokeWidth="1.05" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+      <ellipse cx="6.2" cy="12" rx="2.7" ry="3.5" fill="none" stroke="#fff" strokeWidth="1.8" />
     </svg>
   )
 }
@@ -85,11 +87,11 @@ export default function TeamCard({ member, featured = false }) {
                 <GithubIcon size={15} />
               </a>
             )}
-            {member.scholar && (
-              <a href={member.scholar} target="_blank" rel="noopener noreferrer"
+            {member.outlook && (
+              <a href={`mailto:${member.outlook}`}
                 className="w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center text-gray-500 hover:border-forest-600 hover:text-forest-700 hover:bg-forest-50 transition-all"
-                aria-label="Google Scholar">
-                <ScholarIcon size={15} />
+                aria-label="Outlook Email">
+                <OutlookIcon size={16} />
               </a>
             )}
             {member.email && (
@@ -112,23 +114,24 @@ export default function TeamCard({ member, featured = false }) {
     )
   }
 
+  const nameLink =
+    member.id === 'hammad-gilani' ? 'https://hammadgilani.wordpress.com/'
+    : member.id === 'raheel-shaukat' ? member.website
+    : member.scholar || null
+
   return (
     <div className="bg-white rounded-2xl border border-gray-100 p-6 flex flex-col hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group">
       <Avatar photo={member.photo} name={member.name} position={member.photoPosition} className="w-20 h-20 mx-auto" />
       <div className="mt-4 text-center flex-1">
         <h3 className="font-bold text-gray-900 text-base leading-snug">
-           {member.id === 'hammad-gilani' ? (
-            <a href="https://hammadgilani.wordpress.com/" target="_blank" rel="noopener noreferrer" className="hover:text-forest-600 transition-colors">
-             {member.name}
+          {nameLink ? (
+            <a href={nameLink} target="_blank" rel="noopener noreferrer" className="hover:text-forest-600 transition-colors">
+              {member.name}
             </a>
-         ) : member.id === 'raheel-shaukat' ? (
-        <a href={member.website} target="_blank" rel="noopener noreferrer" className="hover:text-forest-600 transition-colors">
-        {member.name}
-           </a>
           ) : (
-          member.name
-           )}
-          </h3>
+            member.name
+          )}
+        </h3>
         <p className="text-gray-500 text-xs font-normal mt-1">{member.role}</p>
         <p className="text-gray-400 text-xs mt-2 leading-relaxed">{member.bio}</p>
       </div>
@@ -147,11 +150,11 @@ export default function TeamCard({ member, featured = false }) {
             <GithubIcon size={13} />
           </a>
         )}
-        {member.scholar && (
-          <a href={member.scholar} target="_blank" rel="noopener noreferrer"
+        {member.outlook && (
+          <a href={`mailto:${member.outlook}`}
             className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:border-forest-500 hover:text-forest-600 hover:bg-forest-50 transition-all"
-            aria-label="Google Scholar">
-            <ScholarIcon size={13} />
+            aria-label="Outlook Email">
+            <OutlookIcon size={14} />
           </a>
         )}
         {member.email && (

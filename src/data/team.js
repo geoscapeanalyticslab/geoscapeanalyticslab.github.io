@@ -130,6 +130,7 @@ export const team = [
   bio: '',
   linkedin: 'https://linkedin.com/in/muddasir-shah',
   email: '',
+  outlook: 'muddasirshah@outlook.com',
   github: 'https://github.com/parallax-geo',
   scholar: 'https://scholar.google.com/citations?user=yVsuAa4AAAAJ&hl=en',
   phone: '',
