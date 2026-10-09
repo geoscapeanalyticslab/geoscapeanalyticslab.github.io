@@ -18,26 +18,15 @@ function GithubIcon({ size = 16 }) {
   )
 }
 
-function OutlookIcon({ size = 16 }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden>
-      <rect x="1.5" y="2.5" width="21" height="19" rx="3.2" fill="#0F6CBD" />
-      <rect x="10.3" y="7.2" width="9.4" height="9.6" rx="1.4" fill="#fff" />
-      <path d="M10.9 8.1 15 11.6 19.1 8.1" stroke="#0F6CBD" strokeWidth="1.05" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-      <ellipse cx="6.2" cy="12" rx="2.7" ry="3.5" fill="none" stroke="#fff" strokeWidth="1.8" />
-    </svg>
-  )
-}
-
 function Avatar({ photo, name, position, zoom, className = '' }) {
   const initials = name.split(' ').filter(w => w.length > 2).slice(-2).map(w => w[0]).join('')
   return (
     <div className={`relative overflow-hidden rounded-full bg-forest-800 ${className}`}>
       <img
         src={photo} alt={name}
-        className="w-full h-full object-cover"
+        className="img avatar w-full h-full rounded-full object-cover"
         style={{
-          objectPosition: position || 'center',
+          objectPosition: position || 'center center',
           transform: zoom ? `scale(${zoom})` : 'none',
         }}
         onError={e => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'flex' }}
@@ -85,13 +74,6 @@ export default function TeamCard({ member, featured = false }) {
                 className="w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center text-gray-500 hover:border-forest-600 hover:text-forest-700 hover:bg-forest-50 transition-all"
                 aria-label="GitHub">
                 <GithubIcon size={15} />
-              </a>
-            )}
-            {member.outlook && (
-              <a href={`mailto:${member.outlook}`}
-                className="w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center text-gray-500 hover:border-forest-600 hover:text-forest-700 hover:bg-forest-50 transition-all"
-                aria-label="Outlook Email">
-                <OutlookIcon size={16} />
               </a>
             )}
             {member.email && (
@@ -148,13 +130,6 @@ export default function TeamCard({ member, featured = false }) {
             className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:border-forest-500 hover:text-forest-600 hover:bg-forest-50 transition-all"
             aria-label="GitHub">
             <GithubIcon size={13} />
-          </a>
-        )}
-        {member.outlook && (
-          <a href={`mailto:${member.outlook}`}
-            className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:border-forest-500 hover:text-forest-600 hover:bg-forest-50 transition-all"
-            aria-label="Outlook Email">
-            <OutlookIcon size={14} />
           </a>
         )}
         {member.email && (
