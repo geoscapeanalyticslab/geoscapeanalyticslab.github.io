@@ -54,19 +54,19 @@ function ProjectCard({ project, index }) {
   return (
     <ScrollReveal delay={index * 0.08}>
       <article
-        className="group relative flex h-full flex-col overflow-hidden rounded-3xl bg-white shadow-lg shadow-slate-900/10 ring-1 ring-slate-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+        className="group relative flex h-full max-w-[340px] flex-col overflow-hidden rounded-3xl bg-white shadow-lg shadow-slate-900/10 ring-1 ring-slate-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
         style={inter}
       >
 
         {/* Top: logo on a light tint of the brand colour */}
         <div
-          className="relative flex items-center justify-center px-6 py-8"
+          className="relative flex h-[190px] items-center justify-center px-6"
           style={{ background: project.accent + '1a' }}
         >
           <img
             src={project.logo}
             alt={`${project.title} logo`}
-            className="max-h-16 max-w-[70%] object-contain drop-shadow-sm transition-transform duration-300 group-hover:scale-105"
+            className="max-h-[120px] max-w-[80%] object-contain drop-shadow-sm transition-transform duration-300 group-hover:scale-105"
           />
         </div>
 
