@@ -88,10 +88,6 @@ function NewsCard({ item, onZoom }) {
           {item.title}
         </h3>
 
-        <p className="line-clamp-3 text-white/80" style={{ fontSize: '0.88rem', lineHeight: 1.55 }}>
-          {item.excerpt}
-        </p>
-
         {item.linkedin && (
           <div className="mt-1 flex items-center gap-2">
             <a
