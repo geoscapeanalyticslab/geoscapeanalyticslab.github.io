@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { ExternalLink, Globe2, Map, BarChart3, Layers, Maximize2, Minimize2, Play, Pause, Volume2, VolumeX, Download } from 'lucide-react'
 import ScrollReveal from '../components/ScrollReveal'
-import { PageHeader } from './Research'
 
 const formatTime = seconds => {
   if (!Number.isFinite(seconds) || seconds < 0) seconds = 0
@@ -59,6 +58,14 @@ const VIDEO_BLOCKS = [
     file: 'pakistan_year_titled.mp4',
     alt: 'Year-by-year temperature movement across Pakistan from 2000 to 2025',
   },
+]
+
+// Static map images. Only the visual is shown — no credit/source lines.
+const MAPS = [
+  { title: 'Pakistan Solar Radiation', src: '/Pak_solar_radiation.jpeg' },
+  { title: 'Pakistan Temperature (Extreme Values)', src: '/pak_temp_ev.jpeg' },
+  { title: 'Pakistan Temperature & Precipitation', src: '/pak_temp_preci.jpeg' },
+  { title: 'Pakistan Vapor Pressure Deficit', src: '/pak_vapor_pressure_defi.jpeg' },
 ]
 
 const VIZ = [
@@ -293,11 +300,11 @@ function VideoBlock({ label, title, description, source, links, file, alt }) {
 
       {/* Text block */}
       <div className="flex flex-1 flex-col gap-2.5 p-5">
-        <span className="text-[11px] font-black uppercase tracking-widest text-forest-300">{label}</span>
-        <h2 className="text-lg font-black text-white leading-snug">{title}</h2>
-        <p className="text-[13px] text-forest-200/85 leading-relaxed">{description}</p>
+        <span className="text-[10px] font-black uppercase tracking-widest text-forest-300">{label}</span>
+        <h2 className="text-[15px] font-black text-white leading-snug">{title}</h2>
+        <p className="text-[11px] text-forest-200/85 leading-relaxed">{description}</p>
         {source && (
-          <p className="text-[11px] text-forest-300/60 leading-relaxed">{source}</p>
+          <p className="text-[10px] text-forest-300/60 leading-relaxed">{source}</p>
         )}
         {links?.length > 0 && (
           <div className="flex flex-wrap items-center gap-2 pt-1 mt-auto">
@@ -325,14 +332,32 @@ function VideoBlock({ label, title, description, source, links, file, alt }) {
   )
 }
 
+function MapCard({ item }) {
+  return (
+    <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] hover:border-white/25 hover:shadow-lg transition-all duration-300 group h-full">
+      <img
+        src={item.src}
+        alt={item.title}
+        loading="lazy"
+        className="w-full h-full aspect-[4/3] object-cover group-hover:scale-105 transition-transform duration-500"
+      />
+    </div>
+  )
+}
+
 export default function Visualization() {
   return (
     <div className="pt-16">
-      <PageHeader
-        label=""
-        title="Visualizations"
-        subtitle="Interactive maps, GEE apps, and geospatial dashboards from GSAL research outputs."
-      />
+      {/* Compact page header (page-local, so the shared PageHeader used by
+          other pages is left untouched). Reduced padding + smaller type. */}
+      <section className="bg-forest-950 pt-4 md:pt-6 pb-6 px-6">
+        <div className="max-w-4xl mx-auto text-center">
+          <h1 className="text-4xl md:text-5xl font-black text-white leading-tight">Visualizations</h1>
+          <p className="text-forest-300 mt-3 text-base max-w-2xl mx-auto leading-relaxed">
+            Interactive maps, GEE apps, and geospatial dashboards from GSAL research outputs.
+          </p>
+        </div>
+      </section>
 
       {/* ── Visualizations hidden for now — will be added soon. Code kept below for later. ──
       <section className="max-w-7xl mx-auto px-6 py-20">
@@ -361,7 +386,7 @@ export default function Visualization() {
       */}
 
       {/* ── Video blocks: three per row, identical card layout ── */}
-      <section className="bg-forest-950 py-14">
+      <section className="bg-forest-950 pt-6 pb-14">
         {/* Outer div matches the page's standard content container so the cards
             line up with the left edge of everything else on the site.
             Inner grid is px-capped (not rem) on purpose: the site's root
@@ -373,6 +398,15 @@ export default function Visualization() {
             {VIDEO_BLOCKS.map((v, i) => (
               <ScrollReveal key={v.file} delay={i * 0.08}>
                 <VideoBlock {...v} />
+              </ScrollReveal>
+            ))}
+          </div>
+
+          {/* ── Static maps: same card style, grid, radius and hover as the video cards ── */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-[1200px] mx-auto mt-6">
+            {MAPS.map((m, i) => (
+              <ScrollReveal key={m.src} delay={i * 0.08}>
+                <MapCard item={m} />
               </ScrollReveal>
             ))}
           </div>
