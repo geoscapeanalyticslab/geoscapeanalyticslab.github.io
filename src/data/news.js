@@ -10,6 +10,8 @@ export const news = [
     linkedin: 'https://www.linkedin.com/posts/adeel-ahmad-gis_googleearthengine-earthobservation-geoai-activity-7513628234799054848-C3RL?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAb98j8Bj3VL7OBOVrxJu-7S3vev3kITknI',
     image: '/Google%20earth%20engine.png',
   },
+  // hidden for now, re-enable later
+  /*
   {
     id: 1,
     date: '2026-06-15',
@@ -26,4 +28,5 @@ export const news = [
     excerpt: 'GSAL begins forest cover change detection across Punjab using Sentinel-2 data.',
     image: '',   // is khabar ki koi pic nahi
   },
+  */
 ]
