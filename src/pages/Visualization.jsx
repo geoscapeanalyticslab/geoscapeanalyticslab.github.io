@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
-import { ExternalLink, Globe2, Map, BarChart3, Layers, Maximize2, Minimize2, Play, Pause, Volume2, VolumeX, Download } from 'lucide-react'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { ExternalLink, Globe2, Map, BarChart3, Layers, Maximize2, Minimize2, Play, Pause, Volume2, VolumeX, Download, ChevronLeft, ChevronRight, X } from 'lucide-react'
 import ScrollReveal from '../components/ScrollReveal'
 
 const formatTime = seconds => {
@@ -63,8 +63,8 @@ const VIDEO_BLOCKS = [
 // Static map images. Only the visual is shown — no credit/source lines.
 const MAPS = [
   { title: 'Pakistan Solar Radiation', src: '/Pak_solar_radiation.jpeg' },
-  { title: 'Pakistan Temperature (Extreme Values)', src: '/pak_temp_ev.jpeg' },
-  { title: 'Pakistan Temperature & Precipitation', src: '/pak_temp_preci.jpeg' },
+  { title: 'Pakistan Temperature and Evapotranspiration', src: '/pak_temp_ev.jpeg' },
+  { title: 'Pakistan Temperature and Precipitation', src: '/pak_temp_preci.jpeg' },
   { title: 'Pakistan Vapor Pressure Deficit', src: '/pak_vapor_pressure_defi.jpeg' },
 ]
 
@@ -103,6 +103,194 @@ const VIZ = [
   },
 ]
 
+// ── Stacked-card carousel ────────────────────────────────────────────────────
+
+// Disable slide/scale animations when the user asks for reduced motion.
+function usePrefersReducedMotion() {
+  const [reduced, setReduced] = useState(false)
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const update = () => setReduced(mq.matches)
+    update()
+    mq.addEventListener('change', update)
+    return () => mq.removeEventListener('change', update)
+  }, [])
+  return reduced
+}
+
+// Round teal control used beside the deck and inside the lightbox.
+function ArrowButton({ direction, onClick, className = '' }) {
+  const Icon = direction === 'prev' ? ChevronLeft : ChevronRight
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={direction === 'prev' ? 'Previous slide' : 'Next slide'}
+      className={`inline-flex items-center justify-center w-11 h-11 rounded-full border border-forest-300 bg-forest-300 text-forest-950 shadow-lg transition-all duration-200 motion-reduce:transition-none hover:bg-forest-100 hover:border-forest-100 hover:scale-105 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-300/70 ${className}`}
+    >
+      <Icon size={22} strokeWidth={2.5} />
+    </button>
+  )
+}
+
+// One reusable carousel. The front card is in normal flow (it defines the
+// height); the next two cards are absolutely positioned behind it, scaled and
+// lifted to form a deck. Loops, supports arrows, dots, keyboard and swipe.
+function StackCarousel({ items, ariaLabel, renderItem }) {
+  const count = items.length
+  const [active, setActive] = useState(0)
+  const reduced = usePrefersReducedMotion()
+  const drag = useRef({ x: 0, y: 0, ok: false })
+
+  const goTo = i => setActive(((i % count) + count) % count)
+  const step = dir => setActive(prev => (prev + dir + count) % count)
+
+  const onKeyDown = e => {
+    if (e.key === 'ArrowLeft') { e.preventDefault(); step(-1) }
+    else if (e.key === 'ArrowRight') { e.preventDefault(); step(1) }
+  }
+
+  // Swipe, but never swallow drags on the seek bar / video / links.
+  const onTouchStart = e => {
+    const t = e.changedTouches[0]
+    drag.current = { x: t.clientX, y: t.clientY, ok: !e.target.closest('input, video, a, [role="slider"]') }
+  }
+  const onTouchEnd = e => {
+    if (!drag.current.ok) return
+    const t = e.changedTouches[0]
+    const dx = t.clientX - drag.current.x
+    const dy = t.clientY - drag.current.y
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) step(dx < 0 ? 1 : -1)
+  }
+
+  const deckStyle = offset => {
+    let scale = 1, y = 0, opacity = 1, zIndex = 30
+    let boxShadow = '0 22px 45px -14px rgba(0, 0, 0, 0.55)'
+    if (offset === 1) { scale = 0.95; y = -20; opacity = 0.6; zIndex = 20; boxShadow = '0 14px 32px -12px rgba(0, 0, 0, 0.5)' }
+    else if (offset === 2) { scale = 0.90; y = -40; opacity = 0.32; zIndex = 10; boxShadow = '0 10px 24px -12px rgba(0, 0, 0, 0.45)' }
+    else if (offset >= 3) { scale = 0.90; y = -40; opacity = 0; zIndex = 0; boxShadow = 'none' }
+    return {
+      transform: `translateY(${y}px) scale(${scale})`,
+      opacity,
+      zIndex,
+      boxShadow,
+      transition: reduced ? 'none' : 'transform 400ms ease-in-out, opacity 400ms ease-in-out, box-shadow 400ms ease-in-out',
+      willChange: 'transform, opacity',
+    }
+  }
+
+  return (
+    <div
+      role="region"
+      aria-roledescription="carousel"
+      aria-label={ariaLabel}
+      tabIndex={0}
+      onKeyDown={onKeyDown}
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
+      className="relative mx-auto w-full max-w-[560px] sm:max-w-[680px] lg:max-w-[760px] pt-10 rounded-3xl outline-none focus-visible:ring-2 focus-visible:ring-forest-300/60"
+    >
+      {/* Deck */}
+      <div className="relative">
+        {items.map((item, i) => {
+          const offset = (i - active + count) % count
+          const isFront = offset === 0
+          return (
+            <div
+              key={i}
+              aria-hidden={!isFront}
+              inert={isFront ? undefined : true}
+              className={isFront ? 'relative rounded-2xl' : 'absolute inset-x-0 top-0 rounded-2xl'}
+              style={deckStyle(offset)}
+            >
+              {renderItem(item, i, isFront)}
+            </div>
+          )
+        })}
+      </div>
+
+      {/* Side arrows (desktop / tablet) */}
+      <ArrowButton direction="prev" onClick={() => step(-1)} className="hidden sm:inline-flex absolute left-1 top-[38%] -translate-y-1/2 z-40" />
+      <ArrowButton direction="next" onClick={() => step(1)} className="hidden sm:inline-flex absolute right-1 top-[38%] -translate-y-1/2 z-40" />
+
+      {/* Indicator + mobile arrows */}
+      <div className="mt-8 flex items-center justify-center gap-5">
+        <ArrowButton direction="prev" onClick={() => step(-1)} className="sm:hidden" />
+        <div className="flex items-center gap-2">
+          {items.map((_, i) => (
+            <button
+              key={i}
+              type="button"
+              onClick={() => goTo(i)}
+              aria-label={`Go to slide ${i + 1} of ${count}`}
+              aria-current={i === active ? 'true' : undefined}
+              className={`h-2 rounded-full transition-all duration-300 motion-reduce:transition-none ${i === active ? 'w-6 bg-forest-300' : 'w-2 bg-white/25 hover:bg-white/50'}`}
+            />
+          ))}
+        </div>
+        <ArrowButton direction="next" onClick={() => step(1)} className="sm:hidden" />
+      </div>
+    </div>
+  )
+}
+
+// Fullscreen map viewer with its own arrows, keyboard support and scroll lock.
+function MapLightbox({ items, index, onClose, onPrev, onNext }) {
+  const dialogRef = useRef(null)
+
+  useEffect(() => {
+    if (index === null) return
+    dialogRef.current?.focus()
+    const onKey = e => {
+      if (e.key === 'Escape') { e.stopPropagation(); onClose() }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); e.stopPropagation(); onPrev() }
+      else if (e.key === 'ArrowRight') { e.preventDefault(); e.stopPropagation(); onNext() }
+    }
+    document.addEventListener('keydown', onKey)
+    const prevOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.removeEventListener('keydown', onKey)
+      document.body.style.overflow = prevOverflow
+    }
+  }, [index, onClose, onPrev, onNext])
+
+  if (index === null) return null
+  const item = items[index]
+
+  return (
+    <div
+      ref={dialogRef}
+      role="dialog"
+      aria-modal="true"
+      aria-label={item.title}
+      tabIndex={-1}
+      onClick={onClose}
+      className="fixed inset-0 z-[120] flex items-center justify-center bg-black/90 p-4 sm:p-8 outline-none"
+    >
+      <button
+        type="button"
+        onClick={e => { e.stopPropagation(); onClose() }}
+        aria-label="Close full screen"
+        className="absolute top-4 right-4 z-10 inline-flex items-center justify-center w-11 h-11 rounded-full border border-white/20 bg-black/50 text-white transition-colors hover:bg-white hover:text-forest-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+      >
+        <X size={22} strokeWidth={2.5} />
+      </button>
+
+      <ArrowButton direction="prev" onClick={e => { e.stopPropagation(); onPrev() }} className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 z-10" />
+      <ArrowButton direction="next" onClick={e => { e.stopPropagation(); onNext() }} className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 z-10" />
+
+      <figure className="flex max-h-full max-w-full flex-col items-center" onClick={e => e.stopPropagation()}>
+        <img src={item.src} alt={item.title} className="max-h-[82vh] max-w-full object-contain rounded-lg shadow-2xl" />
+        <figcaption className="mt-4 text-center">
+          <span className="block text-base font-black text-white">{item.title}</span>
+          <span className="mt-1 block text-xs font-semibold text-forest-200">{index + 1} / {items.length}</span>
+        </figcaption>
+      </figure>
+    </div>
+  )
+}
+
 function VizCard({ item, index }) {
   const Icon = item.icon
   return (
@@ -138,7 +326,7 @@ function VizCard({ item, index }) {
   )
 }
 
-function VideoBlock({ label, title, description, source, links, file, alt }) {
+function VideoBlock({ label, title, description, source, links, file, alt, isActive = true }) {
   const playerRef = useRef(null)
   const videoRef = useRef(null)
   const src = `/videos/${file}`
@@ -156,6 +344,17 @@ function VideoBlock({ label, title, description, source, links, file, alt }) {
     document.addEventListener('fullscreenchange', onChange)
     return () => document.removeEventListener('fullscreenchange', onChange)
   }, [])
+
+  // Only the front card plays. When it slides to the back, pause and rewind it.
+  useEffect(() => {
+    if (isActive) return
+    const video = videoRef.current
+    if (!video) return
+    video.pause()
+    try { video.currentTime = 0 } catch { /* seeking may be blocked before metadata */ }
+    setCurrentTime(0)
+    setIsPlaying(false)
+  }, [isActive])
 
   const togglePlay = () => {
     const video = videoRef.current
@@ -332,20 +531,31 @@ function VideoBlock({ label, title, description, source, links, file, alt }) {
   )
 }
 
-function MapCard({ item }) {
+function MapCard({ item, isActive, onOpen }) {
   return (
-    <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] hover:border-white/25 hover:shadow-lg transition-all duration-300 group h-full">
+    <button
+      type="button"
+      onClick={() => { if (isActive && onOpen) onOpen() }}
+      aria-label={`Open ${item.title} in full screen`}
+      className="group block w-full overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] hover:border-white/25 hover:shadow-lg transition-all duration-300 cursor-zoom-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-300/70"
+    >
       <img
         src={item.src}
         alt={item.title}
         loading="lazy"
-        className="w-full h-full aspect-[4/3] object-cover group-hover:scale-105 transition-transform duration-500"
+        className="w-full aspect-[4/3] object-cover group-hover:scale-[1.03] transition-transform duration-500 motion-reduce:transition-none"
       />
-    </div>
+    </button>
   )
 }
 
 export default function Visualization() {
+  // Index of the map shown in the fullscreen lightbox (null = closed).
+  const [lightbox, setLightbox] = useState(null)
+  const closeLightbox = useCallback(() => setLightbox(null), [])
+  const prevLightbox = useCallback(() => setLightbox(i => (i === null ? i : (i - 1 + MAPS.length) % MAPS.length)), [])
+  const nextLightbox = useCallback(() => setLightbox(i => (i === null ? i : (i + 1) % MAPS.length)), [])
+
   return (
     <div className="pt-16">
       {/* Compact page header (page-local, so the shared PageHeader used by
@@ -385,33 +595,45 @@ export default function Visualization() {
       </section>
       */}
 
-      {/* ── Video blocks: three per row, identical card layout ── */}
-      <section className="bg-forest-950 pt-6 pb-14">
-        {/* Outer div matches the page's standard content container so the cards
-            line up with the left edge of everything else on the site.
-            Inner grid is px-capped (not rem) on purpose: the site's root
-            font-size scales up to 22px on 4K, which would balloon a rem-based
-            container and make the video box huge. Centered so the leftover
-            width splits equally on both sides. */}
+      {/* ── Stacked card carousels: videos (A) and static maps (B) ── */}
+      <section className="bg-forest-950 pt-6 pb-16">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-[1200px] mx-auto">
-            {VIDEO_BLOCKS.map((v, i) => (
-              <ScrollReveal key={v.file} delay={i * 0.08}>
-                <VideoBlock {...v} />
-              </ScrollReveal>
-            ))}
-          </div>
+          {/* Carousel A — videos. Each card keeps its own title, tag,
+              description, source and links. Only the front card is live. */}
+          <ScrollReveal>
+            <StackCarousel
+              items={VIDEO_BLOCKS}
+              ariaLabel="Video visualizations"
+              renderItem={(item, _i, isActive) => <VideoBlock {...item} isActive={isActive} />}
+            />
+          </ScrollReveal>
 
-          {/* ── Static maps: same card style, grid, radius and hover as the video cards ── */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-[1200px] mx-auto mt-6">
-            {MAPS.map((m, i) => (
-              <ScrollReveal key={m.src} delay={i * 0.08}>
-                <MapCard item={m} />
-              </ScrollReveal>
-            ))}
+          {/* Carousel B — static maps, opened fullscreen on click. */}
+          <div className="mt-16">
+            <div className="text-center mb-4">
+              <span className="text-[10px] font-black uppercase tracking-widest text-forest-300">Static Maps</span>
+              <h2 className="text-2xl md:text-3xl font-black text-white mt-1">Maps</h2>
+            </div>
+            <ScrollReveal>
+              <StackCarousel
+                items={MAPS}
+                ariaLabel="Map visualizations"
+                renderItem={(item, i, isActive) => (
+                  <MapCard item={item} isActive={isActive} onOpen={() => setLightbox(i)} />
+                )}
+              />
+            </ScrollReveal>
           </div>
         </div>
       </section>
+
+      <MapLightbox
+        items={MAPS}
+        index={lightbox}
+        onClose={closeLightbox}
+        onPrev={prevLightbox}
+        onNext={nextLightbox}
+      />
     </div>
   )
 }
