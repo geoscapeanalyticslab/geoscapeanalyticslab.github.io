@@ -366,10 +366,10 @@ export default function Visualization() {
             line up with the left edge of everything else on the site.
             Inner grid is px-capped (not rem) on purpose: the site's root
             font-size scales up to 22px on 4K, which would balloon a rem-based
-            container and make the video box huge. Left-aligned, not centered,
-            so the space sits on the right instead of both sides. */}
+            container and make the video box huge. Centered so the leftover
+            width splits equally on both sides. */}
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-[1200px]">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-[1200px] mx-auto">
             {VIDEO_BLOCKS.map((v, i) => (
               <ScrollReveal key={v.file} delay={i * 0.08} className="h-full">
                 <VideoBlock {...v} />
