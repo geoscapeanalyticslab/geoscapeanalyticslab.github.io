@@ -5,7 +5,6 @@ export const news = [
     title: 'GSAL Granted Partner Tier Access to Google Earth Engine',
     excerpt:
       'GeoScape Analytics Lab has been granted Partner Tier access to Google Earth Engine. This strengthens our ability to run large-scale Earth observation and geospatial analytics, enabling faster processing of satellite imagery and expanded cloud-based workflows for our research across Pakistan.',
-    hashtags: '#GoogleEarthEngine #EarthObservation #GeoAI #RemoteSensing #ClimateAction #Pakistan',
     linkedin: 'https://www.linkedin.com/posts/adeel-ahmad-gis_googleearthengine-earthobservation-geoai-activity-7513628234799054848-C3RL?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAb98j8Bj3VL7OBOVrxJu-7S3vev3kITknI',
     image: '/Google%20earth%20engine.png',
   },
