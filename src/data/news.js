@@ -2,7 +2,6 @@ export const news = [
   {
     id: 3,
     date: '2026-10-07',
-    tag: 'Announcement',
     title: 'GSAL Granted Partner Tier Access to Google Earth Engine',
     excerpt:
       'GeoScape Analytics Lab has been granted Partner Tier access to Google Earth Engine. This strengthens our ability to run large-scale Earth observation and geospatial analytics, enabling faster processing of satellite imagery and expanded cloud-based workflows for our research across Pakistan.',

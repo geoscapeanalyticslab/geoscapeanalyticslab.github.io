@@ -6,6 +6,9 @@ import ScrollReveal from '../components/ScrollReveal'
 import { LinkedInIcon } from '../components/SocialIcons'
 import { PageHeader } from './Research'
 
+const inter = { fontFamily: "'Inter', 'Segoe UI', sans-serif" }
+const ACCENT = '#2d9462'
+
 // Click-to-zoom viewer for a news image.
 function NewsImageLightbox({ item, onClose }) {
   useEffect(() => {
@@ -51,6 +54,74 @@ function NewsImageLightbox({ item, onClose }) {
   )
 }
 
+function NewsCard({ item, onZoom }) {
+  const date = new Date(item.date).toLocaleDateString('en-US', {
+    year: 'numeric', month: 'short', day: 'numeric',
+  })
+
+  return (
+    <article
+      className="group relative flex w-full flex-col overflow-hidden rounded-3xl bg-white shadow-lg shadow-slate-900/10 ring-1 ring-slate-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+      style={inter}
+    >
+      {/* Top media: the poster image, natural height, never cropped */}
+      {item.image && (
+        <button
+          type="button"
+          onClick={() => onZoom(item)}
+          aria-label={`Zoom image: ${item.title}`}
+          className="block w-full cursor-zoom-in overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-300/70"
+        >
+          <img
+            src={item.image}
+            alt={item.title}
+            loading="lazy"
+            className="w-full h-auto object-contain transition-transform duration-300 group-hover:scale-[1.02]"
+            onError={e => { e.currentTarget.closest('button').style.display = 'none' }}
+          />
+        </button>
+      )}
+
+      {/* Content: brand colour fading into dark charcoal, same as Projects cards */}
+      <div
+        className="relative flex flex-col gap-2 p-5"
+        style={{ background: `linear-gradient(180deg, ${ACCENT} 0%, #3a4047 58%, #1b1e22 100%)` }}
+      >
+        <span className="text-white/60" style={{ fontSize: '0.72rem' }}>{date}</span>
+
+        <h3 className="font-bold text-white" style={{ fontSize: '1.05rem', lineHeight: 1.3 }}>
+          {item.title}
+        </h3>
+
+        <p className="line-clamp-3 text-white/80" style={{ fontSize: '0.88rem', lineHeight: 1.55 }}>
+          {item.excerpt}
+        </p>
+
+        {item.hashtags && (
+          <p className="text-white/55" style={{ fontSize: '0.72rem', lineHeight: 1.5 }}>
+            {item.hashtags}
+          </p>
+        )}
+
+        {item.linkedin && (
+          <div className="mt-1 flex items-center gap-2">
+            <a
+              href={item.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="View post on LinkedIn"
+              title="View post on LinkedIn"
+              className="flex h-8 w-8 items-center justify-center rounded-full bg-white/15 text-white backdrop-blur transition-colors hover:bg-white hover:text-slate-900"
+            >
+              <LinkedInIcon size={14} />
+            </a>
+          </div>
+        )}
+      </div>
+    </article>
+  )
+}
+
 export default function News() {
   const items = [...news].sort((a, b) => new Date(b.date) - new Date(a.date))
   const [zoom, setZoom] = useState(null)
@@ -63,68 +134,16 @@ export default function News() {
         subtitle="Announcements, projects, and updates from GeoScape Analytics Lab."
       />
 
-      <section className="max-w-7xl mx-auto px-6 py-16">
+      <section className="mx-auto max-w-7xl px-6 py-16">
         {items.length === 0 ? (
           <p className="text-center text-gray-500">No news yet. Check back soon.</p>
         ) : (
-          <div className="grid grid-cols-1 justify-center gap-6 min-[760px]:max-[1099px]:grid-cols-[repeat(2,340px)] min-[1100px]:grid-cols-[repeat(3,340px)]">
-            {items.map((item, i) => {
-              const date = new Date(item.date).toLocaleDateString('en-US', {
-                year: 'numeric', month: 'short', day: 'numeric',
-              })
-              return (
-                <ScrollReveal key={item.id} delay={i * 0.08} className="mx-auto w-full max-w-[340px]">
-                  <article className="bg-white rounded-2xl border border-gray-100 hover:border-gray-200 hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col">
-                    {item.image && (
-                      <button
-                        type="button"
-                        onClick={() => setZoom(item)}
-                        aria-label={`Zoom image: ${item.title}`}
-                        style={{ height: '180px' }}
-                        className="group/img block w-full cursor-zoom-in overflow-hidden bg-forest-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-300/70"
-                      >
-                        <img
-                          src={item.image}
-                          alt={item.title}
-                          className="w-full h-full object-contain transition-transform duration-500 motion-reduce:transition-none group-hover/img:scale-105"
-                          onError={e => { e.currentTarget.parentElement.style.display = 'none' }}
-                        />
-                      </button>
-                    )}
-                    <div className="p-5 flex flex-col">
-                      <div className="flex items-center justify-between mb-2">
-                        <span
-                          className="font-bold uppercase tracking-wide text-forest-700 bg-forest-50 rounded-full px-2.5 py-0.5"
-                          style={{ fontSize: '0.72rem' }}
-                        >
-                          {item.tag}
-                        </span>
-                        <span className="text-gray-400" style={{ fontSize: '0.72rem' }}>{date}</span>
-                      </div>
-                      <h3 className="font-black text-gray-900" style={{ fontSize: '1rem', lineHeight: 1.3 }}>{item.title}</h3>
-                      <p className="text-gray-500 mt-2" style={{ fontSize: '0.88rem', lineHeight: 1.6 }}>{item.excerpt}</p>
-                      {item.hashtags && (
-                        <p className="text-forest-200/80 mt-2 leading-relaxed" style={{ fontSize: '0.72rem' }}>{item.hashtags}</p>
-                      )}
-                      {item.linkedin && (
-                        <div className="mt-3">
-                          <a
-                            href={item.linkedin}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            title="View this update on LinkedIn"
-                            aria-label="View this update on LinkedIn"
-                            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-forest-300/40 text-forest-200 transition-colors hover:bg-forest-300 hover:border-forest-300 hover:text-forest-950"
-                          >
-                            <LinkedInIcon size={16} />
-                          </a>
-                        </div>
-                      )}
-                    </div>
-                  </article>
-                </ScrollReveal>
-              )
-            })}
+          <div className="grid grid-cols-1 justify-center gap-[24px] min-[760px]:max-[1099px]:grid-cols-[repeat(2,340px)] min-[1100px]:grid-cols-[repeat(3,340px)]">
+            {items.map((item, i) => (
+              <ScrollReveal key={item.id} delay={i * 0.08} className="mx-auto w-full max-w-[340px]">
+                <NewsCard item={item} onZoom={setZoom} />
+              </ScrollReveal>
+            ))}
           </div>
         )}
       </section>
