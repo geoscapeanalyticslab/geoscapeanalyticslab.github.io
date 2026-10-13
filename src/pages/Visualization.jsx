@@ -1,26 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { ExternalLink, Globe2, Map, BarChart3, Layers, Maximize2, Minimize2, Play, Pause, Volume2, VolumeX, Download, ChevronLeft, ChevronRight, X } from 'lucide-react'
+import { ExternalLink, Globe2, Map, BarChart3, Layers, Maximize2, Minimize2, Play, ChevronLeft, ChevronRight, X } from 'lucide-react'
 import ScrollReveal from '../components/ScrollReveal'
-
-const formatTime = seconds => {
-  if (!Number.isFinite(seconds) || seconds < 0) seconds = 0
-  const m = Math.floor(seconds / 60)
-  const s = Math.floor(seconds % 60)
-  return `${m}:${String(s).padStart(2, '0')}`
-}
-
-// lucide-react v1 no longer ships brand marks, so the social logos are inlined.
-const LinkedInIcon = ({ size = 14 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-  </svg>
-)
-
-const FacebookIcon = ({ size = 14 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-    <path d="M24 12.073C24 5.446 18.627 0 12 0S0 5.446 0 12.073c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-  </svg>
-)
+import { LinkedInIcon, FacebookIcon } from '../components/SocialIcons'
 
 const SOCIAL_ICONS = { linkedin: LinkedInIcon, facebook: FacebookIcon }
 
@@ -133,19 +114,50 @@ function ArrowButton({ direction, onClick, className = '' }) {
   )
 }
 
-// One reusable carousel. The front card is in normal flow (it defines the
-// height); the next two cards are absolutely positioned behind it, scaled and
-// lifted to form a deck. Loops, supports arrows, dots, keyboard and swipe.
+// One reusable carousel. Cards form a "coverflow": the front card sits centred
+// at full size while the neighbours fan out to either side, scaled down and
+// rotated. Cards are small by default and grow when the front one is clicked.
+// Loops, and supports arrows, dots, keyboard and swipe.
 function StackCarousel({ items, ariaLabel, renderItem }) {
   const count = items.length
   const [active, setActive] = useState(0)
+  const [expanded, setExpanded] = useState(false)
+  const [stageH, setStageH] = useState(0)
   const reduced = usePrefersReducedMotion()
   const drag = useRef({ x: 0, y: 0, ok: false })
+  const stageRef = useRef(null)
+  const activeCardRef = useRef(null)
 
-  const goTo = i => setActive(((i % count) + count) % count)
-  const step = dir => setActive(prev => (prev + dir + count) % count)
+  const goTo = i => { setExpanded(false); setActive(((i % count) + count) % count) }
+  const step = dir => { setExpanded(false); setActive(prev => (prev + dir + count) % count) }
+
+  // Keep the stage as tall as the front card, so the fanned-out cards never
+  // change the page height. Re-measures whenever the slide or size changes.
+  useEffect(() => {
+    const el = activeCardRef.current
+    if (!el) return
+    const update = () => setStageH(el.offsetHeight)
+    update()
+    const ro = new ResizeObserver(update)
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [active, expanded])
+
+  // Collapse the enlarged card when clicking away or pressing Escape.
+  useEffect(() => {
+    if (!expanded) return
+    const onDown = e => { if (!stageRef.current?.contains(e.target)) setExpanded(false) }
+    const onKey = e => { if (e.key === 'Escape') setExpanded(false) }
+    document.addEventListener('mousedown', onDown)
+    document.addEventListener('keydown', onKey)
+    return () => {
+      document.removeEventListener('mousedown', onDown)
+      document.removeEventListener('keydown', onKey)
+    }
+  }, [expanded])
 
   const onKeyDown = e => {
+    if (e.target.closest('video, input, textarea, select, a')) return
     if (e.key === 'ArrowLeft') { e.preventDefault(); step(-1) }
     else if (e.key === 'ArrowRight') { e.preventDefault(); step(1) }
   }
@@ -163,18 +175,46 @@ function StackCarousel({ items, ariaLabel, renderItem }) {
     if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) step(dx < 0 ? 1 : -1)
   }
 
-  const deckStyle = offset => {
-    let scale = 1, y = 0, opacity = 1, zIndex = 30
-    let boxShadow = '0 22px 45px -14px rgba(0, 0, 0, 0.55)'
-    if (offset === 1) { scale = 0.95; y = -20; opacity = 0.6; zIndex = 20; boxShadow = '0 14px 32px -12px rgba(0, 0, 0, 0.5)' }
-    else if (offset === 2) { scale = 0.90; y = -40; opacity = 0.32; zIndex = 10; boxShadow = '0 10px 24px -12px rgba(0, 0, 0, 0.45)' }
-    else if (offset >= 3) { scale = 0.90; y = -40; opacity = 0; zIndex = 0; boxShadow = 'none' }
+  // Signed distance from the front card (0, ±1, ±2, ...).
+  const signed = i => {
+    let d = (i - active + count) % count
+    if (d > count / 2) d -= count
+    return d
+  }
+
+  // Coverflow placement: the front card is centred; the rest fan out to the
+  // sides, shrink and rotate to face the centre.
+  const cardStyle = d => {
+    const abs = Math.abs(d)
+    let tx = 0, scale = 1, rot = 0, opacity = 1, z = 30, hidden = false
+    if (abs === 1) {
+      tx = expanded ? 0.66 : 0.62
+      scale = expanded ? 0.86 : 0.8
+      rot = 12
+      opacity = expanded ? 0.35 : 0.55
+      z = 20
+    } else if (abs === 2) {
+      tx = expanded ? 1.04 : 0.98
+      scale = 0.72
+      rot = 18
+      opacity = 0.18
+      z = 10
+    } else if (abs > 2) {
+      hidden = true
+      opacity = 0
+      z = 0
+    }
+    const sign = d > 0 ? 1 : -1
+    const x = tx * sign
+    const transform = hidden
+      ? `translateX(-50%) translateX(calc(var(--cw) * ${(1.25 * sign).toFixed(2)})) scale(0.6)`
+      : `translateX(-50%) translateX(calc(var(--cw) * ${x.toFixed(2)})) scale(${scale}) rotateY(${(-sign * rot)}deg)`
     return {
-      transform: `translateY(${y}px) scale(${scale})`,
+      transform,
       opacity,
-      zIndex,
-      boxShadow,
-      transition: reduced ? 'none' : 'transform 400ms ease-in-out, opacity 400ms ease-in-out, box-shadow 400ms ease-in-out',
+      zIndex: z,
+      pointerEvents: abs === 0 ? 'auto' : 'none',
+      transition: reduced ? 'none' : 'transform 450ms cubic-bezier(0.22, 1, 0.36, 1), opacity 450ms ease-in-out',
       willChange: 'transform, opacity',
     }
   }
@@ -188,30 +228,63 @@ function StackCarousel({ items, ariaLabel, renderItem }) {
       onKeyDown={onKeyDown}
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
-      className="relative mx-auto w-full max-w-[560px] sm:max-w-[680px] lg:max-w-[760px] pt-10 rounded-3xl outline-none focus-visible:ring-2 focus-visible:ring-forest-300/60"
+      className="relative mx-auto w-full max-w-6xl rounded-3xl outline-none focus-visible:ring-2 focus-visible:ring-forest-300/60"
     >
-      {/* Deck */}
       <div className="relative">
-        {items.map((item, i) => {
-          const offset = (i - active + count) % count
-          const isFront = offset === 0
-          return (
-            <div
-              key={i}
-              aria-hidden={!isFront}
-              inert={isFront ? undefined : true}
-              className={isFront ? 'relative rounded-2xl' : 'absolute inset-x-0 top-0 rounded-2xl'}
-              style={deckStyle(offset)}
-            >
-              {renderItem(item, i, isFront)}
-            </div>
-          )
-        })}
-      </div>
+        {/* Stage — holds the fanned cards. Height tracks the front card. */}
+        <div
+          ref={stageRef}
+          className="relative w-full"
+          style={{
+            perspective: '1400px',
+            height: stageH ? `${stageH}px` : undefined,
+            transition: reduced ? 'none' : 'height 450ms cubic-bezier(0.22, 1, 0.36, 1)',
+            '--cw': expanded ? 'min(760px, 88vw)' : 'min(400px, 80vw)',
+          }}
+        >
+          {items.map((item, i) => {
+            const d = signed(i)
+            const isFront = d === 0
+            const hidden = Math.abs(d) > 2
+            return (
+              <div
+                key={i}
+                ref={isFront ? activeCardRef : null}
+                aria-hidden={!isFront}
+                inert={isFront ? undefined : true}
+                className="absolute left-1/2 top-0"
+                style={{ width: 'var(--cw)', visibility: hidden ? 'hidden' : undefined, ...cardStyle(d) }}
+              >
+                {renderItem(item, i, { isActive: isFront, expanded })}
 
-      {/* Side arrows (desktop / tablet) */}
-      <ArrowButton direction="prev" onClick={() => step(-1)} className="hidden sm:inline-flex absolute left-1 top-[38%] -translate-y-1/2 z-40" />
-      <ArrowButton direction="next" onClick={() => step(1)} className="hidden sm:inline-flex absolute right-1 top-[38%] -translate-y-1/2 z-40" />
+                {/* Front card: enlarge while collapsed, shrink while enlarged. */}
+                {isFront && !expanded && (
+                  <button
+                    type="button"
+                    onClick={() => setExpanded(true)}
+                    aria-label="Enlarge"
+                    className="absolute inset-0 z-40 cursor-zoom-in rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-300/80"
+                  />
+                )}
+                {isFront && expanded && (
+                  <button
+                    type="button"
+                    onClick={() => setExpanded(false)}
+                    aria-label="Shrink"
+                    className="absolute right-3 top-3 z-50 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-black/60 text-white transition-colors hover:bg-white hover:text-forest-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+                  >
+                    <Minimize2 size={18} strokeWidth={2.5} />
+                  </button>
+                )}
+              </div>
+            )
+          })}
+        </div>
+
+        {/* Side arrows (desktop / tablet) */}
+        <ArrowButton direction="prev" onClick={() => step(-1)} className="hidden sm:inline-flex absolute left-1 top-1/2 -translate-y-1/2 z-40" />
+        <ArrowButton direction="next" onClick={() => step(1)} className="hidden sm:inline-flex absolute right-1 top-1/2 -translate-y-1/2 z-40" />
+      </div>
 
       {/* Indicator + mobile arrows */}
       <div className="mt-8 flex items-center justify-center gap-5">
@@ -326,179 +399,59 @@ function VizCard({ item, index }) {
   )
 }
 
-function VideoBlock({ label, title, description, source, links, file, alt, isActive = true }) {
-  const playerRef = useRef(null)
+function VideoBlock({ label, title, description, source, links, file, alt, isActive = true, expanded = false }) {
   const videoRef = useRef(null)
   const src = `/videos/${file}`
-  const [isFullscreen, setIsFullscreen] = useState(false)
-  const [isPlaying, setIsPlaying] = useState(false)
-  const [isMuted, setIsMuted] = useState(false)
-  const [hasAudio, setHasAudio] = useState(true)
-  const [currentTime, setCurrentTime] = useState(0)
-  const [duration, setDuration] = useState(0)
+  const poster = `/videos/${file.replace(/\.[^.]+$/, '')}_poster.jpg`
+  const controllable = isActive && expanded
 
+  // Only the enlarged front card plays. Pause and rewind everything else.
   useEffect(() => {
-    const onChange = () => {
-      setIsFullscreen(document.fullscreenElement === playerRef.current)
-    }
-    document.addEventListener('fullscreenchange', onChange)
-    return () => document.removeEventListener('fullscreenchange', onChange)
-  }, [])
-
-  // Only the front card plays. When it slides to the back, pause and rewind it.
-  useEffect(() => {
-    if (isActive) return
     const video = videoRef.current
     if (!video) return
+    if (controllable) return
     video.pause()
     try { video.currentTime = 0 } catch { /* seeking may be blocked before metadata */ }
-    setCurrentTime(0)
-    setIsPlaying(false)
-  }, [isActive])
-
-  const togglePlay = () => {
-    const video = videoRef.current
-    if (!video) return
-    if (video.paused || video.ended) {
-      video.play().catch(() => setIsPlaying(false))
-    } else {
-      video.pause()
-    }
-  }
-
-  const toggleMute = () => {
-    const video = videoRef.current
-    if (!video) return
-    video.muted = !video.muted
-    setIsMuted(video.muted)
-  }
-
-  const onLoadedMetadata = e => {
-    const video = e.currentTarget
-    setDuration(Number.isFinite(video.duration) ? video.duration : 0)
-    setHasAudio(video.mozHasAudio || Boolean(video.webkitAudioDecodedByteCount) || (video.audioTracks ? video.audioTracks.length > 0 : true))
-  }
-
-  const onTimeUpdate = e => setCurrentTime(e.currentTarget.currentTime)
-
-  const onVolumeChange = e => setIsMuted(e.currentTarget.muted)
-
-  const onSeek = e => {
-    const time = Number(e.target.value)
-    setCurrentTime(time)
-    if (videoRef.current) videoRef.current.currentTime = time
-  }
-
-  const toggleFullscreen = () => {
-    if (document.fullscreenElement) {
-      document.exitFullscreen()
-    } else {
-      playerRef.current?.requestFullscreen?.().catch(() => {})
-    }
-  }
+  }, [controllable])
 
   return (
     <div className="flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04]">
-      <div
-        ref={playerRef}
-        className="relative w-full bg-black aspect-video cursor-pointer group/player [&:fullscreen]:w-[min(92vw,1000px)] [&:fullscreen]:h-[calc(min(92vw,1000px)*0.5625)] [&:fullscreen]:max-h-[85vh] [&:fullscreen]:m-auto [&:fullscreen]:rounded-2xl [&:fullscreen]:shadow-2xl [&:fullscreen]:bg-black [&::backdrop]:bg-forest-950"
-        onClick={togglePlay}
-      >
+      {/* Fixed 16:9 media box in every card, whatever the video's own
+          orientation. The poster is blurred and zoomed to fill the box while
+          the video is letterboxed on top with object-contain (no bleeding). */}
+      <div className="relative w-full overflow-hidden rounded-xl bg-black" style={{ aspectRatio: '16 / 9' }}>
+        <img
+          src={poster}
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 h-full w-full object-cover"
+          style={{ transform: 'scale(1.25)', filter: 'blur(20px) brightness(0.45)' }}
+        />
         <video
           ref={videoRef}
-          className="w-full h-full object-contain"
+          className="absolute inset-0 h-full w-full object-contain"
           src={src}
+          poster={poster}
           playsInline
           preload="metadata"
-          onPlaying={() => setIsPlaying(true)}
-          onPause={() => setIsPlaying(false)}
-          onEnded={() => setIsPlaying(false)}
-          onLoadedMetadata={onLoadedMetadata}
-          onTimeUpdate={onTimeUpdate}
-          onVolumeChange={onVolumeChange}
+          controls={controllable}
           aria-label={alt}
         >
           Your browser does not support embedded video.{' '}
           <a href={src} download>Download the video</a>
         </video>
 
-            {!isPlaying && (
-              <div className="absolute inset-0 z-[5] pointer-events-none flex items-center justify-center">
-                <span className="flex items-center justify-center w-16 h-16 rounded-full bg-black/45 text-white backdrop-blur-sm">
-                  <Play size={26} strokeWidth={2} fill="currentColor" className="ml-1" />
-                </span>
-              </div>
-            )}
-
-            {/* Controls — clicks here must not toggle playback */}
-            <div
-              onClick={e => e.stopPropagation()}
-              className="absolute inset-x-0 bottom-0 z-10 flex flex-col gap-1.5 px-3 pb-2.5 pt-6 bg-gradient-to-t from-black/85 to-transparent opacity-0 group-hover/player:opacity-100 focus-within:opacity-100 transition-opacity"
-            >
-              <input
-                type="range"
-                min={0}
-                max={duration || 0}
-                step={0.05}
-                value={currentTime}
-                disabled={!duration}
-                onChange={onSeek}
-                aria-label="Seek"
-                className="w-full h-1.5 cursor-pointer disabled:cursor-default"
-                style={{ accentColor: '#58ccbf' }}
-              />
-
-              <div className="flex items-center gap-2 text-white">
-                <button
-                  onClick={togglePlay}
-                  aria-label={isPlaying ? 'Pause' : 'Play'}
-                  className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-white/20 transition-colors"
-                >
-                  {isPlaying
-                    ? <Pause size={17} strokeWidth={2} fill="currentColor" />
-                    : <Play size={17} strokeWidth={2} fill="currentColor" className="ml-0.5" />}
-                </button>
-
-                <button
-                  onClick={toggleMute}
-                  aria-label={isMuted ? 'Unmute' : 'Mute'}
-                  className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-white/20 transition-colors"
-                >
-                  {isMuted || !hasAudio
-                    ? <VolumeX size={17} strokeWidth={2} />
-                    : <Volume2 size={17} strokeWidth={2} />}
-                </button>
-
-                <span className="text-[11px] font-semibold tabular-nums text-white/85">
-                  {formatTime(currentTime)} / {formatTime(duration)}
-                </span>
-
-                <div className="flex-1" />
-
-                <a
-                  href={src}
-                  download
-                  aria-label="Download video"
-                  className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-white/20 transition-colors"
-                >
-                  <Download size={16} strokeWidth={2} />
-                </a>
-
-                <button
-                  onClick={toggleFullscreen}
-                  aria-label={isFullscreen ? 'Exit full screen' : 'Play full screen'}
-                  className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-white/20 transition-colors"
-                >
-                  {isFullscreen
-                    ? <Minimize2 size={16} strokeWidth={2} />
-                    : <Maximize2 size={16} strokeWidth={2} />}
-                </button>
-              </div>
-            </div>
+        {!controllable && (
+          <div className="pointer-events-none absolute inset-0 z-[5] flex items-center justify-center">
+            <span className="flex h-16 w-16 items-center justify-center rounded-full bg-black/45 text-white backdrop-blur-sm">
+              <Play size={26} strokeWidth={2} fill="currentColor" className="ml-1" />
+            </span>
           </div>
+        )}
+      </div>
 
-      {/* Text block */}
-      <div className="flex flex-1 flex-col gap-2.5 p-5">
+      {/* Text block — only the front card shows it. */}
+      <div className={`flex flex-1 flex-col gap-2.5 p-5 transition-opacity duration-300 ${isActive ? 'opacity-100' : 'opacity-0'}`}>
         <span className="text-[10px] font-black uppercase tracking-widest text-forest-300">{label}</span>
         <h2 className="text-[15px] font-black text-white leading-snug">{title}</h2>
         <p className="text-[11px] text-forest-200/85 leading-relaxed">{description}</p>
@@ -506,7 +459,7 @@ function VideoBlock({ label, title, description, source, links, file, alt, isAct
           <p className="text-[10px] text-forest-300/60 leading-relaxed">{source}</p>
         )}
         {links?.length > 0 && (
-          <div className="flex flex-wrap items-center gap-2 pt-1 mt-auto">
+          <div className="relative z-50 mt-auto flex flex-wrap items-center gap-2 pt-1">
             {links.map(link => {
               const Icon = SOCIAL_ICONS[link.network]
               return (
@@ -517,10 +470,9 @@ function VideoBlock({ label, title, description, source, links, file, alt, isAct
                   rel="noopener noreferrer"
                   title={`${link.label} post`}
                   aria-label={`${link.label} post`}
-                  className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-xs font-semibold text-forest-100 transition-colors hover:bg-white/15 hover:text-white"
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/5 text-forest-100 transition-colors hover:bg-white/15 hover:text-white"
                 >
-                  {Icon && <Icon size={14} />}
-                  {link.label}
+                  {Icon && <Icon size={18} />}
                 </a>
               )
             })}
@@ -531,21 +483,32 @@ function VideoBlock({ label, title, description, source, links, file, alt, isAct
   )
 }
 
-function MapCard({ item, isActive, onOpen }) {
+function MapCard({ item, isActive, expanded, onOpen }) {
   return (
-    <button
-      type="button"
-      onClick={() => { if (isActive && onOpen) onOpen() }}
-      aria-label={`Open ${item.title} in full screen`}
-      className="group block w-full overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] hover:border-white/25 hover:shadow-lg transition-all duration-300 cursor-zoom-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-300/70"
-    >
+    <figure className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04]">
       <img
         src={item.src}
         alt={item.title}
         loading="lazy"
-        className="w-full aspect-[4/3] object-cover group-hover:scale-[1.03] transition-transform duration-500 motion-reduce:transition-none"
+        className="w-full aspect-[4/3] object-cover"
       />
-    </button>
+
+      {/* Fullscreen opens the lightbox, available only once enlarged. */}
+      {isActive && expanded && (
+        <button
+          type="button"
+          onClick={onOpen}
+          aria-label={`Open ${item.title} in full screen`}
+          className="absolute right-3 bottom-3 z-50 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-black/60 text-white transition-colors hover:bg-white hover:text-forest-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+        >
+          <Maximize2 size={18} strokeWidth={2.5} />
+        </button>
+      )}
+
+      <figcaption className={`px-4 py-3 transition-opacity duration-300 ${isActive ? 'opacity-100' : 'opacity-0'}`}>
+        <span className="text-[13px] font-black text-white leading-snug">{item.title}</span>
+      </figcaption>
+    </figure>
   )
 }
 
@@ -596,7 +559,7 @@ export default function Visualization() {
       */}
 
       {/* ── Stacked card carousels: videos (A) and static maps (B) ── */}
-      <section className="bg-forest-950 pt-6 pb-16">
+      <section className="bg-forest-950 pt-6 pb-16 overflow-hidden">
         <div className="max-w-7xl mx-auto px-6">
           {/* Carousel A — videos. Each card keeps its own title, tag,
               description, source and links. Only the front card is live. */}
@@ -604,7 +567,9 @@ export default function Visualization() {
             <StackCarousel
               items={VIDEO_BLOCKS}
               ariaLabel="Video visualizations"
-              renderItem={(item, _i, isActive) => <VideoBlock {...item} isActive={isActive} />}
+              renderItem={(item, _i, { isActive, expanded }) => (
+                <VideoBlock {...item} isActive={isActive} expanded={expanded} />
+              )}
             />
           </ScrollReveal>
 
@@ -618,8 +583,8 @@ export default function Visualization() {
               <StackCarousel
                 items={MAPS}
                 ariaLabel="Map visualizations"
-                renderItem={(item, i, isActive) => (
-                  <MapCard item={item} isActive={isActive} onOpen={() => setLightbox(i)} />
+                renderItem={(item, i, { isActive, expanded }) => (
+                  <MapCard item={item} isActive={isActive} expanded={expanded} onOpen={() => setLightbox(i)} />
                 )}
               />
             </ScrollReveal>
