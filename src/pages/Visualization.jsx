@@ -50,6 +50,15 @@ const VIDEO_BLOCKS = [
     file: 'south_asia_temp.mp4',
     alt: 'Daily temperature anomaly across South Asia for every day of June 2026 against its 1991 to 2020 normal',
   },
+  {
+    label: 'Climate Change',
+    title: 'How Temperature Moves across Pakistan, 2000\u20132025',
+    description:
+      'Year-by-year visualization of how temperature moves across Pakistan from 2000 to 2025, showing shifting warm and cool zones over time.',
+    links: [],
+    file: 'pakistan_year_titled.mp4',
+    alt: 'Year-by-year temperature movement across Pakistan from 2000 to 2025',
+  },
 ]
 
 const VIZ = [
@@ -351,7 +360,7 @@ export default function Visualization() {
       </section>
       */}
 
-      {/* ── Video blocks: two per row, identical card layout ── */}
+      {/* ── Video blocks: three per row, identical card layout ── */}
       <section className="bg-forest-950 py-14">
         {/* Outer div matches the page's standard content container so the cards
             line up with the left edge of everything else on the site.
@@ -360,7 +369,7 @@ export default function Visualization() {
             container and make the video box huge. Left-aligned, not centered,
             so the space sits on the right instead of both sides. */}
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid sm:grid-cols-2 gap-6 max-w-[960px]">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-[1200px]">
             {VIDEO_BLOCKS.map((v, i) => (
               <ScrollReveal key={v.file} delay={i * 0.08}>
                 <VideoBlock {...v} />
