@@ -192,7 +192,7 @@ function VideoBlock({ label, title, description, source, links, file, alt }) {
   }
 
   return (
-    <div className="flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] h-full">
+    <div className="flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04]">
       <div
         ref={playerRef}
         className="relative w-full bg-black aspect-video cursor-pointer group/player [&:fullscreen]:w-[min(92vw,1000px)] [&:fullscreen]:h-[calc(min(92vw,1000px)*0.5625)] [&:fullscreen]:max-h-[85vh] [&:fullscreen]:m-auto [&:fullscreen]:rounded-2xl [&:fullscreen]:shadow-2xl [&:fullscreen]:bg-black [&::backdrop]:bg-forest-950"
@@ -371,7 +371,7 @@ export default function Visualization() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-[1200px] mx-auto">
             {VIDEO_BLOCKS.map((v, i) => (
-              <ScrollReveal key={v.file} delay={i * 0.08} className="h-full">
+              <ScrollReveal key={v.file} delay={i * 0.08}>
                 <VideoBlock {...v} />
               </ScrollReveal>
             ))}
