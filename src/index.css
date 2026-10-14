@@ -32,8 +32,8 @@
 
 /* ─── Visualization pagination number circle ─── */
 :root {
-  --num-bg: #F5B841;    /* active number circle background (warm amber) */
-  --num-text: #1B2F3A;  /* active number text (dark navy) */
+  --num-bg: #F8D48A;    /* active number circle background (light amber) */
+  --num-text: #FFFFFF;  /* active number text (light) */
 }
 
 /* ─── Animations ─── */

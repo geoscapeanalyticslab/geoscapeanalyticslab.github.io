@@ -329,13 +329,10 @@ function StackCarousel({ items, ariaLabel, renderItem }) {
               >
                 <span
                   style={{
-                    transform: `rotate(${isActive ? 360 : 0}deg)`,
                     opacity: isActive ? 1 : 0,
                     color: 'var(--num-text)',
                     fontWeight: 700,
-                    transition: reduced
-                      ? 'opacity 400ms ease-in-out'
-                      : 'transform 400ms ease-in-out, opacity 400ms ease-in-out',
+                    transition: 'opacity 400ms ease-in-out',
                   }}
                   className="block text-[12px] leading-none tabular-nums"
                 >
