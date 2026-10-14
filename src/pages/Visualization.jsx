@@ -35,7 +35,9 @@ const VIDEO_BLOCKS = [
     title: 'How Temperature Moves across Pakistan, 2000\u20132025',
     description:
       'Year-by-year visualization of how temperature moves across Pakistan from 2000 to 2025, showing shifting warm and cool zones over time.',
-    links: [],
+    links: [
+      { network: 'linkedin', label: 'LinkedIn', href: 'https://www.linkedin.com/feed/update/urn:li:activity:7515815842865967104' },
+    ],
     file: 'pakistan_year_titled.mp4',
     alt: 'Year-by-year temperature movement across Pakistan from 2000 to 2025',
   },
@@ -48,6 +50,9 @@ const MAPS = [
   { title: 'Pakistan Temperature and Precipitation', src: '/pak_temp_preci.jpeg' },
   { title: 'Pakistan Vapor Pressure Deficit', src: '/pak_vapor_pressure_defi.jpeg' },
 ]
+
+// Shared LinkedIn post for the static maps carousel.
+const MAPS_LINK = 'https://www.linkedin.com/feed/update/urn:li:activity:7511023130639826944'
 
 const VIZ = [
   {
@@ -483,7 +488,7 @@ function VideoBlock({ title, links, file, alt, number, isActive = true, expanded
   )
 }
 
-function MapCard({ item, number, isActive, expanded, onOpen }) {
+function MapCard({ item, number, link, isActive, expanded, onOpen }) {
   return (
     <figure className="group overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04]">
       <div className="relative">
@@ -511,8 +516,20 @@ function MapCard({ item, number, isActive, expanded, onOpen }) {
         )}
       </div>
 
-      <figcaption className={`px-4 py-2.5 transition-opacity duration-300 ${isActive ? 'opacity-100' : 'opacity-0'}`}>
+      <figcaption className={`flex items-center justify-between gap-3 px-4 py-2.5 transition-opacity duration-300 ${isActive ? 'opacity-100' : 'opacity-0'}`}>
         <span className="block min-h-[2.7em] line-clamp-2 text-[13px] font-black leading-snug text-white">{item.title}</span>
+        {link && (
+          <a
+            href={link}
+            target="_blank"
+            rel="noopener noreferrer"
+            title="LinkedIn post"
+            aria-label="LinkedIn post"
+            className="relative z-50 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/5 text-forest-100 transition-colors hover:bg-white/15 hover:text-white"
+          >
+            <LinkedInIcon size={16} />
+          </a>
+        )}
       </figcaption>
     </figure>
   )
@@ -590,7 +607,7 @@ export default function Visualization() {
                 items={MAPS}
                 ariaLabel="Map visualizations"
                 renderItem={(item, i, { isActive, expanded }) => (
-                  <MapCard item={item} number={i + 4} isActive={isActive} expanded={expanded} onOpen={() => setLightbox(i)} />
+                  <MapCard item={item} number={i + 4} link={MAPS_LINK} isActive={isActive} expanded={expanded} onOpen={() => setLightbox(i)} />
                 )}
               />
             </ScrollReveal>
