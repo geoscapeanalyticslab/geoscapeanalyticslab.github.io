@@ -316,18 +316,28 @@ function StackCarousel({ items, ariaLabel, renderItem }) {
                 aria-label={`Go to slide ${i + 1}`}
                 aria-current={isActive ? 'true' : undefined}
                 className={`inline-flex items-center justify-center overflow-hidden rounded-full transition-all duration-[400ms] ease-in-out motion-reduce:transition-none ${
-                  isActive ? 'h-8 w-8 bg-forest-300 shadow-sm' : 'h-3 w-3 bg-forest-300/40 hover:bg-forest-300/70'
+                  isActive ? 'h-8 w-8' : 'h-3 w-3 bg-forest-300/40 hover:bg-forest-300/70'
                 }`}
+                style={
+                  isActive
+                    ? {
+                        background: 'var(--num-bg)',
+                        boxShadow: '0 0 0 4px rgba(245, 184, 65, 0.25), 0 4px 14px rgba(0, 0, 0, 0.35)',
+                      }
+                    : undefined
+                }
               >
                 <span
                   style={{
                     transform: `rotate(${isActive ? 360 : 0}deg)`,
                     opacity: isActive ? 1 : 0,
+                    color: 'var(--num-text)',
+                    fontWeight: 700,
                     transition: reduced
                       ? 'opacity 400ms ease-in-out'
                       : 'transform 400ms ease-in-out, opacity 400ms ease-in-out',
                   }}
-                  className="block text-[12px] font-black leading-none tabular-nums text-forest-950"
+                  className="block text-[12px] leading-none tabular-nums"
                 >
                   {i + 1}
                 </span>

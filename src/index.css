@@ -30,6 +30,12 @@
   --font-sans: 'Times New Roman', Times, serif;
 }
 
+/* ─── Visualization pagination number circle ─── */
+:root {
+  --num-bg: #F5B841;    /* active number circle background (warm amber) */
+  --num-text: #1B2F3A;  /* active number text (dark navy) */
+}
+
 /* ─── Animations ─── */
 @keyframes marquee {
   0%   { transform: translateX(0); }
