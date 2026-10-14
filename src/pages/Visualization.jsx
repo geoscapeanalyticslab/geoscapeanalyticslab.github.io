@@ -41,6 +41,15 @@ const VIDEO_BLOCKS = [
     file: 'pakistan_year_titled.mp4',
     alt: 'Year-by-year temperature movement across Pakistan from 2000 to 2025',
   },
+  {
+    label: 'Biodiversity',
+    title: 'Migratory Birds',
+    description:
+      'Animation showing the seasonal movement of migratory birds, tracking how their range shifts over the year.',
+    links: [],
+    file: 'Migratory_Birds.mp4',
+    alt: 'Animation of migratory bird movement over the year',
+  },
 ]
 
 // Static map images. Only the visual is shown — no credit/source lines.
