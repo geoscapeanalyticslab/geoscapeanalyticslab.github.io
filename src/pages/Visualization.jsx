@@ -191,13 +191,13 @@ function StackCarousel({ items, ariaLabel, renderItem }) {
       tx = expanded ? 0.66 : 0.62
       scale = expanded ? 0.86 : 0.8
       rot = 12
-      opacity = expanded ? 0.35 : 0.55
+      opacity = expanded ? 0.35 : 0.42
       z = 20
     } else if (abs === 2) {
       tx = expanded ? 1.04 : 0.98
       scale = 0.72
       rot = 18
-      opacity = 0.18
+      opacity = 0.12
       z = 10
     } else if (abs > 2) {
       hidden = true
@@ -399,7 +399,7 @@ function VizCard({ item, index }) {
   )
 }
 
-function VideoBlock({ label, title, description, source, links, file, alt, isActive = true, expanded = false }) {
+function VideoBlock({ title, links, file, alt, number, isActive = true, expanded = false }) {
   const videoRef = useRef(null)
   const src = `/videos/${file}`
   const poster = `/videos/${file.replace(/\.[^.]+$/, '')}_poster.jpg`
@@ -441,6 +441,11 @@ function VideoBlock({ label, title, description, source, links, file, alt, isAct
           <a href={src} download>Download the video</a>
         </video>
 
+        {/* Prominent number badge */}
+        <span className="absolute left-3 top-3 z-10 inline-flex h-9 w-9 items-center justify-center rounded-full bg-forest-300 text-sm font-black text-forest-950 shadow-lg shadow-black/40">
+          {number}
+        </span>
+
         {!controllable && (
           <div className="pointer-events-none absolute inset-0 z-[5] flex items-center justify-center">
             <span className="flex h-16 w-16 items-center justify-center rounded-full bg-black/45 text-white backdrop-blur-sm">
@@ -450,63 +455,64 @@ function VideoBlock({ label, title, description, source, links, file, alt, isAct
         )}
       </div>
 
-      {/* Text block — only the front card shows it. */}
-      <div className={`flex flex-1 flex-col gap-2.5 p-5 transition-opacity duration-300 ${isActive ? 'opacity-100' : 'opacity-0'}`}>
-        <span className="text-[10px] font-black uppercase tracking-widest text-forest-300">{label}</span>
-        <h2 className="text-[15px] font-black text-white leading-snug">{title}</h2>
-        <p className="text-[11px] text-forest-200/85 leading-relaxed">{description}</p>
-        {source && (
-          <p className="text-[10px] text-forest-300/60 leading-relaxed">{source}</p>
-        )}
-        {links?.length > 0 && (
-          <div className="relative z-50 mt-auto flex flex-wrap items-center gap-2 pt-1">
-            {links.map(link => {
-              const Icon = SOCIAL_ICONS[link.network]
-              return (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title={`${link.label} post`}
-                  aria-label={`${link.label} post`}
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/5 text-forest-100 transition-colors hover:bg-white/15 hover:text-white"
-                >
-                  {Icon && <Icon size={18} />}
-                </a>
-              )
-            })}
-          </div>
-        )}
+      {/* Text block — title only, shown on the front card. The fixed title
+          area and the reserved link row keep every card the same height, so
+          the deck never shifts up/down while navigating. */}
+      <div className={`flex flex-1 flex-col gap-2 p-4 transition-opacity duration-300 ${isActive ? 'opacity-100' : 'opacity-0'}`}>
+        <h2 className="min-h-[2.7em] line-clamp-2 text-[15px] font-black text-white leading-snug">{title}</h2>
+        <div className="relative z-50 mt-auto flex min-h-[2.5rem] flex-wrap items-center gap-2 pt-1">
+          {(links || []).map(link => {
+            const Icon = SOCIAL_ICONS[link.network]
+            return (
+              <a
+                key={link.href}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                title={`${link.label} post`}
+                aria-label={`${link.label} post`}
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/5 text-forest-100 transition-colors hover:bg-white/15 hover:text-white"
+              >
+                {Icon && <Icon size={16} />}
+              </a>
+            )
+          })}
+        </div>
       </div>
     </div>
   )
 }
 
-function MapCard({ item, isActive, expanded, onOpen }) {
+function MapCard({ item, number, isActive, expanded, onOpen }) {
   return (
-    <figure className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04]">
-      <img
-        src={item.src}
-        alt={item.title}
-        loading="lazy"
-        className="w-full aspect-[4/3] object-cover"
-      />
+    <figure className="group overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04]">
+      <div className="relative">
+        <img
+          src={item.src}
+          alt={item.title}
+          loading="lazy"
+          className="w-full aspect-[4/3] object-cover"
+        />
 
-      {/* Fullscreen opens the lightbox, available only once enlarged. */}
-      {isActive && expanded && (
-        <button
-          type="button"
-          onClick={onOpen}
-          aria-label={`Open ${item.title} in full screen`}
-          className="absolute right-3 bottom-3 z-50 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-black/60 text-white transition-colors hover:bg-white hover:text-forest-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
-        >
-          <Maximize2 size={18} strokeWidth={2.5} />
-        </button>
-      )}
+        <span className="absolute left-3 top-3 z-10 inline-flex h-9 w-9 items-center justify-center rounded-full bg-forest-300 text-sm font-black text-forest-950 shadow-lg shadow-black/40">
+          {number}
+        </span>
 
-      <figcaption className={`px-4 py-3 transition-opacity duration-300 ${isActive ? 'opacity-100' : 'opacity-0'}`}>
-        <span className="text-[13px] font-black text-white leading-snug">{item.title}</span>
+        {/* Fullscreen opens the lightbox, available only once enlarged. */}
+        {isActive && expanded && (
+          <button
+            type="button"
+            onClick={onOpen}
+            aria-label={`Open ${item.title} in full screen`}
+            className="absolute right-3 bottom-3 z-50 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-black/60 text-white transition-colors hover:bg-white hover:text-forest-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+          >
+            <Maximize2 size={18} strokeWidth={2.5} />
+          </button>
+        )}
+      </div>
+
+      <figcaption className={`px-4 py-2.5 transition-opacity duration-300 ${isActive ? 'opacity-100' : 'opacity-0'}`}>
+        <span className="block min-h-[2.7em] line-clamp-2 text-[13px] font-black leading-snug text-white">{item.title}</span>
       </figcaption>
     </figure>
   )
@@ -567,8 +573,8 @@ export default function Visualization() {
             <StackCarousel
               items={VIDEO_BLOCKS}
               ariaLabel="Video visualizations"
-              renderItem={(item, _i, { isActive, expanded }) => (
-                <VideoBlock {...item} isActive={isActive} expanded={expanded} />
+              renderItem={(item, i, { isActive, expanded }) => (
+                <VideoBlock {...item} number={i + 1} isActive={isActive} expanded={expanded} />
               )}
             />
           </ScrollReveal>
@@ -584,7 +590,7 @@ export default function Visualization() {
                 items={MAPS}
                 ariaLabel="Map visualizations"
                 renderItem={(item, i, { isActive, expanded }) => (
-                  <MapCard item={item} isActive={isActive} expanded={expanded} onOpen={() => setLightbox(i)} />
+                  <MapCard item={item} number={i + 4} isActive={isActive} expanded={expanded} onOpen={() => setLightbox(i)} />
                 )}
               />
             </ScrollReveal>
