@@ -55,6 +55,10 @@ function NewsImageLightbox({ item, onClose }) {
 }
 
 function NewsCard({ item, onZoom }) {
+  const date = new Date(item.date).toLocaleDateString('en-US', {
+    year: 'numeric', month: 'short', day: 'numeric',
+  })
+
   return (
     <article
       className="group relative flex w-full flex-col overflow-hidden rounded-3xl bg-white shadow-lg shadow-slate-900/10 ring-1 ring-slate-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
@@ -81,9 +85,11 @@ function NewsCard({ item, onZoom }) {
 
       {/* Content: brand colour fading into dark charcoal, same as Projects cards */}
       <div
-        className="relative flex flex-col gap-2 p-5"
+        className="relative flex flex-col gap-2 px-5 pt-4 pb-3"
         style={{ background: `linear-gradient(180deg, ${ACCENT} 0%, #3a4047 58%, #1b1e22 100%)` }}
       >
+        <span className="text-white/60" style={{ fontSize: '0.72rem' }}>{date}</span>
+
         <h3 className="font-bold text-white" style={{ fontSize: '1.05rem', lineHeight: 1.3 }}>
           {item.title}
         </h3>
