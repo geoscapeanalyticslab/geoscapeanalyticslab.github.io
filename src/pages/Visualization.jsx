@@ -313,8 +313,14 @@ function StackCarousel({ items, ariaLabel, renderItem }) {
               onClick={() => goTo(i)}
               aria-label={`Go to slide ${i + 1} of ${count}`}
               aria-current={i === active ? 'true' : undefined}
-              className={`h-2 rounded-full transition-all duration-300 motion-reduce:transition-none ${i === active ? 'w-6 bg-forest-300' : 'w-2 bg-white/25 hover:bg-white/50'}`}
-            />
+              className={`inline-flex h-8 items-center justify-center rounded-full text-[12px] font-bold leading-none tabular-nums transition-all duration-300 motion-reduce:transition-none ${
+                i === active
+                  ? 'min-w-[2.75rem] bg-forest-300 px-3 font-black text-forest-950 shadow-sm'
+                  : 'w-8 bg-white/15 text-white/70 hover:bg-white/30 hover:text-white'
+              }`}
+            >
+              {i + 1}
+            </button>
           ))}
         </div>
         <ArrowButton direction="next" onClick={() => step(1)} className="sm:hidden" />
@@ -415,7 +421,7 @@ function VizCard({ item, index }) {
   )
 }
 
-function VideoBlock({ title, links, file, alt, number, isActive = true, expanded = false }) {
+function VideoBlock({ title, links, file, alt, isActive = true, expanded = false }) {
   const videoRef = useRef(null)
   const src = `/videos/${file}`
   const poster = `/videos/${file.replace(/\.[^.]+$/, '')}_poster.jpg`
@@ -457,11 +463,6 @@ function VideoBlock({ title, links, file, alt, number, isActive = true, expanded
           <a href={src} download>Download the video</a>
         </video>
 
-        {/* Prominent number badge */}
-        <span className="absolute left-3 top-3 z-10 inline-flex h-9 w-9 items-center justify-center rounded-full bg-forest-300 text-sm font-black text-forest-950 shadow-lg shadow-black/40">
-          {number}
-        </span>
-
         {!controllable && (
           <div className="pointer-events-none absolute inset-0 z-[5] flex items-center justify-center">
             <span className="flex h-16 w-16 items-center justify-center rounded-full bg-black/45 text-white backdrop-blur-sm">
@@ -499,7 +500,7 @@ function VideoBlock({ title, links, file, alt, number, isActive = true, expanded
   )
 }
 
-function MapCard({ item, number, link, isActive, expanded, onOpen }) {
+function MapCard({ item, link, isActive, expanded, onOpen }) {
   return (
     <figure className="group overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04]">
       <div className="relative">
@@ -509,10 +510,6 @@ function MapCard({ item, number, link, isActive, expanded, onOpen }) {
           loading="lazy"
           className="w-full aspect-[4/3] object-cover"
         />
-
-        <span className="absolute left-3 top-3 z-10 inline-flex h-9 w-9 items-center justify-center rounded-full bg-forest-300 text-sm font-black text-forest-950 shadow-lg shadow-black/40">
-          {number}
-        </span>
 
         {/* Fullscreen opens the lightbox, available only once enlarged. */}
         {isActive && expanded && (
@@ -602,7 +599,7 @@ export default function Visualization() {
               items={VIDEO_BLOCKS}
               ariaLabel="Video visualizations"
               renderItem={(item, i, { isActive, expanded }) => (
-                <VideoBlock {...item} number={i + 1} isActive={isActive} expanded={expanded} />
+                <VideoBlock {...item} isActive={isActive} expanded={expanded} />
               )}
             />
           </ScrollReveal>
@@ -618,7 +615,7 @@ export default function Visualization() {
                 items={MAPS}
                 ariaLabel="Map visualizations"
                 renderItem={(item, i, { isActive, expanded }) => (
-                  <MapCard item={item} number={i + 4} link={MAPS_LINK} isActive={isActive} expanded={expanded} onOpen={() => setLightbox(i)} />
+                  <MapCard item={item} link={MAPS_LINK} isActive={isActive} expanded={expanded} onOpen={() => setLightbox(i)} />
                 )}
               />
             </ScrollReveal>
