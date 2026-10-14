@@ -306,22 +306,34 @@ function StackCarousel({ items, ariaLabel, renderItem }) {
       <div className="mt-8 flex items-center justify-center gap-5">
         <ArrowButton direction="prev" onClick={() => step(-1)} className="sm:hidden" />
         <div className="flex items-center gap-2">
-          {items.map((_, i) => (
-            <button
-              key={i}
-              type="button"
-              onClick={() => goTo(i)}
-              aria-label={`Go to slide ${i + 1} of ${count}`}
-              aria-current={i === active ? 'true' : undefined}
-              className={`inline-flex h-8 items-center justify-center rounded-full text-[12px] font-bold leading-none tabular-nums transition-all duration-300 motion-reduce:transition-none ${
-                i === active
-                  ? 'min-w-[2.75rem] bg-forest-300 px-3 font-black text-forest-950 shadow-sm'
-                  : 'w-8 bg-white/15 text-white/70 hover:bg-white/30 hover:text-white'
-              }`}
-            >
-              {i + 1}
-            </button>
-          ))}
+          {items.map((_, i) => {
+            const isActive = i === active
+            return (
+              <button
+                key={i}
+                type="button"
+                onClick={() => goTo(i)}
+                aria-label={`Go to slide ${i + 1}`}
+                aria-current={isActive ? 'true' : undefined}
+                className={`inline-flex items-center justify-center overflow-hidden rounded-full transition-all duration-[400ms] ease-in-out motion-reduce:transition-none ${
+                  isActive ? 'h-8 w-8 bg-forest-300 shadow-sm' : 'h-3 w-3 bg-forest-300/40 hover:bg-forest-300/70'
+                }`}
+              >
+                <span
+                  style={{
+                    transform: `rotate(${isActive ? 360 : 0}deg)`,
+                    opacity: isActive ? 1 : 0,
+                    transition: reduced
+                      ? 'opacity 400ms ease-in-out'
+                      : 'transform 400ms ease-in-out, opacity 400ms ease-in-out',
+                  }}
+                  className="block text-[12px] font-black leading-none tabular-nums text-forest-950"
+                >
+                  {i + 1}
+                </span>
+              </button>
+            )
+          })}
         </div>
         <ArrowButton direction="next" onClick={() => step(1)} className="sm:hidden" />
       </div>
@@ -477,7 +489,7 @@ function VideoBlock({ title, links, file, alt, isActive = true, expanded = false
           the deck never shifts up/down while navigating. */}
       <div className={`flex flex-1 flex-col gap-2 p-4 transition-opacity duration-300 ${isActive ? 'opacity-100' : 'opacity-0'}`}>
         <h2 className="min-h-[2.7em] line-clamp-2 text-[15px] font-black text-white leading-snug">{title}</h2>
-        <div className="relative z-50 mt-auto flex min-h-[2.5rem] flex-wrap items-center gap-2 pt-1">
+        <div className="relative z-50 mt-auto flex min-h-[2.5rem] flex-wrap items-center justify-end gap-2 pt-1">
           {(links || []).map(link => {
             const Icon = SOCIAL_ICONS[link.network]
             return (
