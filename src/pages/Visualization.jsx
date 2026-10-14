@@ -132,6 +132,7 @@ function StackCarousel({ items, ariaLabel, renderItem }) {
   const drag = useRef({ x: 0, y: 0, ok: false })
   const stageRef = useRef(null)
   const activeCardRef = useRef(null)
+  const hovered = useRef(false)
 
   const goTo = i => { setExpanded(false); setActive(((i % count) + count) % count) }
   const step = dir => { setExpanded(false); setActive(prev => (prev + dir + count) % count) }
@@ -161,11 +162,20 @@ function StackCarousel({ items, ariaLabel, renderItem }) {
     }
   }, [expanded])
 
-  const onKeyDown = e => {
-    if (e.target.closest('video, input, textarea, select, a')) return
-    if (e.key === 'ArrowLeft') { e.preventDefault(); step(-1) }
-    else if (e.key === 'ArrowRight') { e.preventDefault(); step(1) }
-  }
+  // Left/right arrow keys move the deck. Scoped to this carousel while it is
+  // hovered or focused, so it never fights the page scroll or the other deck.
+  useEffect(() => {
+    const onKey = e => {
+      const t = e.target
+      if (t && t.closest && t.closest('video, input, textarea, select, a, [contenteditable]')) return
+      const focused = stageRef.current?.contains(document.activeElement)
+      if (!hovered.current && !focused) return
+      if (e.key === 'ArrowLeft') { e.preventDefault(); setExpanded(false); setActive(p => (p - 1 + count) % count) }
+      else if (e.key === 'ArrowRight') { e.preventDefault(); setExpanded(false); setActive(p => (p + 1) % count) }
+    }
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
+  }, [count])
 
   // Swipe, but never swallow drags on the seek bar / video / links.
   const onTouchStart = e => {
@@ -230,7 +240,8 @@ function StackCarousel({ items, ariaLabel, renderItem }) {
       aria-roledescription="carousel"
       aria-label={ariaLabel}
       tabIndex={0}
-      onKeyDown={onKeyDown}
+      onMouseEnter={() => { hovered.current = true }}
+      onMouseLeave={() => { hovered.current = false }}
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
       className="relative mx-auto w-full max-w-6xl rounded-3xl outline-none focus-visible:ring-2 focus-visible:ring-forest-300/60"
