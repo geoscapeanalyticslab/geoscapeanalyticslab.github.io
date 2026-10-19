@@ -2,7 +2,7 @@ export const news = [
   {
     id: 4,
     date: '2026-10-19',
-    title: 'GSAL Thanks Its Donor, Akhtar Ali',
+    title: 'GSAL Gratefully Acknowledges Its Esteemed Donor, Akhtar Ali',
     linkedin: 'https://www.linkedin.com/feed/update/urn:li:activity:7516855073411518465',
     image: '/images/team/Akhtar_Ali_card.jpg',
     imageFit: 'cover',
