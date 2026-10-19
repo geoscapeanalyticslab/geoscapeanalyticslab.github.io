@@ -21,7 +21,7 @@ export const gallery = [
     {
     section: 'Our Lab',
     items: [
-      { image: '/images/team/gsal_pic.jpeg', caption: 'GeoScape Analytics Lab — Lahore' },
+      { image: '/images/team/gsal_pic.jpeg', caption: 'GeoScape Analytics Lab (GSAL)' },
       { image: '/images/lab/lab1.jpg', caption: 'Our research workspace' },
       { image: '/images/lab/lab2.jpg', caption: 'Team at work' },
       { image: '/images/lab/lab3.jpg', caption: 'Lab session' },
