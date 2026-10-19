@@ -50,6 +50,17 @@ const VIDEO_BLOCKS = [
     file: 'Migratory_Birds.mp4',
     alt: 'Animation of migratory bird movement over the year',
   },
+  {
+    label: 'Hazards',
+    title: 'Earthquake Activity across Pakistan',
+    description:
+      'Animation of earthquake events across Pakistan, showing where seismic activity is concentrated over time.',
+    links: [
+      { network: 'linkedin', label: 'LinkedIn', href: 'https://www.linkedin.com/feed/update/urn:li:activity:7518002248355016704' },
+    ],
+    file: 'Earthquake_Pakistan_Viz.mp4',
+    alt: 'Animation of earthquake activity across Pakistan',
+  },
 ]
 
 // Static map images. Only the visual is shown — no credit/source lines.

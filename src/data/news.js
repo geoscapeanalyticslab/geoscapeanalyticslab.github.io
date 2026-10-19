@@ -1,5 +1,12 @@
 export const news = [
   {
+    id: 4,
+    date: '2026-10-19',
+    title: 'GSAL Thanks Its Donor, Akhtar Ali',
+    linkedin: 'https://www.linkedin.com/feed/update/urn:li:activity:7516855073411518465',
+    image: '/images/team/Akhtar_Ali.jpeg',
+  },
+  {
     id: 3,
     date: '2026-10-07',
     title: 'GSAL Granted Partner Tier Access to Google Earth Engine',
