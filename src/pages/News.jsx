@@ -61,7 +61,7 @@ function NewsCard({ item, onZoom }) {
 
   return (
     <article
-      className="group relative flex w-full flex-col overflow-hidden rounded-3xl bg-white shadow-lg shadow-slate-900/10 ring-1 ring-slate-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+      className="group relative flex h-full w-full flex-col overflow-hidden rounded-3xl bg-white shadow-lg shadow-slate-900/10 ring-1 ring-slate-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
       style={inter}
     >
       {/* Top media: the poster sits where the Projects logo sits — contained, never cropped or distorted */}
@@ -70,14 +70,14 @@ function NewsCard({ item, onZoom }) {
           type="button"
           onClick={() => onZoom(item)}
           aria-label={`Zoom image: ${item.title}`}
-          className="relative flex h-[190px] w-full cursor-zoom-in items-center justify-center overflow-hidden px-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-300/70"
+          className={`relative flex h-[190px] w-full cursor-zoom-in items-center justify-center overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-300/70 ${item.imageFit === 'cover' ? '' : 'px-6'}`}
           style={{ background: ACCENT + '1a' }}
         >
           <img
             src={item.image}
             alt={item.title}
             loading="lazy"
-            className="max-h-full max-w-full object-contain transition-transform duration-300 group-hover:scale-105"
+            className={`transition-transform duration-300 group-hover:scale-105 ${item.imageFit === 'cover' ? 'h-full w-full object-cover' : 'max-h-full max-w-full object-contain'}`}
             onError={e => { e.currentTarget.closest('button').style.display = 'none' }}
           />
         </button>
@@ -85,7 +85,7 @@ function NewsCard({ item, onZoom }) {
 
       {/* Content: brand colour fading into dark charcoal, same as Projects cards */}
       <div
-        className="relative flex flex-col gap-2 px-5 pt-4 pb-3"
+        className="relative flex flex-1 flex-col gap-2 px-5 pt-4 pb-3"
         style={{ background: `linear-gradient(180deg, ${ACCENT} 0%, #3a4047 58%, #1b1e22 100%)` }}
       >
         <span className="text-white/60" style={{ fontSize: '0.72rem' }}>{date}</span>
