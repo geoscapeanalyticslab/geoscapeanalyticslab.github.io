@@ -13,7 +13,9 @@ const VIDEO_BLOCKS = [
     title: 'Volcanic Earth \u2014 Three Years of Eruptions',
     description:
       'Every volcano with recorded eruptive activity over the past three years \u2014 124 eruptions across 30 countries \u2014 on a rotating globe, each marker sized by explosivity (VEI), with close-ups of Ruang, Sundhn\u00fakur, Lewotobi Laki-laki, Kanlaon and Hayli Gubbi. Data from the Smithsonian Global Volcanism Program and NASA EONET.',
-    links: [],
+    links: [
+      { network: 'linkedin', label: 'LinkedIn', href: 'https://lnkd.in/p/dfMcYy5s' },
+    ],
     file: 'Volcanic_Eruptions_Viz.mp4',
     alt: 'Rotating globe animation of volcanic eruptions worldwide over the past three years, sized by Volcanic Explosivity Index',
   },
