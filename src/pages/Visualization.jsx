@@ -9,17 +9,6 @@ const SOCIAL_ICONS = { linkedin: LinkedInIcon, facebook: FacebookIcon }
 // is guaranteed to have exactly the same structure.
 const VIDEO_BLOCKS = [
   {
-    label: 'Geohazards',
-    title: 'Volcanic Earth \u2014 Three Years of Eruptions',
-    description:
-      'Every volcano with recorded eruptive activity over the past three years \u2014 124 eruptions across 30 countries \u2014 on a rotating globe, each marker sized by explosivity (VEI), with close-ups of Ruang, Sundhn\u00fakur, Lewotobi Laki-laki, Kanlaon and Hayli Gubbi. Data from the Smithsonian Global Volcanism Program and NASA EONET.',
-    links: [
-      { network: 'linkedin', label: 'LinkedIn', href: 'https://lnkd.in/p/dfMcYy5s' },
-    ],
-    file: 'Volcanic_Eruptions_Viz.mp4',
-    alt: 'Rotating globe animation of volcanic eruptions worldwide over the past three years, sized by Volcanic Explosivity Index',
-  },
-  {
     label: 'Satellite Gravimetry',
     title: 'Terrestrial Water Storage Anomaly over Asia',
     description:
@@ -71,6 +60,17 @@ const VIDEO_BLOCKS = [
     ],
     file: 'Earthquake_Pakistan_Viz.mp4',
     alt: 'Animation of earthquake activity across Pakistan',
+  },
+  {
+    label: 'Geohazards',
+    title: 'Volcanic Earth \u2014 Three Years of Eruptions',
+    description:
+      'Every volcano with recorded eruptive activity over the past three years \u2014 124 eruptions across 30 countries \u2014 on a rotating globe, each marker sized by explosivity (VEI), with close-ups of Ruang, Sundhn\u00fakur, Lewotobi Laki-laki, Kanlaon and Hayli Gubbi. Data from the Smithsonian Global Volcanism Program and NASA EONET.',
+    links: [
+      { network: 'linkedin', label: 'LinkedIn', href: 'https://lnkd.in/p/dfMcYy5s' },
+    ],
+    file: 'Volcanic_Eruptions_Viz.mp4',
+    alt: 'Rotating globe animation of volcanic eruptions worldwide over the past three years, sized by Volcanic Explosivity Index',
   },
 ]
 
