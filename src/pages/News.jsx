@@ -117,51 +117,14 @@ function NewsImage({ item, onZoom, className, imgClassName }) {
   )
 }
 
-// Most recent item, given the width of a front-page lead.
-function LeadStory({ item, onZoom }) {
-  return (
-    <article
-      className="overflow-hidden border-y border-slate-900/10 bg-white sm:rounded-sm sm:border-x"
-      style={inter}
-    >
-      <div className="grid gap-0 md:grid-cols-[1.05fr_1fr]">
-        <NewsImage
-          item={item}
-          onZoom={onZoom}
-          className="h-[260px] w-full md:h-full md:min-h-[320px]"
-        />
-
-        <div className="flex flex-col justify-center gap-4 px-6 py-7 sm:px-9 sm:py-9">
-          <Dateline date={item.date} kicker="Latest" />
-
-          <h2
-            className="font-bold text-slate-900"
-            style={{ ...serif, fontSize: 'clamp(1.45rem, 2.6vw, 2rem)', lineHeight: 1.22 }}
-          >
-            {item.title}
-          </h2>
-
-          {item.excerpt && (
-            <p className="text-slate-600" style={{ fontSize: '0.98rem', lineHeight: 1.65 }}>
-              {item.excerpt}
-            </p>
-          )}
-
-          <LinkedInLink href={item.linkedin} />
-        </div>
-      </div>
-    </article>
-  )
-}
-
-// Everything older: a dated list, hairline-separated, no boxes.
+// Every item gets the same treatment: a dated row, hairline-separated, no boxes.
 function NewsRow({ item, onZoom }) {
   return (
-    <article className="flex gap-5 py-7 sm:gap-7" style={inter}>
+    <article className="flex min-h-[172px] items-center gap-5 py-6 sm:gap-7" style={inter}>
       <NewsImage
         item={item}
         onZoom={onZoom}
-        className="hidden h-[104px] w-[104px] shrink-0 rounded-sm sm:block sm:h-[118px] sm:w-[160px]"
+        className="h-[100px] w-[112px] shrink-0 rounded-sm sm:h-[124px] sm:w-[176px]"
       />
 
       <div className="flex min-w-0 flex-col gap-2">
@@ -187,9 +150,8 @@ function NewsRow({ item, onZoom }) {
 }
 
 export default function News() {
-  const items = [...news].sort((a, b) => new Date(b.date) - new Date(a.date))
+  const items = news
   const [zoom, setZoom] = useState(null)
-  const [lead, ...rest] = items
 
   return (
     <div className="bg-[#faf9f7]">
@@ -199,36 +161,28 @@ export default function News() {
         subtitle="Announcements, projects, and updates from GeoScape Analytics Lab."
       />
 
-      <section className="mx-auto max-w-5xl px-0 py-10 sm:px-6 sm:py-14">
+      <section className="mx-auto max-w-4xl px-6 py-10 sm:py-14">
         {items.length === 0 ? (
           <p className="text-center text-gray-500">No news yet. Check back soon.</p>
         ) : (
           <>
-            <ScrollReveal>
-              <LeadStory item={lead} onZoom={setZoom} />
-            </ScrollReveal>
+            <div className="mb-1 flex items-center gap-4">
+              <h2
+                className="font-bold uppercase tracking-[0.2em] text-slate-500"
+                style={{ ...serif, fontSize: '0.78rem' }}
+              >
+                Latest Updates
+              </h2>
+              <span className="h-px flex-1 bg-slate-900/15" />
+            </div>
 
-            {rest.length > 0 && (
-              <div className="px-6 sm:px-0">
-                <div className="mt-12 mb-1 flex items-center gap-4">
-                  <h2
-                    className="font-bold uppercase tracking-[0.2em] text-slate-500"
-                    style={{ ...serif, fontSize: '0.78rem' }}
-                  >
-                    More from the lab
-                  </h2>
-                  <span className="h-px flex-1 bg-slate-900/15" />
-                </div>
-
-                <div className="divide-y divide-slate-900/10">
-                  {rest.map((item, i) => (
-                    <ScrollReveal key={item.id} delay={i * 0.06}>
-                      <NewsRow item={item} onZoom={setZoom} />
-                    </ScrollReveal>
-                  ))}
-                </div>
-              </div>
-            )}
+            <div className="divide-y divide-slate-900/10 border-b border-slate-900/10">
+              {items.map((item, i) => (
+                <ScrollReveal key={item.id} delay={i * 0.06}>
+                  <NewsRow item={item} onZoom={setZoom} />
+                </ScrollReveal>
+              ))}
+            </div>
           </>
         )}
       </section>
