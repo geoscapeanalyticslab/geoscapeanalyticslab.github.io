@@ -4,7 +4,7 @@ export const news = [
     date: '2026-10-19',
     title: 'GSAL Gratefully Acknowledges Its Esteemed Donor, Akhtar Ali',
     excerpt:
-      'We are deeply grateful to Akhtar Ali for his generous support of the lab. Contributions like his help GSAL keep its research and training work running for students and early career researchers.',
+      'We are deeply grateful to Akhtar Ali, Director at RAKTA PTY LTD in Perth, Australia, who stepped forward at the very start of our journey to help set up the lab and support our student researchers. A graduate of the Institute of Geography at the University of the Punjab, he is someone we are proud to call one of our own.',
     linkedin: 'https://www.linkedin.com/feed/update/urn:li:activity:7516855073411518465',
     image: '/images/team/Akhtar_Ali_card.jpg',
     imageFit: 'cover',

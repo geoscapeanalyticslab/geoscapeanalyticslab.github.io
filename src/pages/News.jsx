@@ -103,7 +103,7 @@ function NewsImage({ item, onZoom, className, imgClassName }) {
       type="button"
       onClick={() => onZoom(item)}
       aria-label={`Zoom image: ${item.title}`}
-      className={`group/img relative block cursor-zoom-in overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2d9462]/60 ${cover ? '' : 'p-5'} ${className}`}
+      className={`group/img relative block cursor-zoom-in overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2d9462]/60 ${cover ? '' : 'p-2'} ${className}`}
       style={{ background: cover ? '#e9edea' : ACCENT + '14' }}
     >
       <img
