@@ -1,5 +1,15 @@
 export const news = [
   {
+    id: 5,
+    date: '2026-10-30',
+    title: 'GSAL Gratefully Acknowledges Its Esteemed Donor, Somia Asim',
+    excerpt:
+      'Somia Asim has donated furniture to the lab \u2014 a generous gift that has made a real difference to the space where our team works. She also builds visualizations for GSAL, including our bivariate climate map series of Pakistan.',
+    linkedin: 'https://www.linkedin.com/feed/update/urn:li:activity:7520710169568174080',
+    image: '/images/team/somia_asim_card.jpg',
+    imageFit: 'cover',
+  },
+  {
     id: 4,
     date: '2026-10-19',
     title: 'GSAL Gratefully Acknowledges Its Esteemed Donor, Akhtar Ali',

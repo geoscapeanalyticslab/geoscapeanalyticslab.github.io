@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { X } from 'lucide-react'
+import { X, ArrowUpRight } from 'lucide-react'
 import { news } from '../data/news'
 import Gallery from '../components/Gallery'
 import ScrollReveal from '../components/ScrollReveal'
@@ -7,7 +7,11 @@ import { LinkedInIcon } from '../components/SocialIcons'
 import { PageHeader } from './Research'
 
 const inter = { fontFamily: "'Inter', 'Segoe UI', sans-serif" }
+const serif = { fontFamily: "'Times New Roman', Times, serif" }
 const ACCENT = '#2d9462'
+
+const formatDate = d =>
+  new Date(d).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
 
 // Click-to-zoom viewer for a news image.
 function NewsImageLightbox({ item, onClose }) {
@@ -54,60 +58,129 @@ function NewsImageLightbox({ item, onClose }) {
   )
 }
 
-function NewsCard({ item, onZoom }) {
-  const date = new Date(item.date).toLocaleDateString('en-US', {
-    year: 'numeric', month: 'short', day: 'numeric',
-  })
+// Small uppercase dateline, the thing that makes a page read as news.
+function Dateline({ date, kicker }) {
+  return (
+    <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+      {kicker && (
+        <span
+          className="font-bold uppercase tracking-[0.18em]"
+          style={{ color: ACCENT, fontSize: '0.68rem' }}
+        >
+          {kicker}
+        </span>
+      )}
+      {kicker && <span className="h-3 w-px bg-slate-900/20" />}
+      <span className="uppercase tracking-[0.14em] text-slate-500" style={{ fontSize: '0.68rem' }}>
+        {formatDate(date)}
+      </span>
+    </div>
+  )
+}
 
+function LinkedInLink({ href, compact = false }) {
+  if (!href) return null
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`inline-flex items-center gap-2 font-semibold text-slate-700 underline-offset-4 transition-colors hover:text-[#2d9462] hover:underline`}
+      style={{ fontSize: compact ? '0.78rem' : '0.85rem' }}
+    >
+      <LinkedInIcon size={compact ? 13 : 15} />
+      Read the post
+      <ArrowUpRight size={compact ? 13 : 15} strokeWidth={2.5} />
+    </a>
+  )
+}
+
+function NewsImage({ item, onZoom, className, imgClassName }) {
+  if (!item.image) return null
+  const cover = item.imageFit === 'cover'
+  return (
+    <button
+      type="button"
+      onClick={() => onZoom(item)}
+      aria-label={`Zoom image: ${item.title}`}
+      className={`group/img relative block cursor-zoom-in overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2d9462]/60 ${cover ? '' : 'p-5'} ${className}`}
+      style={{ background: cover ? '#e9edea' : ACCENT + '14' }}
+    >
+      <img
+        src={item.image}
+        alt={item.title}
+        loading="lazy"
+        className={`transition-transform duration-500 group-hover/img:scale-[1.04] ${cover ? 'h-full w-full object-cover' : 'h-full w-full object-contain'} ${imgClassName || ''}`}
+        onError={e => { e.currentTarget.closest('button').style.display = 'none' }}
+      />
+    </button>
+  )
+}
+
+// Most recent item, given the width of a front-page lead.
+function LeadStory({ item, onZoom }) {
   return (
     <article
-      className="group relative flex h-full w-full flex-col overflow-hidden rounded-3xl bg-white shadow-lg shadow-slate-900/10 ring-1 ring-slate-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+      className="overflow-hidden border-y border-slate-900/10 bg-white sm:rounded-sm sm:border-x"
       style={inter}
     >
-      {/* Top media: the poster sits where the Projects logo sits — contained, never cropped or distorted */}
-      {item.image && (
-        <button
-          type="button"
-          onClick={() => onZoom(item)}
-          aria-label={`Zoom image: ${item.title}`}
-          className={`relative flex h-[190px] w-full cursor-zoom-in items-center justify-center overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-300/70 ${item.imageFit === 'cover' ? '' : 'px-6'}`}
-          style={{ background: ACCENT + '1a' }}
+      <div className="grid gap-0 md:grid-cols-[1.05fr_1fr]">
+        <NewsImage
+          item={item}
+          onZoom={onZoom}
+          className="h-[260px] w-full md:h-full md:min-h-[320px]"
+        />
+
+        <div className="flex flex-col justify-center gap-4 px-6 py-7 sm:px-9 sm:py-9">
+          <Dateline date={item.date} kicker="Latest" />
+
+          <h2
+            className="font-bold text-slate-900"
+            style={{ ...serif, fontSize: 'clamp(1.45rem, 2.6vw, 2rem)', lineHeight: 1.22 }}
+          >
+            {item.title}
+          </h2>
+
+          {item.excerpt && (
+            <p className="text-slate-600" style={{ fontSize: '0.98rem', lineHeight: 1.65 }}>
+              {item.excerpt}
+            </p>
+          )}
+
+          <LinkedInLink href={item.linkedin} />
+        </div>
+      </div>
+    </article>
+  )
+}
+
+// Everything older: a dated list, hairline-separated, no boxes.
+function NewsRow({ item, onZoom }) {
+  return (
+    <article className="flex gap-5 py-7 sm:gap-7" style={inter}>
+      <NewsImage
+        item={item}
+        onZoom={onZoom}
+        className="hidden h-[104px] w-[104px] shrink-0 rounded-sm sm:block sm:h-[118px] sm:w-[160px]"
+      />
+
+      <div className="flex min-w-0 flex-col gap-2">
+        <Dateline date={item.date} />
+
+        <h3
+          className="font-bold text-slate-900"
+          style={{ ...serif, fontSize: '1.22rem', lineHeight: 1.3 }}
         >
-          <img
-            src={item.image}
-            alt={item.title}
-            loading="lazy"
-            className={`transition-transform duration-300 group-hover:scale-105 ${item.imageFit === 'cover' ? 'h-full w-full object-cover' : 'max-h-full max-w-full object-contain'}`}
-            onError={e => { e.currentTarget.closest('button').style.display = 'none' }}
-          />
-        </button>
-      )}
-
-      {/* Content: brand colour fading into dark charcoal, same as Projects cards */}
-      <div
-        className="relative flex flex-1 flex-col gap-2 px-5 pt-4 pb-3"
-        style={{ background: `linear-gradient(180deg, ${ACCENT} 0%, #3a4047 58%, #1b1e22 100%)` }}
-      >
-        <span className="text-white/60" style={{ fontSize: '0.72rem' }}>{date}</span>
-
-        <h3 className="font-bold text-white" style={{ fontSize: '1.05rem', lineHeight: 1.3 }}>
           {item.title}
         </h3>
 
-        {item.linkedin && (
-          <div className="mt-1 flex items-center gap-2">
-            <a
-              href={item.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="View post on LinkedIn"
-              title="View post on LinkedIn"
-              className="flex h-8 w-8 items-center justify-center rounded-full bg-white/15 text-white backdrop-blur transition-colors hover:bg-white hover:text-slate-900"
-            >
-              <LinkedInIcon size={14} />
-            </a>
-          </div>
+        {item.excerpt && (
+          <p className="line-clamp-2 text-slate-600" style={{ fontSize: '0.92rem', lineHeight: 1.6 }}>
+            {item.excerpt}
+          </p>
         )}
+
+        <LinkedInLink href={item.linkedin} compact />
       </div>
     </article>
   )
@@ -116,26 +189,47 @@ function NewsCard({ item, onZoom }) {
 export default function News() {
   const items = [...news].sort((a, b) => new Date(b.date) - new Date(a.date))
   const [zoom, setZoom] = useState(null)
+  const [lead, ...rest] = items
 
   return (
-    <div>
+    <div className="bg-[#faf9f7]">
       <PageHeader
         label=""
         title="News"
         subtitle="Announcements, projects, and updates from GeoScape Analytics Lab."
       />
 
-      <section className="mx-auto max-w-7xl px-6 py-8">
+      <section className="mx-auto max-w-5xl px-0 py-10 sm:px-6 sm:py-14">
         {items.length === 0 ? (
           <p className="text-center text-gray-500">No news yet. Check back soon.</p>
         ) : (
-          <div className="grid grid-cols-1 justify-center gap-[24px] min-[760px]:max-[1099px]:grid-cols-[repeat(2,340px)] min-[1100px]:grid-cols-[repeat(3,340px)]">
-            {items.map((item, i) => (
-              <ScrollReveal key={item.id} delay={i * 0.08} className="mx-auto w-full max-w-[340px]">
-                <NewsCard item={item} onZoom={setZoom} />
-              </ScrollReveal>
-            ))}
-          </div>
+          <>
+            <ScrollReveal>
+              <LeadStory item={lead} onZoom={setZoom} />
+            </ScrollReveal>
+
+            {rest.length > 0 && (
+              <div className="px-6 sm:px-0">
+                <div className="mt-12 mb-1 flex items-center gap-4">
+                  <h2
+                    className="font-bold uppercase tracking-[0.2em] text-slate-500"
+                    style={{ ...serif, fontSize: '0.78rem' }}
+                  >
+                    More from the lab
+                  </h2>
+                  <span className="h-px flex-1 bg-slate-900/15" />
+                </div>
+
+                <div className="divide-y divide-slate-900/10">
+                  {rest.map((item, i) => (
+                    <ScrollReveal key={item.id} delay={i * 0.06}>
+                      <NewsRow item={item} onZoom={setZoom} />
+                    </ScrollReveal>
+                  ))}
+                </div>
+              </div>
+            )}
+          </>
         )}
       </section>
 
