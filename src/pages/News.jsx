@@ -138,7 +138,7 @@ function NewsRow({ item, onZoom }) {
         </h3>
 
         {item.excerpt && (
-          <p className="line-clamp-2 text-slate-600" style={{ fontSize: '0.92rem', lineHeight: 1.6 }}>
+          <p className="text-slate-600" style={{ fontSize: '0.92rem', lineHeight: 1.6 }}>
             {item.excerpt}
           </p>
         )}
@@ -150,7 +150,8 @@ function NewsRow({ item, onZoom }) {
 }
 
 export default function News() {
-  const items = news
+  // oldest first, so each new item lands at the bottom of the page
+  const items = [...news].sort((a, b) => new Date(a.date) - new Date(b.date))
   const [zoom, setZoom] = useState(null)
 
   return (

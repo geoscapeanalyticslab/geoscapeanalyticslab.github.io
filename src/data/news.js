@@ -3,6 +3,8 @@ export const news = [
     id: 4,
     date: '2026-10-19',
     title: 'GSAL Gratefully Acknowledges Its Esteemed Donor, Akhtar Ali',
+    excerpt:
+      'We are deeply grateful to Akhtar Ali for his generous support of the lab. Contributions like his help GSAL keep its research and training work running for students and early career researchers.',
     linkedin: 'https://www.linkedin.com/feed/update/urn:li:activity:7516855073411518465',
     image: '/images/team/Akhtar_Ali_card.jpg',
     imageFit: 'cover',
@@ -11,6 +13,8 @@ export const news = [
     id: 3,
     date: '2026-10-07',
     title: 'GSAL Granted Partner Tier Access to Google Earth Engine',
+    excerpt:
+      'Google has granted GSAL Partner Tier access to Earth Engine, opening up far more cloud computing capacity for large scale satellite analysis. It widens the range of research the lab can take on.',
     linkedin: 'https://www.linkedin.com/posts/adeel-ahmad-gis_googleearthengine-earthobservation-geoai-activity-7513628234799054848-C3RL?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAb98j8Bj3VL7OBOVrxJu-7S3vev3kITknI',
     image: '/Google%20earth%20engine.png',
   },
@@ -19,7 +23,7 @@ export const news = [
     date: '2026-10-30',
     title: 'GSAL Gratefully Acknowledges Its Esteemed Donor, Somia Asim',
     excerpt:
-      'Somia Asim has donated furniture to the lab \u2014 a generous gift that has made a real difference to the space where our team works. She also builds visualizations for GSAL, including our bivariate climate map series of Pakistan.',
+      'Somia Asim has donated furniture to the lab, a generous gift that has made a real difference to the space where our team works. She also builds visualizations for GSAL, including our bivariate climate map series of Pakistan.',
     linkedin: 'https://www.linkedin.com/feed/update/urn:li:activity:7520710169568174080',
     image: '/images/team/somia_asim_card.jpg',
     imageFit: 'cover',
