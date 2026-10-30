@@ -7,21 +7,36 @@ const iconMap = { Trees, Cpu, CloudRain, Building2, Wind, Sprout, MapPin, Drople
 function ResearchCard({ area, index }) {
   const Icon = iconMap[area.icon] || MapPin
   return (
-    <ScrollReveal delay={index * 0.05} className="h-full">
+    <ScrollReveal delay={index * 0.04} className="h-full">
+      {/* keep rounded-2xl + border-gray-100: the global card theme in index.css hooks on them */}
       <div className="bg-white rounded-2xl border border-gray-100 hover:border-gray-200 hover:shadow-lg transition-all duration-300 group overflow-hidden h-full flex flex-col">
-        <div className="h-1 w-full" style={{ background: area.accent }} />
-        <div className="p-7">
-          <div className="flex items-start justify-between mb-5">
-            <span className="text-4xl font-black text-gray-100 tabular-nums">{area.num}</span>
-            <div className="w-10 h-10 rounded-xl flex items-center justify-center"
-              style={{ background: area.accent + '18', color: area.accent }}>
-              <Icon size={20} strokeWidth={2} />
-            </div>
+        <div className="h-[3px] w-full" style={{ background: area.accent }} />
+        <div className="flex flex-1 flex-col p-4">
+          <div className="mb-3 flex items-center gap-2.5">
+            <span
+              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg"
+              style={{ background: area.accent + '26', color: area.accent }}
+            >
+              <Icon size={16} strokeWidth={2.2} />
+            </span>
+            <span
+              className="font-black tabular-nums tracking-[0.1em] text-gray-400 opacity-70"
+              style={{ fontSize: '0.72rem' }}
+            >
+              {area.num}
+            </span>
           </div>
-          <h3 className="font-black text-gray-900 text-lg leading-snug group-hover:text-forest-800 transition-colors">
+
+          <h3
+            className="font-black leading-snug text-gray-900 transition-colors"
+            style={{ fontSize: '0.98rem' }}
+          >
             {area.title}
           </h3>
-          <p className="text-gray-500 text-sm mt-3 leading-relaxed">{area.desc}</p>
+
+          <p className="mt-2 leading-relaxed text-gray-500" style={{ fontSize: '0.88rem' }}>
+            {area.desc}
+          </p>
         </div>
       </div>
     </ScrollReveal>
@@ -91,13 +106,13 @@ export default function Research() {
       </section>
 
       {/* Research cards */}
-      <section className="bg-gray-50 py-20">
+      <section className="bg-gray-50 py-14">
         <div className="max-w-7xl mx-auto px-6">
-          <ScrollReveal className="text-center mb-14">
+          <ScrollReveal className="text-center mb-10">
             <span className="text-xs font-bold uppercase tracking-widest text-forest-600"></span>
             <h2 className="text-4xl font-black text-gray-900 mt-3">Research Areas</h2>
           </ScrollReveal>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {researchAreas.map((area, i) => (
               <ResearchCard key={area.id} area={area} index={i} />
             ))}
