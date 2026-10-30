@@ -63,6 +63,22 @@ export const researchAreas = [
     desc: "Groundwater potential delineation, water quality assessment, and streamflow trend analysis in Pakistan's river basins.",
     accent: '#264653',
   },
+  {
+    id: 'grace',
+    num: '09',
+    icon: 'Satellite',
+    title: 'Satellite Gravimetry & Water Storage',
+    desc: 'Terrestrial water storage anomalies and groundwater depletion mapped from GRACE and GRACE-FO satellite gravimetry.',
+    accent: '#2a9d8f',
+  },
+  {
+    id: 'urbanisland',
+    num: '10',
+    icon: 'Thermometer',
+    title: 'Urban Dry & Wet Islands',
+    desc: 'Surface and atmospheric moisture contrasts between cities and their surroundings, alongside urban heat island behaviour.',
+    accent: '#e76f51',
+  },
 ]
 
 export const focusAreas = [
@@ -73,6 +89,10 @@ export const focusAreas = [
   'Urban sprawl and spatial decision-making',
   'Cloud-based geospatial analytics (Google Earth Engine)',
   'Multi-modal AI: satellite, audio, text, sensor fusion',
+  'Terrestrial water storage and groundwater change from GRACE and GRACE-FO',
+  'Water resources research across Pakistan\'s river basins',
+  'Canopy height and aboveground biomass estimation',
+  'Urban dry and wet island dynamics',
   'Capacity building in GIS and remote sensing',
 ]
 

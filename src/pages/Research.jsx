@@ -1,8 +1,8 @@
-import { Trees, Cpu, CloudRain, Building2, Wind, Sprout, MapPin, Droplets } from 'lucide-react'
+import { Trees, Cpu, CloudRain, Building2, Wind, Sprout, MapPin, Droplets, Satellite, Thermometer } from 'lucide-react'
 import { researchAreas, focusAreas, tools } from '../data/research'
 import ScrollReveal from '../components/ScrollReveal'
 
-const iconMap = { Trees, Cpu, CloudRain, Building2, Wind, Sprout, MapPin, Droplets }
+const iconMap = { Trees, Cpu, CloudRain, Building2, Wind, Sprout, MapPin, Droplets, Satellite, Thermometer }
 
 function ResearchCard({ area, index }) {
   const Icon = iconMap[area.icon] || MapPin
@@ -11,7 +11,7 @@ function ResearchCard({ area, index }) {
       {/* keep rounded-2xl + border-gray-100: the global card theme in index.css hooks on them */}
       <div className="bg-white rounded-2xl border border-gray-100 hover:border-gray-200 hover:shadow-lg transition-all duration-300 group overflow-hidden h-full flex flex-col">
         <div className="h-[3px] w-full" style={{ background: area.accent }} />
-        <div className="flex flex-1 flex-col p-4">
+        <div className="flex flex-1 flex-col p-5">
           <div className="mb-3 flex items-center gap-2.5">
             <span
               className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg"
@@ -21,7 +21,7 @@ function ResearchCard({ area, index }) {
             </span>
             <span
               className="font-black tabular-nums tracking-[0.1em] text-gray-400 opacity-70"
-              style={{ fontSize: '0.72rem' }}
+              style={{ fontSize: '0.8rem' }}
             >
               {area.num}
             </span>
@@ -29,12 +29,12 @@ function ResearchCard({ area, index }) {
 
           <h3
             className="font-black leading-snug text-gray-900 transition-colors"
-            style={{ fontSize: '0.98rem' }}
+            style={{ fontSize: '1.14rem' }}
           >
             {area.title}
           </h3>
 
-          <p className="mt-2 leading-relaxed text-gray-500" style={{ fontSize: '0.88rem' }}>
+          <p className="mt-2 leading-relaxed text-gray-500" style={{ fontSize: '1.02rem' }}>
             {area.desc}
           </p>
         </div>
