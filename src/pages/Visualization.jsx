@@ -559,7 +559,7 @@ function MapCard({ item, link, isActive, expanded, onOpen }) {
           src={item.src}
           alt={item.title}
           loading="lazy"
-          className="w-full aspect-[4/3] object-cover"
+          className="w-full aspect-[4/3] bg-black/30 object-contain"
         />
 
         {/* Fullscreen opens the lightbox, available only once enlarged. */}
