@@ -80,10 +80,10 @@ const MAPS = [
   { title: 'Pakistan Temperature and Evapotranspiration', src: '/pak_temp_ev.jpeg' },
   { title: 'Pakistan Temperature and Precipitation', src: '/pak_temp_preci.jpeg' },
   { title: 'Pakistan Vapor Pressure Deficit', src: '/pak_vapor_pressure_defi.jpeg' },
-  { title: 'Languages of Pakistan', src: '/pak_lings.jpeg' },
+  { title: 'Languages of Pakistan', src: '/pak_lings.jpeg', link: 'https://lnkd.in/p/dKHQhT2W' },
 ]
 
-// Shared LinkedIn post for the static maps carousel.
+// Default LinkedIn post for the static maps carousel; a map can override it with its own `link`.
 const MAPS_LINK = 'https://www.linkedin.com/feed/update/urn:li:activity:7511023130639826944'
 
 const VIZ = [
@@ -666,7 +666,7 @@ export default function Visualization() {
                 items={MAPS}
                 ariaLabel="Map visualizations"
                 renderItem={(item, i, { isActive, expanded }) => (
-                  <MapCard item={item} link={MAPS_LINK} isActive={isActive} expanded={expanded} onOpen={() => setLightbox(i)} />
+                  <MapCard item={item} link={item.link || MAPS_LINK} isActive={isActive} expanded={expanded} onOpen={() => setLightbox(i)} />
                 )}
               />
             </ScrollReveal>
