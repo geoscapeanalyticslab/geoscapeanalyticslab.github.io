@@ -80,6 +80,7 @@ const MAPS = [
   { title: 'Pakistan Temperature and Evapotranspiration', src: '/pak_temp_ev.jpeg' },
   { title: 'Pakistan Temperature and Precipitation', src: '/pak_temp_preci.jpeg' },
   { title: 'Pakistan Vapor Pressure Deficit', src: '/pak_vapor_pressure_defi.jpeg' },
+  { title: 'Languages of Pakistan', src: '/pak_lings.jpeg' },
 ]
 
 // Shared LinkedIn post for the static maps carousel.
